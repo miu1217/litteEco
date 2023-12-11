@@ -12,6 +12,7 @@
     <style>
 
      *{
+<<<<<<< HEAD
 
         font-family: 'Noto Sans', sans-serif;
         font-family: 'Noto Sans KR', sans-serif;
@@ -587,6 +588,581 @@ color: #000;
                    <a href="" id="usbr2"><img src="resources/00_main/01_con/02_img.png" id="" alt="" onclick="">
                      <div id="ubt2">
                         <img src="resources/00_main/01_con/닥터노아logo.png" alt=""> <br>
+=======
+        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
+     }
+
+/*---------------------------------콘텐츠영역-----------------------------------------*/
+.wrap *{
+      width: 100%;
+      /* margin: auto; */
+     }
+/*-------------상단 탑 이미지-------------------------------------------*/
+
+     .key_visual{
+         width: 100%;
+        height: 550px;
+        overflow: hidden;
+
+     }
+
+     img .imgslide1{
+        width: 100%;
+        height: auto;
+        width: 100%;
+        height: 550px;
+        animation: slide1 7s infinite;
+     }
+/*
+     img .imgslide2{
+        width: 100%;
+        height: auto;
+        position:absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 550px;
+        animation: slide2 7s infinite;
+     }
+
+     img .imgslide3{
+        width: 100%;
+        height: auto;
+        position:absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 550px;
+        animation: slide3 7s infinite;
+     }
+
+     @keyframes slide1 {
+        0%{left: -1200px;}
+        33.33%{left:-1200px;}
+        66.66%{left:0px;}
+        100%{left:1200px;}
+        
+     }
+
+     @keyframes slide2 {
+        0%{left: -1200px;}
+        33.33%{left:-1200px;}
+        66.66%{left:0px;}
+        100%{left:1200px;}
+        
+     }
+
+     @keyframes slide3 {
+        0%{left: -1200px;}
+        33.33%{left:-1200px;}
+        66.66%{left:0px;}
+        100%{left:1200px;}
+        
+     }*/
+
+
+
+
+/*------------브랜드 콘텐츠 / 로그인전, 취향선택안한회원------------------*/
+
+.our-brand{
+   width: 100%;
+   /* background-color:brown ; */
+   margin-top: 90px;
+   margin-left: 80px;
+    display: none;  
+   /* 로그인전취향선택안한 회원 함수에서 바꿔주세여 */ 
+   
+}
+
+.our-brand > div{
+   float: left;
+   height: 1010px;
+   /* position: relative; */
+}
+.our-brand > p{
+   font-weight: 800;
+   font-size: 70px;
+   margin-left: 350px;
+
+}
+
+#brand1{
+   width: 860px;
+   /* background-color: white; */
+
+   
+}
+#brand1 > div{
+   float: left;
+
+}
+#bimg{
+   width: 552px;
+   height: 737px;
+   /* z-index: 100;/ */
+   /* background-color: firebrick; */
+   position: relative;
+
+}
+
+#btext1{
+   position: absolute;
+   z-index: 120;
+   top: 580px;
+   left: 40px;
+   width:195px;
+   height: 75px;
+}
+#btext1 img{
+   padding-bottom: 15px;
+}
+#btext1 span{
+   
+   font-weight: 600;
+   font-size: 24px;
+}
+
+.subIm{
+   
+   width: 30%;
+   /* background-color: blanchedalmond; */
+   margin-left: 42px;
+}
+
+#simg1{
+   
+   height: 354px;
+   width: 267px;
+   /* background-color: tomato; */
+}
+#simg2{
+   margin-top: 30px;
+   height: 354px;
+   width: 267px;
+   /* background-color: thistle; */
+}
+
+
+/*---------------------------------1-2------------------------------*/
+#brand2{
+   width: 860px;
+   /* background-color: violet; */
+
+}
+#brand2 > div{
+   float: left;
+   /* height: 100% */
+}
+#bimgB2{
+   width: 552px;
+   height: 737px;
+   /* background-color: firebrick; */
+   /* margin-left: 42px; */
+   position: relative;
+}
+#btext2{
+   position: absolute;
+   z-index: 120;
+   top: 580px;
+   left: 70px;
+   width:270px;
+   height: 75px;
+}
+
+#btext2 img{
+   width: 75px;
+   height: 21px;
+   padding-bottom: 15px;
+}
+#btext2 span{
+   
+   font-weight: 600;
+   font-size: 24px;
+}
+.subImB2{
+   
+   width: 30%; 
+    margin-left: 42px;
+   /* background-color: blanchedalmond; */
+}
+
+#simg1B2{
+   height: 354px;
+   width: 267px;
+   /* background-color: tomato; */
+
+}
+#simg2B2{
+   margin-top: 30px;
+   height: 354px;
+   width: 267px;
+   /* background-color: thistle; */
+}
+
+
+/*-------------------------로그인한 취향선택한 회원---------------------------------*/
+
+
+.user-brand{
+
+   height: 922px;
+   margin-top: 90px;
+   position: relative;
+   overflow: hidden;
+   margin-bottom: 100px;
+}
+
+
+.user-brand #tit{
+   font-weight: 800;
+   font-size: 70px;
+   margin-left: 350px;
+}
+
+#brandlist{
+   display: table;
+   table-layout: fixed;
+   border-spacing: 90px;
+   height: 639px;
+   margin-top: 120px;
+   transform: translate3d(-882px,0px,0px);
+}
+
+#brandlist a{
+   display:table-cell;
+   width: 1162px;
+}
+
+
+#tit{
+   width: 500px;
+   height: 53px;
+
+}
+
+
+
+#usbr1 img{
+   /* position: relative; */
+}
+#ubt1{
+   /* position:relative; */
+   top: 400px;
+   left: 63px;
+}
+#ubt1 img{
+   width: 176px;
+   height: 27px;
+   margin-bottom: 15px;
+}
+
+#ubt1 span{
+   
+   font-size: 52px;
+   font-weight: 300;
+   color: #fff;
+   letter-spacing: -2.5px;
+}
+
+
+
+#ubt2{
+   position: absolute;
+   top: 300px;
+   padding-left: 56px;
+   
+}
+#ubt2 img{
+   width: 176px;
+   height: 27px;
+   margin-bottom: 15px;
+}
+
+#ubt2 span{
+   font-size: 52px;
+   font-weight: 300;
+   letter-spacing: -2.5px;
+   color: #000;
+}
+
+
+
+#ubt3{
+position: absolute;
+top: 300px;
+padding-left: 56px;
+
+}
+#ubt3 img{
+width: 176px;
+height: 27px;
+margin-bottom: 15px;
+}
+
+#ubt3 span{
+font-size: 52px;
+font-weight: 300;
+letter-spacing: -2.5px;
+color: #000;
+}
+
+#pre{
+   width: 29px;
+   height: 138px;
+   position: absolute;
+   z-index: 9000;
+   left: 406px;
+   top: 550px;
+}
+
+#next{
+   width: 30px;
+   height: 140px;
+   position: absolute;
+   z-index: 9000;
+   right: 210px;
+   top: 550px;
+}
+
+
+
+
+
+/*----------------인기게시글영역------------------------*/
+.bestcon{
+   width: 100%;
+   height: 515px;
+   /* background-color: aqua; */   
+   float: left;
+   position: relative;
+}
+.bestcon a{
+   text-decoration: none;
+   color: #000;
+}
+
+#bg{
+   width:1500px;
+   height: 355px;
+   background-color: #fff;
+   position: absolute;
+   left: 206px;
+   top: 80px;
+}
+
+#bestwrap{
+   width: 1390px;
+   height: 275px;
+   /* background-color: blue; */
+   margin: 0 auto;
+   margin-top:40px;
+}
+
+#bestwrap div{
+   float: left;
+   width: 448px;
+   height: 100%;
+   padding-right: 10px;
+   /* background-color: wheat; */
+}
+/*----------------베스트게시물 1구역------------------ */
+
+#how{
+   border-right: 1px solid #a1a1a1;
+}
+#how ul{
+   list-style: none;
+}
+
+#how img{
+   /* background-color: aqua; */
+   width: 173px;
+   height: 40px;
+   margin-bottom:60px;
+}
+#howtit{
+   font-size: 28px;
+   font-weight: 600;
+   margin-bottom: 30px;
+}
+#how span{
+   font-size: 16px;
+   font-weight: 400;
+   color: #666;
+}
+
+/*---------------------베스트게시글 2구역--------------------------- */
+
+#moi{
+   border-right: 1px solid #a1a1a1;
+}
+#moi ul{
+   list-style: none;
+}
+#moi img{
+   width: 104px;
+   height: 40px;
+   margin-bottom: 60px;
+}
+#moitit{
+   font-size: 28px;
+   font-weight: 600;
+   margin-bottom: 30px;
+}
+#moi span{
+   font-size: 16px;
+   font-weight: 400;
+   color: #666;
+}
+/*----------------랭킹------------------*/
+#bestbg{
+   width: 400px;
+   /* height: 100%; */
+   border: 1px solid #a1a1a1;
+   border-radius: 20px;
+   margin-left: 20px;
+}
+
+#bestbg p{
+   margin-left: 40px;   
+   font-size: 26px;
+   font-weight: 500;
+   color: #4c4c4c;
+}
+
+#bestbg li{
+   margin-left: 30px;
+   padding-bottom: 10px;
+   font-size: 16px;
+   font-weight: 500;
+   color: #595959;
+}
+
+.banner{
+   width: 100%;
+   height: 475px;
+   margin-top: 120px;
+   float: left;
+   margin-left: 206px;
+}
+
+.banner p{
+   font-size: 30px;
+   font-weight: 500;
+
+}
+.banner > div{
+   float: left;
+   height: 152px;
+   
+   
+}
+
+#banner1{
+   padding-right: 70px;
+   width: 715px;
+   
+}
+#banner2{
+   width: 715px;
+   
+}
+   
+
+
+
+/*-----------------------------푸터시자아아악아아앙아아아앙아악 살려조-------------------------------------*/
+     footer{
+        /* height: 300px; */
+        background-color: black;
+     }
+
+
+    </style>
+</head>
+<body>
+    
+	<%@ include file="../views/common/header.jsp" %>
+
+        <!--콘텐츠 영역 시작-->
+        <div class="wrap">
+        <div class="contents" id="content">
+            <!--******************************메인 콘텐츠 영역 **********************************-->
+            <div class="key_visual">
+                <!--****************************상단 탑 이미지 영역*****************************-->
+                <img src="resources/00_main/key_visual/01_topimg.png" class="imgslide1" alt="">
+                <img src="resources/00_main/key_visual/02_topimg.png" class="imgslide2" alt="">
+                <img src="resources/00_main/key_visual/03_topimg.png" class="imgslide3" alt="">
+            </div>
+            </div>
+
+
+            <div class="sub_content">
+               <!--****************로그인안한 기본화면, 취향선택 안한 회원 메인화면***************-->
+                <section class="our-brand">
+                   <p>OUR ECO's</p>
+                    <div class="brand-area1" id="brand1">
+                     <div id="bimg">
+                        <img src="resources/00_main/01_con/01_defimg.png" alt="">
+                        <div id="btext1">
+                        <img src="resources/00_main/01_con/닥터노아logo.png" alt="" id="bLogo">
+                        <span>
+                           순하면서 상쾌한 <br>
+                           새로운 가글의 시대
+                        </span>
+                     </div>
+                     </div>
+                     <div class="subIm">
+                        <div id="simg1"><a href=""><img src="resources/00_main/01_con/01_1brand_click.png" alt=""></a></div>
+                        <div id="simg2"><a href=""><img src="resources/00_main/01_con/01_2branc_click.png" alt=""></a></div>
+                     </div>
+                    </div>
+                    <div class="brand-area2" id="brand2">
+                     <div id="bimgB2">
+                        <img src="resources/00_main/01_con/02_defimg.png" alt="">
+                       
+
+                           <div id="btext2">
+                              <img src="resources/00_main/01_con/모레상점logo.png" alt="" id="bLogo2"> <br>
+
+
+                              <span>
+                                 건조한 입술도 촉촉하게 <br>
+                                 도심 속 가로수도 지키는
+                              </span>
+                           </div>
+                         
+                     
+                     </div>
+                     <div class="subImB2">
+                        <div id="simg1B2"><a href=""><img src="resources/00_main/01_con/02_1brand_click.png" alt=""></a></div>
+                        <div id="simg2B2"><a href=""><img src="resources/00_main/01_con/02_2brand_click.png" alt=""></a></div>
+                     </div>
+
+                    </div>
+                </section>
+
+                <!--******************************로그인후 화면,취향선택회원화면************************************* -->
+                <section class="user-brand">
+                  <div id="tit">YOUR ECO's</div>
+                  <div id="brandlist" id=" section fp-section fp-table  fp-completely">
+                   <a href="" id="usbr1">
+                     <img src="resources/00_main/01_con/01_img.png" id="" alt="" onclick="">
+                     <div id="ubt1">
+                        <img src="resources/00_main/01_con/동구밭팩토리logo.png" alt=""> <br>
+                        <span>
+                           지속가능한 가치소비 <br>
+                           업사이클링 뷰티의 시작
+
+                        </span>
+                     </div>
+                  </a>
+                   <a href="" id="usbr2"><img src="resources/00_main/01_con/02_img.png" id="" alt="" onclick="">
+                     <div id="ubt2">
+                        <img src="resource/00_main/01_con/닥터노아logo.png" alt=""> <br>
+>>>>>>> branch 'develop' of https://github.com/miu1217/littleEco.git
                         <span>
                            대나무 칫솔의 새로운 기준, <br>
                            마루 대나무 칫솔 스탠다드
