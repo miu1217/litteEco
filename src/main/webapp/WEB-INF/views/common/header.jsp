@@ -12,6 +12,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>	
 <style>
 * {
 	font-family: 'Noto Sans', sans-serif;
@@ -112,37 +113,37 @@ header .inner{
 <body>
 	<header class="gnb">
 		<!--***************************헤더영역*************************************-->
-		<div class="top-area">
-			<div class="inner">
-				<div class="aside">
-					<div class="nav">
-						<a href="enrollForm.me">Join</a>
-						<a href="loginForm.me">Login</a>
-						<a href="">FAQ</a>
-						<a href="">Notice</a>
+		<c:choose>
+			<c:when test="${empty loginUser}">
+				<div class="top-area">
+					<div class="inner">
+						<div class="aside">
+							<div class="nav">
+								<a href="enrollForm.me">Join</a>
+								<a href="loginForm.me">Login</a>
+								<a href="">FAQ</a>
+								<a href="">Notice</a>
+							</div>
+						</div>
 					</div>
-
 				</div>
-
-			</div>
-		</div>
-<<<<<<< HEAD
-		<!--*****************************로그인 후 헤더************************************************-->
-=======
-		<!--****************************로그인 후 헤더************************************************-->
->>>>>>> refs/remotes/origin/wjdwngh1
-		<div class="top-area" style="display: none;">
-			<div class="inner">
-				<div class="aside">
-					<div class="nav">
-						<a href="">Mypage</a> <a href="">Logout</a> <a href="">FAQ</a> <a
-							href="">Notice</a>
+			</c:when>
+			<c:otherwise>
+				<div class="top-area">
+					<div class="inner">
+						<div class="aside">
+							<div class="nav">
+								<a href="">Mypage</a>
+								<a href="logout.me">Logout</a>
+								<a href="">FAQ</a>
+								<a href="">Notice</a>
+							</div>
+						</div>
 					</div>
-
 				</div>
-
-			</div>
-		</div>
+			</c:otherwise>
+		</c:choose>
+		
 		<div class="gnb-area">
 			<div class="gnb-wrap">
 				<div class="inner">
