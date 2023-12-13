@@ -124,7 +124,7 @@
 							<div class="nav">
 								<a href="enrollForm.me">Join</a>
 								<a href="loginForm.me">Login</a>
-								<a href="">FAQ</a>
+								<a href="faqList.bo">FAQ</a>
 								<a href="">Notice</a>
 							</div>
 						</div>
@@ -138,7 +138,7 @@
 							<div class="nav">
 								<a href="">Mypage</a>
 								<a href="logout.me">Logout</a>
-								<a href="">FAQ</a>
+								<a href="faqList.bo">FAQ</a>
 								<a href="">Notice</a>
 							</div>
 						</div>
