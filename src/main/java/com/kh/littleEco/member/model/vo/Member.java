@@ -1,5 +1,7 @@
 package com.kh.littleEco.member.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Member {
 
 	private int memberNo;
-	private int categoryNo;
+	private String[] categoryNo;
 	private String memberId;
 	private String memberPwd;
 	private String memberName;
@@ -22,4 +24,5 @@ public class Member {
 	private String createDate;
 	private String status;
 	
+	//private ArrayList<Brand> bList;
 }
