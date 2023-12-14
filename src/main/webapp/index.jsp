@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <jsp:forward page="WEB-INF/views/main.jsp"/>
-	<h1>정주호 짱 크다</h1>
-	
+
 </body>
 </html>
