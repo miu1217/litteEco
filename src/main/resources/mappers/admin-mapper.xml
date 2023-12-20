@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminMapper">
+	
+	<resultMap type="member" id="adminMember">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="MEMBER_NAME" property="memberName" />
+		<result column="NICKNAME" property="nickName" />
+		<result column="BIRTH" property="birth" />
+		<result column="GENDER" property="gender" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	
+	<resultMap type="memberCategory" id="memberCategory">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="CATEGORY_NO" property="categoryNo" />
+	</resultMap>
+	
+	<resultMap type="category" id="category">
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_TYPE_NAME" property="categoryTypeName" />
+		<result column="CATEGORY_NAME" property="categoryName" />
+	</resultMap>
+	
+	<select id="MemberList" resultMap="adminMember">
+		SELECT MEMBER_NO
+				,MEMBER_ID
+				,MEMBER_NAME
+				,EMAIL
+				,PHONE
+				,CREATE_DATE
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+	</select>
+	
+	<select id="MemberDetail" resultMap="adminMember">
+		SELECT MEMBER_NO
+					,MEMBER_ID
+	                ,MEMBER_NAME
+	                ,NICKNAME
+	                ,EMAIL
+	                ,BIRTH
+	                ,PHONE
+		FROM MEMBER
+		WHERE MEMBER_NO = #{mno}
+		AND STATUS = 'Y'
+	</select>
+	
+	<select id="MemberCategory" resultMap="category"> 
+		SELECT C.CATEGORY_NO
+	            ,C.CATEGORY_TYPE_NAME
+	            ,C.CATEGORY_NAME
+		FROM CATEGORY C
+		JOIN MEMBER_CATEGORY MC ON  (C.CATEGORY_NO = MC.CATEGORY_NO)
+		WHERE MEMBER_NO = #{mno}
+	</select>
+	
+	<update id="updateMember">
+		UPDATE MEMBER
+		SET MEMBER_NAME = #{memberName}
+		        ,NICKNAME = #{nickName}
+		        ,EMAIL = #{email}
+		        ,BIRTH = #{birth}
+		        ,PHONE = #{phone}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<delete id="deleteMemberCategory">
+		DELETE FROM MEMBER_CATEGORY
+		WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	
+	<insert id="insertMemberCategory" parameterType="member">	
+	  <foreach collection="categoryNo" item="category"  open="INSERT ALL" close="SELECT * FROM DUAL">
+	    INTO MEMBER_CATEGORY(MEMBER_NO, CATEGORY_NO)
+	    		     VALUES (#{memberNo},#{category})
+	  </foreach>
+	</insert>
+	
+	<update id="deleteMember" parameterType="_int">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		WHERE MEMBER_NO = #{mno}
+		AND STATUS = 'Y'
+	</update>
+
+	</mapper>
