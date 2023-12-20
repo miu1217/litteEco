@@ -12,7 +12,11 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias type="com.kh.littleEco.member.model.vo.Member" alias="member"/>
-		<typeAlias type="com.kh.littleEco.member.model.vo.MemberCategory" alias="memberCategory"/>
+		<typeAlias type="com.kh.littleEco.member.model.vo.Member"
+			alias="member" />
+		<typeAlias type="com.kh.littleEco.member.model.vo.MemberCategory"
+			alias="memberCategory" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Category"
+			alias="category" />
 	</typeAliases>
 </configuration>

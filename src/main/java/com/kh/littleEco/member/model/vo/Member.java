@@ -2,7 +2,8 @@ package com.kh.littleEco.member.model.vo;
 
 import java.util.ArrayList;
 
-//import java.util.ArrayList;
+
+import com.kh.littleEco.brand.model.vo.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,6 @@ public class Member {
 	private String createDate;
 	private String status;
 	
-	//private ArrayList<Category> cList;
-	
-	
+
+	private ArrayList<Category>cList;
 }
