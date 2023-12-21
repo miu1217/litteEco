@@ -448,6 +448,35 @@ color: #000;
    margin-left: 20px;
 }
 
+/* 초기에는 첫 번째 요소만 보이도록 설정 */
+#scroll li:not(:first-child) {
+    display: none;
+}
+
+/* 마우스가 #best에 들어오면 나머지 요소들이 나타남 */
+#best:hover #scroll li {
+    display: list-item;
+}
+
+/* ol 요소의 리스트 스타일 설정 */
+#scroll {
+    list-style: decimal;
+    counter-reset: item; /* 카운터 초기화 */
+}
+
+/* /* 각 인기 검색어 앞에 숫자를 추가 */
+#scroll li {
+    counter-increment: item;
+} */
+
+/* 인기 검색어의 숫자를 가상 요소로 표시 */
+#scroll li:before {
+    content: counter(item) ". ";
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+
 #bestbg p{
    margin-left: 40px;   
    font-size: 26px;
@@ -492,6 +521,27 @@ color: #000;
    width: 715px;
    
 }
+
+
+
+  
+#scroll {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2개의 열로 설정 */
+  
+}
+
+/* 홀수 행에 배치하는 아이템 */
+#scroll li:nth-child(odd) {
+  grid-row: span 2; /* 현재 행을 2로 설정 */
+}
+
+/* 짝수 행에 배치하는 아이템 */
+#scroll li:nth-child(even) {
+  grid-row: span 2; /* 현재 행을 2로 설정 */
+}
+
+
    
 
 
@@ -584,7 +634,7 @@ color: #000;
                   </a>
                    <a href="" id="usbr2"><img src="resources/00_main/01_con/02_img.png" id="" alt="" onclick="">
                      <div id="ubt2">
-                        <img src="resource/00_main/01_con/닥터노아logo.png" alt=""> <br>
+                        <img src="resources/00_main/01_con/닥터노아logo.png" alt=""> <br>
                         <span>
                            대나무 칫솔의 새로운 기준, <br>
                            마루 대나무 칫솔 스탠다드
@@ -665,17 +715,100 @@ color: #000;
                         <!--****************인기게시글 랭킹 영역******************************-->
                         <div id="best">
                            <div id="bestbg">
-                              <p>인기게시글</p>
-                              <ol>
-                                 <li><a href="">인기글1</a></li>
-                                 <li><a href="">인기게시글타이틀</a></li>
-                                 <li><a href="">인기게시글타이틀</a></li>
-                                 <li><a href="">인기게시글타이틀</a></li>
-                                 <li><a href="">인기게시글타이틀</a></li>
+                              <p>인기 검색어</p>
+                              <ol id="scroll">
+	
+								<!-- 인기검색어 출력 할 영역 -->
+								
                               </ol>
                            </div>
+                           
 
                         </div>
+                        
+				<script type="text/javascript">
+				$(document).ready(function () {
+				    var intervalId;
+
+				    function showNextKeyword(keywords, index) {
+				        if (index < keywords.length) {
+				            var keyword = keywords[index].keyword;
+				            var rank = index + 1;
+				            var listItem = $("<li>").append("<a href='#' class='popular-keyword'>" + rank + ". " + keyword + "</a>");
+
+				            // 클릭 이벤트를 추가하여 검색어를 클릭할 때 동작하도록 함
+				            listItem.find(".popular-keyword").on("click", function (e) {
+				                e.preventDefault(); // 기본 동작 막기
+
+				                // 선택한 검색어를 가져와서 searchBox에 넣기
+				                var selectedKeyword = $(this).text().split('. ')[1];
+				                $("#searchBox").val(selectedKeyword);
+
+				                // searchBtn2를 클릭하여 검색 수행
+				                $("#searchBtn2").click();
+				            });
+
+				            $("#scroll").html($("<ol>").css("list-style-type", "none").append(listItem)); // 번호를 표시하지 않음
+
+				            // 다음 검색어를 2초 뒤에 표시
+				            intervalId = setTimeout(function () {
+				                showNextKeyword(keywords, (index + 1) % keywords.length);
+				            }, 2000);
+				        }
+				    }
+
+				    // 초기에 첫 번째 인기 검색어를 보이도록 설정
+				    $.ajax({
+				        url: "select.ps",
+				        dataType: "json",
+				        success: function (result) {
+				            // 일반적인 경우에는 1위, 2위, 3위를 2초마다 한 개씩 보여줌
+				            showNextKeyword(result, 0);
+
+				            // 호버 시에 전체 목록을 보여주는 이벤트
+				            $("#best").mouseenter(function () {
+				                clearTimeout(intervalId); // 이전에 설정된 타이머 제거
+				                showAllKeywords(result);
+				            });
+
+				            // 호버에서 벗어나면 다시 1위, 2위, 3위를 2초마다 한 개씩 보여줌
+				            $("#best").mouseleave(function () {
+				                showNextKeyword(result, 1);
+				            });
+				        },
+				        error: function () {
+				            console.log("통신 오류");
+				        }
+				    });
+
+				    // 전체 목록을 보여주는 함수
+				    function showAllKeywords(keywords) {
+				        var list = $("<ol>").css("list-style-type", "none");
+				        for (var i in keywords) {
+				            var rank = parseInt(i) + 1;
+				            var listItem = $("<li>").append("<a href='#' class='popular-keyword'>" + rank + ". " + keywords[i].keyword + "</a>");
+
+				            // 클릭 이벤트를 추가하여 검색어를 클릭할 때 동작하도록 함
+				            listItem.find(".popular-keyword").on("click", function (e) {
+				                e.preventDefault(); // 기본 동작 막기
+
+				                // 선택한 검색어를 가져와서 searchBox에 넣기
+				                var selectedKeyword = $(this).text().split('. ')[1];
+				                $("#searchBox").val(selectedKeyword);
+
+				                // searchBtn2를 클릭하여 검색 수행
+				                $("#searchBtn2").click();
+				            });
+
+				            list.append(listItem);
+				        }
+
+				        $("#scroll").html(list);
+				    }
+				});
+
+				</script>
+                        
                      </div>
 
                   </div>

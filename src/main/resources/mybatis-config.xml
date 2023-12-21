@@ -12,6 +12,8 @@
 	</settings>
 
 	<typeAliases>
-		
+		<typeAlias type="com.kh.littleEco.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.littleEco.popularSearch.model.vo.PopularSearch" alias="search"/>
+		<typeAlias type="com.kh.littleEco.mypage.model.vo.Mypage" alias="mypage"/>
 	</typeAliases>
 </configuration>
