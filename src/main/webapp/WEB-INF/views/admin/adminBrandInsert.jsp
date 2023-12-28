@@ -23,7 +23,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
-
+<style>
+	#btn{
+	background-color: #002c7b ;
+	border: #002c7b ;
+	}
+	
+    #btn:hover{
+            color: white;
+            cursor: pointer;
+            background-color: #02215a;
+        }
+	
+</style>
 <body>
     <div class="wrapper">
         <div class="sidebar" >
@@ -42,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="brand">
+                        <a class="nav-link" href="brand.ad">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>Brand</p>
                         </a>
@@ -64,50 +76,30 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Edit Profile</h4>
+                                    <h4 class="card-title">Brand Insert</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="memberUpdate.ad" method="post"> 
+                                    <form action="brandInsert.ad" method="post" id="enroll-area" enctype="multipart/form-data">
                                     	<input type="hidden" name="memberNo" value="${m.memberNo}">
                                         <div class="row">
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
-                                                    <label>MEMBER ID</label>
-                                                    <input type="text" class="form-control" disabled="" placeholder="MEMBER ID" name="memberId" value="${m.memberId}">
+                                                    <label>Brand Name</label>
+                                                    <input type="text" class="form-control" placeholder="Brand Name" name="brandName">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 px-1">
+                                            <div class="col-md-6 pr-1">
                                                 <div class="form-group">
-                                                    <label>MEMBER NAME</label>
-                                                    <input type="text" class="form-control" placeholder="MEMBER NAME" name="memberName" value="${m.memberName}">
+                                                    <label>Brand Url</label>
+                                                    <input type="text" class="form-control" placeholder="Brand Url" name="brandUrl">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6 pr-1">
+                                            <div class="col-md-12 pr-1">
                                                 <div class="form-group">
-                                                    <label>NickName</label>
-                                                    <input type="text" class="form-control" placeholder="NickName" name="nickName" value="${m.nickName}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 pl-1">
-                                                <div class="form-group">
-                                                    <label>Email address</label>
-                                                    <input type="text" class="form-control" placeholder="Email" name="email" value="${m.email}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 pr-1">
-                                                <div class="form-group">
-                                                    <label>BIRTH</label>
-                                                    <input type="text" class="form-control" placeholder="BIRTH" name="birth" value="${m.birth}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 pl-1">
-                                                <div class="form-group">
-                                                    <label>PHONE</label>
-                                                    <input type="text" class="form-control" placeholder="PHONE" name="phone" value="${m.phone.trim()} ">
+                                                    <label>Brand Info</label>
+                                                    <textarea  class="form-control" placeholder="brand Info" name="brandInfo" rows="10" cols="50" style="height: 200px;"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,27 +121,58 @@
                                                     <input type="checkbox" id="category9" name="categoryNo" value="9"><label for="category9" class="checkboxCss item9">&nbsp 패션 </label>
                                                 
                                             </div>
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                            
+                                            <div class="row">
+                                            	<div class="col-md-12">
+								                  	<div class="form-group">
+								                  		<label>Img</label>
+								                  		<div>
+								                  			<img id="titleImg" width="250" height="170">
+								                  		</div>	
+								                 	</div>
+								                 </div>
+                                            </div>
+                                            
+                                            <div id="file-area">
+													<input type="file"  class="form-control" id="upfile" name="upfile" onchange="loadImg(this,1)" required> <!-- 대표이미지 필수  -->
+												
+											</div>
+                                            <button type="submit" id="btn" class="btn btn-info btn-fill pull-right">Insert</button>
                                         </div>
                                         </div>
                                     </form>
                                     <script>
-									    // 이 예제에서는 cList가 이미 서버에서 받아온 데이터로 가정
-									    var cList = [
-									    	 <c:forEach items="${cList}" var="c"  varStatus="status">
-									    		{
-									    			categoryNo : '${c.categoryNo}'
-									    		}<c:if test="${!status.last}">,</c:if>
-									  	  	</c:forEach>
-									    
-									    ];
-									    
-									    cList.forEach(function(item) {
-									        console.log(item.categoryNo);
-									        $("input[name=categoryNo][value=" + item.categoryNo + "]").prop('checked', true);
-									    });
-									  
-									    
+										$(function(){
+							                $("#file-area").hide(); //file input 숨기기
+							                //대표이미지를 클릭하면 input file 요소 1번이 클릭되게 하는 함수
+							                $("#titleImg").click(function(){
+							                    $("#upfile").click();
+							                });
+							            });
+							           
+							            
+							            function loadImg(inputFile,num){
+							         
+							                if(inputFile.files.length == 1){
+							                    var reader = new FileReader();
+							                    
+							                    reader.readAsDataURL(inputFile.files[0]);
+							
+							                 
+							                    reader.onload = function(e){
+							                        switch(num){
+							                            case 1: $("#titleImg").attr("src",e.target.result); break;
+							                        }
+							
+							                    }
+							
+							                }else{//length가 1이 아니면 
+							                    switch(num){
+							                            case 1: $("#titleImg").attr("src",null); break;
+							                        }
+							
+							                }
+							            }
 									</script>
 
                                 </div>
