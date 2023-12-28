@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class BrandCategory {
 
-	private int boardNo;
+	private int brandNo;
 	private int categoryNo;
 }
