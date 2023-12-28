@@ -18,5 +18,11 @@
 			alias="memberCategory" />
 		<typeAlias type="com.kh.littleEco.brand.model.vo.Category"
 			alias="category" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Brand"
+			alias="brand" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.BrandCategory"
+			alias="brandCategory" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Attachment"
+			alias="brandAttachment" />
 	</typeAliases>
 </configuration>

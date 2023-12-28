@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.littleEco.admin.model.dao.AdminDao;
+import com.kh.littleEco.brand.model.vo.Attachment;
+import com.kh.littleEco.brand.model.vo.Brand;
 import com.kh.littleEco.brand.model.vo.Category;
 import com.kh.littleEco.member.model.vo.Member;
 
@@ -69,6 +71,91 @@ public class AdminServiceImpl implements AdminService{
 	public int deleteMember(int mno) {
 		
 		return adminDao.deleteMember(sqlSession, mno);
+	}
+
+	
+	//brand 관련 insert 메소드
+	@Override
+	public int insertBrand(Brand b) {
+		
+		return adminDao.insertBrand(sqlSession, b);
+	}
+
+	//brand 선택한 카테고리 입력하는 메소드
+	@Override
+	public int insertBrandCategory(Brand b) {
+		
+		return adminDao.insertBrandCategory(sqlSession, b);
+	}
+
+	//brand 입력 시 파일 업로드 하는 메소드
+	@Override
+	public int insertBrandAttachment(Attachment at) {
+		
+		return adminDao.insertBrandAttachment(sqlSession, at);
+	}
+
+	//brand List 조회 메소드
+	@Override
+	public ArrayList<Brand> brandList() {
+		
+		return adminDao.brandList(sqlSession);
+	}
+
+	//brand 상세 보기 메소드
+	@Override
+	public Brand selectBrand(int bno) {
+		
+		return adminDao.selectBrand(sqlSession, bno);
+	}
+
+	
+	//brand 상세 보기 시 사진 조회 메소드
+	@Override
+	public Attachment selectBrandAttachment(int bno) {
+		
+		return adminDao.selectBrandAttachment(sqlSession, bno);
+	}
+	
+	
+	//brand 상세 보기 시 category 조회 메소드
+	@Override
+	public ArrayList<Category> BrandCategory(int bno) {
+		
+		return adminDao.BrandCategory(sqlSession, bno);
+	}
+
+	//brand update 시 수정하는 메소드
+	@Override
+	public int updateBrand(Brand b) {
+		
+		return adminDao.updateBrand(sqlSession, b);
+	}
+	
+	//brand update 시 brand category 삭제 메소드
+	@Override
+	public int deleteBrandCategory(Brand b) {
+		
+		return adminDao.deleteBrandCategory(sqlSession, b);
+	}
+
+	@Override
+	public int insertNewBrandCategory(Brand b) {
+		
+		return adminDao.insertNewBrandCategory(sqlSession, b);
+	}
+
+	@Override
+	public int updateBrandAttachment(Attachment at) {
+		
+		return adminDao.updateBrandAttachment(sqlSession, at);
+		
+	}
+
+	@Override
+	public int deleteBrand(int bno) {
+		// TODO Auto-generated method stub
+		return adminDao.deleteBrand(sqlSession, bno);
 	}
 
 }
