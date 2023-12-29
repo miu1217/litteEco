@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.littleEco.brand.model.vo.Attachment;
+import com.kh.littleEco.brand.model.vo.Brand;
 import com.kh.littleEco.brand.model.vo.Category;
 import com.kh.littleEco.member.model.vo.Member;
 import com.kh.littleEco.member.model.vo.MemberCategory;
@@ -54,6 +56,76 @@ public class AdminDao {
 	public int deleteMember(SqlSession sqlSession, int mno) {
 		
 		return sqlSession.update("adminMapper.deleteMember", mno);
+	}
+
+	//brand 관련 insert 메소드
+	public int insertBrand(SqlSession sqlSession, Brand b) {
+	
+		return sqlSession.insert("adminMapper.insertBrand",b);
+	}
+
+	//brand 선택한 카테고리 입력하는 메소드
+	public int insertBrandCategory(SqlSession sqlSession, Brand b) {
+		
+		return sqlSession.insert("adminMapper.insertBrandCategory", b);
+	}
+
+	//brand 입력 시 파일 업로드 하는 메소드
+	public int insertBrandAttachment(SqlSession sqlSession, Attachment at) {
+		
+		return sqlSession.insert("adminMapper.insertBrandAttachment", at);
+	}
+
+	//brand List 조회 메소드
+	public ArrayList<Brand> brandList(SqlSession sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.brandList");
+	}
+
+	//brand 상세 보기 메소드
+	public Brand selectBrand(SqlSession sqlSession, int bno) {
+		
+		return sqlSession.selectOne("adminMapper.selectBrand", bno);
+				
+	}
+
+	//brand 상세 보기 시 사진 조회 메소드
+	public Attachment selectBrandAttachment(SqlSession sqlSession, int bno) {
+		
+		return sqlSession.selectOne("adminMapper.selectBrandAttachment", bno);
+	}
+
+	//brand 상세 보기 시 category 조회 메소드
+	public ArrayList<Category> BrandCategory(SqlSession sqlSession, int bno) {
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.BrandCategory", bno);
+	}
+
+	//brand update 시 수정하는 메소드
+	public int updateBrand(SqlSession sqlSession, Brand b) {
+		
+		return sqlSession.update("adminMapper.updateBrand", b);
+	}
+
+	//brand update 시 brand category 삭제 메소드
+	public int deleteBrandCategory(SqlSession sqlSession, Brand b) {
+		
+		return sqlSession.delete("adminMapper.deleteBrandCategory", b);
+	}
+
+	public int insertNewBrandCategory(SqlSession sqlSession, Brand b) {
+		
+		return sqlSession.insert("adminMapper.insertNewBrandCategory", b);
+	}
+
+	public int updateBrandAttachment(SqlSession sqlSession, Attachment at) {
+		
+		return sqlSession.update("adminMapper.updateBrandAttachment", at);
+	}
+
+	public int deleteBrand(SqlSession sqlSession, int bno) {
+		
+		return sqlSession.update("adminMapper.deleteBrand", bno);
 	}
 
 }
