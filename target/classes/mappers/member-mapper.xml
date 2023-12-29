@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="memberMapper">
+		<!-- 로그인 resultMap -->
+  		<resultMap type="member" id="enrollMemberResultSet">
+  			<result column="MEMBER_NO" property="memberNo"/>
+  			<result column="MEMBER_ID" property="memberId"/>
+  			<result column="MEMBER_PWD" property="memberPwd"/>
+  			<result column="MEMBER_NAME" property="memberName"/>
+  			<result column="NICKNAME" property="nickName"/>
+  			<result column="BIRTH" property="birth"/>
+  			<result column="GENDER" property="gender"/>
+  			<result column="EMAIL" property="email"/>
+  			<result column="PHONE" property="phone"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  			<collection property="categoryNo"  ofType="_int" >
+  				<result column="CATEGORY_NO"/>
+  			</collection>
+  		</resultMap>
+  		
+  		<resultMap type="member" id="memberResultSet">
+  			<result column="MEMBER_NO" property="memberNo"/>
+  			<result column="MEMBER_ID" property="memberId"/>
+  			<result column="MEMBER_PWD" property="memberPwd"/>
+  			<result column="MEMBER_NAME" property="memberName"/>
+  			<result column="NICKNAME" property="nickName"/>
+  			<result column="BIRTH" property="birth"/>
+  			<result column="GENDER" property="gender"/>
+  			<result column="EMAIL" property="email"/>
+  			<result column="PHONE" property="phone"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  		</resultMap>
+  	
+  	<select id="loginMember" resultMap="enrollMemberResultSet">
+  		SELECT  MEMBER_NO
+		        ,MEMBER_ID
+		        ,MEMBER_PWD
+		        ,MEMBER_NAME
+		        ,NICKNAME
+		        ,BIRTH
+		        ,GENDER
+		        ,EMAIL
+		        ,PHONE
+		        ,CREATE_DATE
+		        ,STATUS
+		        ,CATEGORY_NO
+		FROM MEMBER
+		LEFT JOIN MEMBER_CATEGORY USING (MEMBER_NO)
+		WHERE MEMBER_ID = #{memberId}
+	    AND STATUS = 'Y'
+  	</select>
+  	
+  	<select id="selectFindId" resultMap="memberResultSet">
+  		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{memberName}
+		AND EMAIL = #{email}
+  	</select>
+  	
+  	<select id="selectFindMember" resultMap="memberResultSet">
+  		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_NAME = #{memberName}
+		AND EMAIL = #{email}
+		AND STATUS = 'Y'
+  	</select>
+  	
+	<insert id="insertMember" parameterType="member">
+	
+		<selectKey resultType="int" keyProperty="memberNo" order="BEFORE">
+	        SELECT SEQ_MNO.NEXTVAL
+	        FROM DUAL
+	    </selectKey>
+		
+	  		INSERT INTO MEMBER(MEMBER_NO
+			                  ,MEMBER_ID
+			                  ,MEMBER_PWD
+			                  ,MEMBER_NAME
+			                  ,NICKNAME
+			                  ,BIRTH
+			                  ,GENDER
+			                  ,EMAIL
+			                  ,PHONE)
+	            VALUES(#{memberNo}
+	                  ,#{memberId}
+	                  ,#{memberPwd}
+	                  ,#{memberName}
+	                  ,#{nickName}
+	                  ,#{birth}
+	                  ,#{gender}
+	                  ,#{email}
+	                  ,#{phone})
+	                  
+  	</insert>
+  		
+  	<insert id="insertMemberCategory" parameterType="member">	
+	  <foreach collection="categoryNo" item="category" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+	    INTO MEMBER_CATEGORY(MEMBER_NO, CATEGORY_NO)
+	    		     VALUES (#{memberNo},#{category})
+	  </foreach>
+	</insert>
+	
+	<update id="resetMemberPwd">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{memberPwd}
+		WHERE MEMBER_ID = #{memberId}
+		AND STATUS = 'Y'
+	</update>
+   
+  </mapper>
