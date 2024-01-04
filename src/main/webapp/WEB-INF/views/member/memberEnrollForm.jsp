@@ -265,7 +265,7 @@ h2 {
               </div>
               
               <div class="submit">
-                  <button type="submit" id="enrollSBtn" class="submitBtn">가입하기</button>
+                  <button type="submit" id="enrollBtn" class="submitBtn">가입하기</button>
               </div>
 
             </form>
@@ -273,7 +273,7 @@ h2 {
             <script>
               
                 // 아이디 조건처리
-                $("#memberId").on("blur", function() {
+                /* $("#memberId").on("blur", function() {
 
                       var memberId = $(this).val();
                       var idTest = /[a-zA-Z0-9]{5,12}$/g;
@@ -281,6 +281,7 @@ h2 {
                       if (idTest.test(memberId)) {
                           $("#checkIdMsg").text("사용가능한 아이디입니다").css("color","blue");
                           $("#memberId").css("border","1px solid lightgray");
+                          $("#enrollBtn").attr("disabled",false);
                       } else {
                           $("#memberId").val("");
                           $("#checkIdMsg").text("사용할 수 없는 아이디입니다").css("color","red");
@@ -298,6 +299,7 @@ h2 {
                       if (pwdTest.test(memberPwd)) {
                           $("#checkPwdMsg").text("사용가능한 비밀번호입니다").css("color","blue");
                           $("#memberPwd").css("border","1px solid lightgray");
+                          $("#enrollBtn").attr("disabled",false);
                       } else {
                           $("#memberPwd").val("");
                           $("#checkPwdMsg").text("사용할 수 없는 비밀번호입니다").css("color","red");
@@ -315,6 +317,7 @@ h2 {
                       if (memberPwd === memberPwd2) {
                            $("#checkPwdMsg2").text("비밀번호가 일치합니다").css("color","blue");
                            $("#memberPwd2").css("border","1px solid lightgray");
+                           $("#enrollBtn").attr("disabled",false);
                       } else {
                           $("#memberPwd2").val("");
                           $("#checkPwdMsg2").text("비밀번호가 일치하지않습니다").css("color","red");
@@ -333,6 +336,7 @@ h2 {
                   if (memberNameTest.test(memeberName)) {
                       $("#checkNameMsg").text("");
                       $("#memberName").css("border","1px solid lightgray");
+                      $("#enrollBtn").attr("disabled",false);
                   } else {
                       $("#memberName").val("");
                       $("#checkNameMsg").text("한글만 입력 가능합니다").css("color","red");
@@ -350,6 +354,7 @@ h2 {
                     if (nickNameTest.test(nickName)) {
                         $("#checkNickNameMsg").text("사용가능한 닉네임입니다").css("color","blue");
                         $("#nickName").css("border","1px solid lightgray");
+                        $("#enrollBtn").attr("disabled",false);
                     } else {
                         $("#nickName").val("");
                         $("#checkNickNameMsg").text("사용할 수 없는 닉네임입니다").css("color","red");
@@ -367,6 +372,7 @@ h2 {
                     if(birthTest.test(birth)){
                       $("#checkBirthMsg").text("");
                       $("#birth").css("border","1px solid lightgray");
+                      $("#enrollBtn").attr("disabled",false);
                     }else{
                       $("#birth").val("");
                       $("#checkBirthMsg").text("올바른 생년월일을 입력하세요").css("color","red");
@@ -385,6 +391,7 @@ h2 {
                   if(emailTest.test(email)){
                     $("#checkEmailMsg").text("");
                     $("#email").css("border","1px solid lightgray");
+                    $("#enrollBtn").attr("disabled",false);
                   }else{
                     $("#email").val("");
                     $("#checkEmailMsg").text("올바른 이메일 양식을 입력하세요").css("color","red");
@@ -403,6 +410,7 @@ h2 {
                   if(phoneNumberTest.test(phoneNumber)){
                     $("#checkPhoneMsg").text("");
                     $("#phoneNumber").css("border","1px solid lightgray");
+                    $("#enrollBtn").attr("disabled",false);
                   }else{
                     $("#phoneNumber").val("");
                     $("#checkPhoneMsg").text("올바른 핸드폰 번호을 입력하세요").css("color","red");
@@ -421,30 +429,37 @@ h2 {
                   alert("카테고리는 최대 3개까지 선택할 수 있습니다");
                 }
 
-              });
+              }); */
+                
+               
             </script>
             <!-- *****************************카테고리(체크박스) 선택한 값 여러개 가져오기***************************** -->
             <script>
-            	function categoryArr(){
-            		var cArr = []; //카테고리배열 초기화
-            		$("input[name='categoryNo']:checked").each(function(i)){
-            			cArr.push($(this).val()); //체크된 값들 배열에 넣기
-            		}
+
+            	$("#enrollBtn").click(function(){//
             		
-            		$.ajax({
-            			url : "insert.me"
-            			,type : "post"
-            			,data :{
-            				cArr : cArr}
-            			,success : function(result){
-            				console.log(result);
-            			},error : function(){
-            				console.log("통신실패");
-            			}
-            				     			
-            			});
-            	}
+	            		var cArr = []; //카테고리배열 초기화
+	            		
+	            		$("input[name='categoryNo']:checked").each(function(i){
+	            			
+	            			cArr.push($(this).val()); //체크된 값들 배열에 넣기
+	            			
+	            		});
+	            		
+	            			console.log(cArr);
+	            		
+	            		  $.ajax({
+	            			url : "insert.me"
+	            			,type : "post"
+	            			,data :{
+	            				categoryNo : cArr //키값 : 밸류 categoryNo -> VO 필드명으로 맞춰줘서 같이 가져오기
+	            			} 			
+	            		}); 
+  
+            	});//
+            
             </script>
+                      
         </div>
     </div>
     <%@ include file="../common/footer.jsp" %>
