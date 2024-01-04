@@ -12,6 +12,9 @@
 	</settings>
 
 	<typeAliases>
-		
-	</typeAliases>
+		<typeAlias type="com.kh.littleEco.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.recycleBoard" alias="recycleBoard"/>
+		<typeAlias type="com.kh.littleEco.searchEco.model.vo.SearchEco" alias="searchEco"/>
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.boardAttachment" alias="boardAttachment"/>
+		</typeAliases>
 </configuration>
