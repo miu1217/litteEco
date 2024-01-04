@@ -190,6 +190,16 @@ h2 {
   grid-gap: 5px;
 }
 
+.checkIdBtn {
+  border: 1px solid lightgray;
+  outline: none;
+  color: white;
+  background-color: #878795;
+  cursor: pointer;
+  float: right;
+  margin-top: 5px;
+}
+
 </style>
 <body>
 
@@ -201,7 +211,7 @@ h2 {
             <form class="form-tag" action="insert.me" method="post">
               <div class="memberInfo">
                   <h4>아이디</h4>
-                  <input type="text" name="memberId" id="memberId" class="memberId" placeholder="영문,숫자 5자이상 12자이하의 아이디를 입력해주세요" maxlength="12" required>
+                  <input type="text" name="memberId" id="memberId" class="memberId" onchange="checkId();" placeholder="영문,숫자 5자이상 12자이하의 아이디를 입력해주세요" maxlength="12" required>
                   <span id="checkIdMsg"></span>
               </div>
               <div class="memberInfo">
@@ -221,7 +231,7 @@ h2 {
               </div>
               <div class="memberInfo">
                 <h4>닉네임</h4>
-                <input type="text" name="nickName" id="nickName" class="nickName" required>
+                <input type="text" name="nickName" id="nickName" class="nickName" onchange="checkNick();" required>
                 <span id="checkNickNameMsg"></span>
               </div>
               <div class="memberInfo">
@@ -237,12 +247,12 @@ h2 {
               </div>
               <div class="memberInfo">
                 <h4>이메일</h4>
-                <input type="email" id="email" name="email" class="">
+                <input type="email" id="email" name="email" class="email" onchange="checkEmail();">
                 <span id="checkEmailMsg"></span>
               </div>
               <div class="memberInfo">
                 <h4>휴대전화번호</h4>
-                <input type="text" id="phoneNumber" name="phone" class="" placeholder="-  제외" maxlength="11" required>
+                <input type="text" id="phone" name="phone" class="phone" onchange="checkPhone();" placeholder="-  제외" maxlength="11" required>
                 <span id="checkPhoneMsg"></span>
               </div>
               <div class="memberInfo">
@@ -273,8 +283,33 @@ h2 {
             <!--***************************** 회원가입 유효성검사 스크립트 *********************************-->
             <script>
               
-                // 아이디 조건처리
-                /* $("#memberId").on("blur", function() {
+                //아이디 중복처리
+                function checkId(){
+                	
+                	var memberId = $("#memberId").val();
+                	
+                	$.ajax({
+                		url : "checkId.me",
+                		type : "post",
+                		data : {memberId : memberId},
+                		success : function(result){
+                			
+                			if(result == 1){ //중복된 아이디발견
+                				$("#memberId").val("");
+                                $("#checkIdMsg").text("중복된 아이디입니다").css("color","red");
+                                $("#memberId").css("border","1px solid red");
+                                $("#memberId").focus();
+                			}
+                			
+                		},error : function(){
+                			console.log("실패했어..ㅠㅠ");
+                		}
+                	});
+                	
+                }
+                            
+              	//아이디 조건처리
+                $("#memberId").on("blur", function() {
 
                       var memberId = $(this).val();
                       var idTest = /[a-zA-Z0-9]{5,12}$/g;
@@ -282,15 +317,14 @@ h2 {
                       if (idTest.test(memberId)) {
                           $("#checkIdMsg").text("사용가능한 아이디입니다").css("color","blue");
                           $("#memberId").css("border","1px solid lightgray");
-                          $("#enrollBtn").attr("disabled",false);
                       } else {
                           $("#memberId").val("");
                           $("#checkIdMsg").text("사용할 수 없는 아이디입니다").css("color","red");
                           $("#memberId").css("border","1px solid red");
-                          $("#enrollBtn").attr("disabled",true);
+                          $("#memberId").focus();
                       }
                 });
-
+                   
                 //비밀번호 조건처리(8자리 이상 영문 대소문자, 숫자, 특수문자가 각각 1개 이상)
                 $("#memberPwd").on("blur", function() {
 
@@ -300,16 +334,15 @@ h2 {
                       if (pwdTest.test(memberPwd)) {
                           $("#checkPwdMsg").text("사용가능한 비밀번호입니다").css("color","blue");
                           $("#memberPwd").css("border","1px solid lightgray");
-                          $("#enrollBtn").attr("disabled",false);
                       } else {
                           $("#memberPwd").val("");
                           $("#checkPwdMsg").text("사용할 수 없는 비밀번호입니다").css("color","red");
                           $("#memberPwd").css("border","1px solid red");
-                          $("#enrollBtn").attr("disabled",true);
+                          $("#memberPwd").focus();
                       }
                  });
 
-                 //비밀번호 재확인처리
+                //비밀번호 재확인처리
                 $("#memberPwd2").on("blur", function() {
 
                       var memberPwd = $("#memberPwd").val();
@@ -318,12 +351,11 @@ h2 {
                       if (memberPwd === memberPwd2) {
                            $("#checkPwdMsg2").text("비밀번호가 일치합니다").css("color","blue");
                            $("#memberPwd2").css("border","1px solid lightgray");
-                           $("#enrollBtn").attr("disabled",false);
                       } else {
                           $("#memberPwd2").val("");
                           $("#checkPwdMsg2").text("비밀번호가 일치하지않습니다").css("color","red");
                           $("#memberPwd2").css("border","1px solid red");
-                          $("#enrollBtn").attr("disabled",true);
+                          $("#memberPwd2").focus();
                       }
 
                 });
@@ -337,15 +369,40 @@ h2 {
                   if (memberNameTest.test(memeberName)) {
                       $("#checkNameMsg").text("");
                       $("#memberName").css("border","1px solid lightgray");
-                      $("#enrollBtn").attr("disabled",false);
                   } else {
                       $("#memberName").val("");
                       $("#checkNameMsg").text("한글만 입력 가능합니다").css("color","red");
                       $("#memberName").css("border","1px solid red");
-                      $("#enrollBtn").attr("disabled",true);
+                      $("#memberName").focus();
                   }
                   });
 
+                  
+                 //닉네임 중복처리
+                 function checkNick(){
+                	  
+                	  var nickName = $("#nickName").val();
+                	  
+                	  $.ajax({
+                		 url : "checkNick.me",
+                		 type : "post",
+                		 data : {nickName : nickName},
+                		 success : function(result){
+                			 
+                			 if(result == 1){
+                				 $("#nickName").val("");
+                                 $("#checkNickNameMsg").text("중복된 닉네임입니다").css("color","red");
+                                 $("#nickName").css("border","1px solid red");
+                                 $("#nickName").focus();
+                			 }
+                			 
+                		 },error : function(){
+                			 console.log("실패했어..ㅠㅠ");
+                		 }
+                	  });
+                	 
+                  }
+                  
                 //닉네임 조건처리
                 $("#nickName").on("blur", function() {
 
@@ -355,16 +412,15 @@ h2 {
                     if (nickNameTest.test(nickName)) {
                         $("#checkNickNameMsg").text("사용가능한 닉네임입니다").css("color","blue");
                         $("#nickName").css("border","1px solid lightgray");
-                        $("#enrollBtn").attr("disabled",false);
                     } else {
                         $("#nickName").val("");
                         $("#checkNickNameMsg").text("사용할 수 없는 닉네임입니다").css("color","red");
                         $("#nickName").css("border","1px solid red");
-                        $("#enrollBtn").attr("disabled",true);
+                        $("#nickName").focus();
                     }
                     });
 
-                //생년월일 8자리확인처리
+				//생년월일 8자리확인처리
                 $("#birth").on("blur", function() {
 
                     var birth = $(this).val();
@@ -373,17 +429,41 @@ h2 {
                     if(birthTest.test(birth)){
                       $("#checkBirthMsg").text("");
                       $("#birth").css("border","1px solid lightgray");
-                      $("#enrollBtn").attr("disabled",false);
                     }else{
                       $("#birth").val("");
                       $("#checkBirthMsg").text("올바른 생년월일을 입력하세요").css("color","red");
                       $("#birth").css("border","1px solid red");
-                      $("#enrollBtn").attr("disabled",true);
+                      $("#birth").focus();
                     }
 
                     });
 
-                //이메일 @여부처리
+                //이메일 중복처리
+                function checkEmail(){
+                    	
+                    	var email = $("#email").val();
+                    	
+                    	$.ajax({
+                    		url : "checkEmail.me",
+                    		type : "post",
+                    		data : {email : email},
+                    		success : function(result){
+                    			
+                    			if(result == 1){
+                    				$("#email").val("");
+                                    $("#checkEmailMsg").text("중복된 이메일입니다").css("color","red");
+                                    $("#email").css("border","1px solid red");
+                                    $("#email").focus();
+                    			}
+                    			
+                    		},error : function(){
+                    			console.log("통신 실패");
+                    		}
+                    	});
+                    	
+                    }
+                    
+                //이메일 조건처리
                 $("#email").on("blur", function() {
 
                   var email = $(this).val();
@@ -391,32 +471,56 @@ h2 {
 
                   if(emailTest.test(email)){
                     $("#checkEmailMsg").text("");
+                    $("#checkEmailMsg").text("사용가능한 이메일입니다").css("color","blue");
                     $("#email").css("border","1px solid lightgray");
-                    $("#enrollBtn").attr("disabled",false);
                   }else{
                     $("#email").val("");
                     $("#checkEmailMsg").text("올바른 이메일 양식을 입력하세요").css("color","red");
                     $("#email").css("border","1px solid red");
-                    $("#enrollBtn").attr("disabled",true);
+                    $("#email").focus();
                   }
 
                   });
+                
+                //폰번호 중복처리
+                function checkPhone(){
+                	
+                	var phone = $("#phone").val();
+             
+                	$.ajax({
+                		url : "checkPhone.me",
+                		type : "post",
+                		data : {phone : phone},
+                		success : function(result){
+                		
+                			if(result == 1){
+                				
+                				$("#phone").val("");
+                                $("#checkPhoneMsg").text("이미 등록된 핸드폰 번호입니다").css("color","red");
+                                $("#phone").css("border","1px solid red");
+                			}
+                			
+                		},error : function(){
+                			console.log("통신안된당");
+                		}
+                	});
+                	
+                }
 
-                //휴대전화 번호
-                $("#phoneNumber").on("blur", function() {
+                //폰번호 조건처리
+                $("#phone").on("blur", function() {
 
-                  var phoneNumber = $(this).val();
-                  var phoneNumberTest = /^010-?([0-9]{4})-?([0-9]{4})$/;
+                  var phone = $(this).val();
+                  var phoneTest = /^010-?([0-9]{4})-?([0-9]{4})$/;
 
-                  if(phoneNumberTest.test(phoneNumber)){
+                  if(phoneTest.test(phone)){
                     $("#checkPhoneMsg").text("");
-                    $("#phoneNumber").css("border","1px solid lightgray");
-                    $("#enrollBtn").attr("disabled",false);
+                    $("#checkPhoneMsg").text("사용가능한 핸드폰 번호입니다").css("color","blue");
+                    $("#phone").css("border","1px solid lightgray");
                   }else{
-                    $("#phoneNumber").val("");
+                    $("#phone").val("");
                     $("#checkPhoneMsg").text("올바른 핸드폰 번호을 입력하세요").css("color","red");
-                    $("#phoneNumber").css("border","1px solid red");
-                    $("#enrollBtn").attr("disabled",true);
+                    $("#phone").css("border","1px solid red");
                   }
 
                 });
@@ -430,9 +534,8 @@ h2 {
                   alert("카테고리는 최대 3개까지 선택할 수 있습니다");
                 }
 
-              }); */
-                
-               
+              });
+                            
             </script>
             <!-- *****************************카테고리(체크박스) 선택한 값 여러개 가져오기***************************** -->
             <script>
@@ -447,8 +550,6 @@ h2 {
 	            			
 	            		});
 	            		
-	            			console.log(cArr);
-	            		
 	            		  $.ajax({
 	            			url : "insert.me"
 	            			,type : "post"
@@ -457,7 +558,7 @@ h2 {
 	            			} 			
 	            		}); 
   
-            	});//
+            	});
             
             </script>
                       

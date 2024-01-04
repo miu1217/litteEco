@@ -27,6 +27,4 @@ public class Member {
 	private String createDate;
 	private String status;
 	
-
-	private ArrayList<Category>cList;
 }

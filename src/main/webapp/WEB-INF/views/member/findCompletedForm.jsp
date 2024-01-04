@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>계정 찾기 성공화면</title>
+<title>회원찾기 성공화면</title>
 </head>
 <style>
 
@@ -46,7 +46,7 @@ h2 {
   color: black;
   font-size: 2em;
   font-weight: 800;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .info{
@@ -85,13 +85,13 @@ h2 {
 
 .info1{
     margin-top: 70px;
-    font-size: 65px;
+    font-size: 45px;
     font-weight: 100;
 }
 
 .info2{
     margin-top: 50px;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 </style>
@@ -101,13 +101,14 @@ h2 {
 	
 	<div class="wrap">
         <div class="enrollAfter">
-            <h2>회원 가입</h2>
+            <h2>계정 찾기</h2>
               <div class="info">
-                  <div class="info1" align="center">WELCOME</div>
-                  <div class="info2" align="center">회원가입이 완료되었습니다</div>
+                  <div class="info1" align="center">${findMsg}</div>
+                  <div class="info2" align="center">${findResult}</div>
               </div>
               <div class="login">
                   <button type="button" class="loginBtn"><a href="loginForm.me">로그인하기</a></button>
+                  <button type="button" class="loginBtn"><a href="findMemberPwdForm.me">비밀번호 찾기</a></button>
               </div>
         </div>
     </div>
