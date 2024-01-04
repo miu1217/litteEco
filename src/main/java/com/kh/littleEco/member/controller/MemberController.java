@@ -2,6 +2,7 @@ package com.kh.littleEco.member.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.kh.littleEco.member.model.service.MemberService;
 import com.kh.littleEco.member.model.vo.MemberCategory;
 import com.kh.littleEco.member.model.vo.Member;
@@ -35,9 +39,7 @@ public class MemberController {
 	
 	//회원가입 메소드
 	@PostMapping("insert.me")
-	@ResponseBody
 	public ModelAndView insertMember(Member m
-							  ,HttpSession session
 							  ,Model model
 							  ,ModelAndView mv
 							  ) { //,@RequestParam(value="cArr[]")String[] cArr
@@ -50,7 +52,6 @@ public class MemberController {
 		int result = memberService.insertMember(m);
 	
 		if(result>0) {
-			//@ResponseBody로 인해 리턴값이 데이터 그대로 넘어가기때문에 modelAndView로 설정후 리턴해주기
 			mv.setViewName("member/enrollCompletedForm");
 			return mv;
 		}else {
@@ -71,29 +72,23 @@ public class MemberController {
 	//로그인 메소드
 	@PostMapping("login.me")
 	public ModelAndView loginMember(Member m
+								   ,String memberId
+								   ,String remember
+								   ,Model model
 								   ,ModelAndView mv
 								   ,HttpSession session) {
 		
 		Member loginUser = memberService.loginMember(m);
 		
-		Member m2 = new Member();
-		
-		
-		
-		
-		System.out.println(loginUser);
 		if(loginUser!= null && bcryptPasswordEncoder.matches(m.getMemberPwd(),
 															loginUser.getMemberPwd())) {
+			
 			//로그인유저 세션보내기
-			session.setAttribute("loginUser", loginUser);
-			
-			//카테고리 목록
-			
+			session.setAttribute("loginUser", loginUser);		
 			mv.setViewName("redirect:/");
-			
 		}else {
 			session.setAttribute("alertMsg", "알 수 없는 회원입니다");
-			mv.setViewName("redirect:/");
+			mv.setViewName("member/memberLoginForm");
 			
 		}
 		
@@ -109,23 +104,120 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//회원찾기 메소드
-	@GetMapping("findMemberForm.me")
+	//회원id찾기 폼
+	@GetMapping("findMemberIdForm.me")
 	public String findMemberForm() {
 		return "member/findMemberForm";
 	}
 	
+	//id 찾기
 	@PostMapping("findMemberId.me")
-	public String findId() {
+	public String selectFindId(Member m
+							  ,Model model) {
 		
+		Member memberId = memberService.selectFindId(m);
 		
-		return "";
+		String findId = memberId.getMemberId();
+		
+		//System.out.println("찾은 아이디 : "+findId);
+		
+		if(findId != null) {
+			model.addAttribute("findResult", findId);
+			model.addAttribute("findMsg", "가입하신 계정");
+			return "member/findCompletedForm";
+		}else {
+			model.addAttribute("alertMsg", "알 수 없는 회원입니다");
+			return "member/findMemberForm";
+		}
+		
 	}
 	
+	//회원pwd찾기 폼
+	@GetMapping("findMemberPwdForm.me")
+	public String findMemberPwdForm() {
+		return "member/findMemberForm";
+	}
 	
+	//pwd 찾기(찾기 누르면 새 비밀번호 폼 표출)
+	@PostMapping("findMemberPwd.me")
+	public String selectFindPwd(Member m
+							   ,String memberId
+							   ,String memberName2
+							   ,String email2
+							   ,Model model) {
+		
+		//비밀번호 찾기에서 작성한 값들 넣기
+		m.setMemberId(memberId);
+		m.setMemberName(memberName2);
+		m.setEmail(email2);
+		
+		Member findMember = memberService.selectFindPwd(m);
+
+		if(findMember != null) {
+			model.addAttribute("findMember", findMember);
+			return "member/resetMemberPwdForm";
+		}else {
+			model.addAttribute("alertMsg", "알 수 없는 회원입니다");
+			return "member/findMemberForm";
+		}
+
+	}
 	
+	//rsetPwd
+	@PostMapping("resetMemberPwd.me")
+	public String updateNewPwd(Member m
+							  ,String memberId
+							  ,String newPwd
+							  ,Model model) {
+		
+		//비밀번호 암호화
+		String encPwd = bcryptPasswordEncoder.encode(newPwd);
+		
+		m.setMemberId(memberId);
+		m.setMemberPwd(encPwd);
+		
+		int result = memberService.resetMemberPwd(m);
+		
+		if(result>0) {
+			model.addAttribute("alertMsg", "비밀번호가 변경되었습니다");
+			return "member/memberLoginForm";
+		}else {
+			model.addAttribute("alertMsg", "비밀번호 변경 실패");
+			return "member/findMemberForm";
+		}
+		
+	}
 	
+	//아이디 중복
+	@PostMapping("checkId.me")
+	@ResponseBody
+	public int checkId(String memberId) {
+		int result = memberService.checkId(memberId);
+		return result;
+	}
 	
+	//닉네임 중복
+	@PostMapping("checkNick.me")
+	@ResponseBody
+	public int checkNick(String nickName) {
+		int result = memberService.checkNick(nickName);
+		return result;
+	}
 	
+	//이메일 중복
+	@PostMapping("checkEmail.me")
+	@ResponseBody
+	public int checkEmail(String email) {
+		int result = memberService.checkEmail(email);
+		return result;
+	}
+	
+	//폰번호 중복
+	@PostMapping("checkPhone.me")
+	@ResponseBody
+	public int checkPhone(String phone) {
+		int result = memberService.checkPhone(phone);
+		return result;
+	}
 	
 }//
