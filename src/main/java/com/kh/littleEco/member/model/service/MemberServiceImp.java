@@ -23,7 +23,7 @@ public class MemberServiceImp implements MemberService {
 		
 		int result1 = memberDao.insertMember(m, sqlSession);
 
-	    //카테고리
+	    //카테고리를 선택하면
 	    if (m.getCategoryNo() != null) {
 	        try {
 	        	
@@ -33,10 +33,8 @@ public class MemberServiceImp implements MemberService {
 	        	
 	            return 0;
 	        }
-	    } else {
-	        //카테고리 정보 없음
 	    }
-
+	    
 	    //결과 리턴
 	    if (result1 > 0) {
 	        return 1;
@@ -51,6 +49,47 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.loginMember(m,sqlSession);
 	}
 
+	//id 찾기
+	@Override
+	public Member selectFindId(Member m) {
+		return memberDao.selectFindId(m,sqlSession);
+	}
+
+	//pwd 찾기(확인)
+	@Override
+	public Member selectFindPwd(Member m) {
+		return memberDao.selectFindPwd(m,sqlSession);
+	}
+
+	//resetPwd
+	@Override
+	public int resetMemberPwd(Member m) {
+		return memberDao.resetMemberPwd(m,sqlSession);
+	}
+
+	//아이디 중복확인
+	@Override
+	public int checkId(String memberId) {
+		return memberDao.checkId(memberId,sqlSession);
+	}
+
+	//닉네임 중복확인
+	@Override
+	public int checkNick(String nickName) {
+		return memberDao.checkNick(nickName,sqlSession);
+	}
+
+	//이메일 중복확인
+	@Override
+	public int checkEmail(String email) {
+		return memberDao.checkEmail(email,sqlSession);
+	}
+
+	//폰번호 중복확인
+	@Override
+	public int checkPhone(String phone) {
+		return memberDao.checkPhone(phone,sqlSession);
+	}
 
 	
 }
