@@ -41,11 +41,6 @@
         background-color: #000;  
      }
 
-     .aside{
-        /* margin-left: 10%; */
-     }
-
-     
      .nav {
         /* border: 1px solid darkcyan; */
         float: right;
@@ -74,6 +69,7 @@
         display: flex;
         padding-left: 240px;
         align-items: center;
+     	margin-top: 20px;     
      }
 
      .menu{
