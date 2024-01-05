@@ -3,6 +3,7 @@ package com.kh.littleEco.member.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,20 @@ public class MemberController {
 	//로그인
 	//페이지로 넘겨주기
 	@GetMapping("loginForm.me")
-	public String memberLoginForm() {
+	public String memberLoginForm(HttpServletRequest request
+								 ,HttpSession session) {
+		
+		//referer(이전 페이지) 값 가져오기
+		String referer = request.getHeader("Referer");
+		
+		//기존 페이지가 null 이고 이전페이지가 "/login"을 포함한다면 로그인 실패 등의 이유로 이전 페이지가 loginForm에 대한 페이지인 것이므로 session에 해당 주소를 저장하지 않는다
+		if (referer != null && !referer.contains("/login")) {
+	        request.getSession().setAttribute("prevPage", referer);
+	    }
+		
+		//session에 refere 값 넣어주기
+		session.setAttribute("referer", referer);
+		
 		return "member/memberLoginForm";
 	}
 	
@@ -73,19 +87,21 @@ public class MemberController {
 	@PostMapping("login.me")
 	public ModelAndView loginMember(Member m
 								   ,String memberId
-								   ,String remember
-								   ,Model model
 								   ,ModelAndView mv
 								   ,HttpSession session) {
 		
 		Member loginUser = memberService.loginMember(m);
 		
+		//기존 저장된 refere 값 꺼내주기
+		String referer = (String)session.getAttribute("referer");
+
 		if(loginUser!= null && bcryptPasswordEncoder.matches(m.getMemberPwd(),
 															loginUser.getMemberPwd())) {
 			
 			//로그인유저 세션보내기
-			session.setAttribute("loginUser", loginUser);		
-			mv.setViewName("redirect:/");
+			session.setAttribute("loginUser", loginUser);
+			//로그인 후 이전 페이지로 redirect 해주기
+			mv.setViewName("redirect:"+referer);
 		}else {
 			session.setAttribute("alertMsg", "알 수 없는 회원입니다");
 			mv.setViewName("member/memberLoginForm");
