@@ -140,7 +140,6 @@
                                                     <input type="checkbox" id="category7" name="categoryNo" value="7"><label for="category7" class="checkboxCss item7">&nbsp 욕실 용품 </label>
                                                     <input type="checkbox" id="category8" name="categoryNo" value="8"><label for="category8" class="checkboxCss item8">&nbsp 생활 용품 </label>
                                                     <input type="checkbox" id="category9" name="categoryNo" value="9"><label for="category9" class="checkboxCss item9">&nbsp 패션 </label>
-                                                
                                             </div>
                                             <button type="submit" id="btn" class="btn btn-info btn-fill pull-right">Update Profile</button>
                                         </div>
