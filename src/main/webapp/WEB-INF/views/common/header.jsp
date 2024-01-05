@@ -153,7 +153,7 @@
                       <li class="menus"><a href="">About</a></li>
                       <li class="menus"><a href="">searchEco</a></li>
                       <li class="menus"><a href="">How2Recycle</a></li>
-                      <li class="menus"><a href="">moiza</a></li>
+                      <li class="menus"><a href="moiza">moiza</a></li>
                   </ul>
 
               </div>

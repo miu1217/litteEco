@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="moizaMapper">
+    <resultMap type="moiza" id="moiza">
+  			<result column="MOIZA_NO" property="moizaNo"/>
+  			<result column="MOIZA_NAME" property="moizaName"/>
+  			<result column="MOIZA_TITLE" property="moizaTitle"/>
+  			<result column="MOIZA_GOAL" property="moizaGoal"/>
+  			<result column="MOIZA_MISSION" property="moizaMission"/>
+  			<result column="MOIZA_INFO" property="moizaInfo"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  		</resultMap>
+  		
+  	<resultMap type="moizaCategory" id="moizaCategory">
+		<result column="MOIZA_NO" property="moizaNo" />
+		<result column="CATEGORY_NO" property="categoryNo" />
+	</resultMap>
+  		<select id="MoizaList" resultMap="moiza">
+	  		SELECT MOIZA_NO
+	                ,MOIZA_NAME
+	                ,MOIZA_TITLE
+	                ,MOIZA_GOAL
+	                ,MOIZA_MISSION
+	                ,MOIZA_INFO
+			FROM MOIZA
+  		</select>
+  		
+    	<insert id="MoizaInsert">
+    		INSERT INTO MOIZA (MOIZA_NO
+                               ,MOIZA_NAME
+                               ,MOIZA_TITLE
+                               ,MOIZA_GOAL
+                               ,MOIZA_MISSION
+                               ,MOIZA_INFO)
+                                VALUES(SEQ_MZNO.NEXTVAL
+                                  		 ,#{moizaName}
+                                  		 ,#{moizaTitle}
+                                         ,#{moizaGoal}
+                                         ,#{moizaMission}
+                                         ,#{moizaInfo})
+    	</insert>
+    	
+    	<insert id="MoizaCreatorInsert">
+    	INSERT INTO MOIZA_MEMBER(MOIZA_NO
+                                ,MEMBER_NO
+                                ,MEMBER_LEVEL
+                                ,APPROVAL_STATUS)
+                        VALUES(SEQ_MZNO.CURRVAL
+                                ,#{memberNo}
+                                ,1
+                                ,1)
+    	</insert>
+    	
+    	
+    	<insert id="MoizaCategory" parameterType="moiza">	
+	  		<foreach collection="categoryNo" item="category"  open="INSERT ALL" close="SELECT * FROM DUAL">
+	    	INTO MOIZA_CATEGORY(MOIZA_NO, CATEGORY_NO)
+	    		     VALUES (SEQ_MZNO.CURRVAL,#{category})
+	  		</foreach>
+		</insert>
+    </mapper>
