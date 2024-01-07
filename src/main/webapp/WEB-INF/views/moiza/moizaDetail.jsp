@@ -121,12 +121,12 @@
             cursor: pointer;
         }
 
-        #sBtn{
+        #applyBtn{
             background-color: #002C7B;
             color: #E6E6E6;
         }
 
-        #sBtn:hover{
+        #applyBtn:hover{
             color: white;
             background-color: #02215a;
         }
@@ -146,7 +146,6 @@
         </div><!--//notice header-->
         
         <div class="moiza_write">
-         <form id="noticeInsertForm" method="post" action="moiza.up" enctype="multipart/form-data">
         	<input type="hidden" id="moizaNo" name="moizaNo" value="${m.moizaNo }">
             <table class="moiza_write_table" align="center">
                 <tbody>
@@ -155,7 +154,7 @@
                     		<label for="mName">프로젝트명</label>
                     	</th>
                         <td colspan="2">
-                            <input type="text" name="moizaName" id="mName" value="${m.moizaName}" required>
+                            <input type="text" name="moizaName" id="mName" value="${m.moizaName}" readonly>
                         </td>
                     </tr>
                     <tr class="tableCol" id="titleTr">
@@ -163,7 +162,7 @@
                     		<label for="mTitle">한줄 소개</label>
                     	</th>
                         <td colspan="2">
-                            <input type="text" name="moizaTitle" id="mTitle" value="${m.moizaTitle}" required>
+                            <input type="text" name="moizaTitle" id="mTitle" value="${m.moizaTitle}" readonly>
                         </td>
                     </tr>
                     <tr class="tableCol" id="titleTr">
@@ -171,7 +170,7 @@
                     		<label for="mMission">미션</label>
                     	</th>
                         <td colspan="2">
-                            <input type="text" name="moizaMission" id="mMission" value="${m.moizaMission}" required>
+                            <input type="text" name="moizaMission" id="mMission" value="${m.moizaMission}" readonly>
                         </td>
                     </tr>
                     <tr class="tableCol" id="titleTr">
@@ -179,17 +178,17 @@
                     		<label>카테고리</label>
                     	</th>
                         <td class="form-group">
-                          <input type="checkbox" id="category1" name="categoryNo" value="1"><label for="category1" class="checkboxCss item1">&nbsp 지속 가능 제품 </label>
-                          <input type="checkbox" id="category2" name="categoryNo" value="2"><label for="category2" class="checkboxCss item2">&nbsp 사회적 기업 </label>
-                          <input type="checkbox" id="category3" name="categoryNo" value="3"><label for="category3" class="checkboxCss item3">&nbsp 제로웨이스트 및 친환경 제품 </label>
-                          <input type="checkbox" id="category4" name="categoryNo" value="4"><label for="category4" class="checkboxCss item4">&nbsp 친환경 교육 및 커뮤니티 </label>
+                          <input type="checkbox" id="category1" name="categoryNo" value="1" disabled><label for="category1" class="checkboxCss item1">&nbsp 지속 가능 제품 </label>
+                          <input type="checkbox" id="category2" name="categoryNo" value="2" disabled><label for="category2" class="checkboxCss item2">&nbsp 사회적 기업 </label>
+                          <input type="checkbox" id="category3" name="categoryNo" value="3" disabled><label for="category3" class="checkboxCss item3">&nbsp 제로웨이스트 및 친환경 제품 </label>
+                          <input type="checkbox" id="category4" name="categoryNo" value="4" disabled><label for="category4" class="checkboxCss item4">&nbsp 친환경 교육 및 커뮤니티 </label>
                       
                          <br>
-                          <input type="checkbox" id="category5" name="categoryNo" value="5"><label for="category5" class="checkboxCss item5">&nbsp 유기농 식품 </label>
-                          <input type="checkbox" id="category6" name="categoryNo" value="6"><label for="category6" class="checkboxCss item6">&nbsp 주방 용품 </label>             
-                          <input type="checkbox" id="category7" name="categoryNo" value="7"><label for="category7" class="checkboxCss item7">&nbsp 욕실 용품 </label>
-                          <input type="checkbox" id="category8" name="categoryNo" value="8"><label for="category8" class="checkboxCss item8">&nbsp 생활 용품 </label>
-                          <input type="checkbox" id="category9" name="categoryNo" value="9"><label for="category9" class="checkboxCss item9">&nbsp 패션 </label>
+                          <input type="checkbox" id="category5" name="categoryNo" value="5" disabled><label for="category5" class="checkboxCss item5">&nbsp 유기농 식품 </label>
+                          <input type="checkbox" id="category6" name="categoryNo" value="6" disabled><label for="category6" class="checkboxCss item6">&nbsp 주방 용품 </label>             
+                          <input type="checkbox" id="category7" name="categoryNo" value="7" disabled><label for="category7" class="checkboxCss item7">&nbsp 욕실 용품 </label>
+                          <input type="checkbox" id="category8" name="categoryNo" value="8" disabled><label for="category8" class="checkboxCss item8">&nbsp 생활 용품 </label>
+                          <input type="checkbox" id="category9" name="categoryNo" value="9" disabled><label for="category9" class="checkboxCss item9">&nbsp 패션 </label>
                         </td>
                     </tr>
                     <tr class="tableCol" id="contentTr">
@@ -197,7 +196,7 @@
                     		<label for="mGoal">목표</label>
                     	</th>
                         <td colspan="2">
-                            <textarea name="moizaGoal" id="mGoal" cols="30" rows="5" required>${m.moizaGoal}</textarea>
+                            <textarea name="moizaGoal" id="mGoal" cols="30" rows="5" readonly>${m.moizaGoal}</textarea>
                         </td>
                     </tr>
                     <tr class="tableCol" id="contentTr">
@@ -205,7 +204,7 @@
                     		<label for="mInfo">단체 정보</label>
                     	</th>
                         <td colspan="2">
-                            <textarea name="moizaInfo" id="mInfo" cols="30" rows="5" required>${m.moizaInfo}</textarea>
+                            <textarea name="moizaInfo" id="mInfo" cols="30" rows="5" readonly>${m.moizaInfo}</textarea>
                         </td>
                     </tr>
                 </tbody>
@@ -213,11 +212,21 @@
             </table>
         </div><!--//notice write-->
 		
-	        <div class="btn_area">
-	            <button type="button" class="nBtn" id="cBtn" onclick="javascript:history.go(-1);">취소하기</button>
-	            <button type="submit" class="nBtn" id="sBtn">수정하기</button>
-	        </div>
-        </form>
+		
+		<c:choose>
+			<c:when test="${loginUser.memberNo eq mMember.memberNo}">
+				<div class="btn_area">
+					<button type="button" class="nBtn" id="cBtn" onclick="javascript:history.go(-1);">취소하기</button>
+		            <button type="button" class="nBtn" id="uBtn">수정하기</button>
+		            <button type="button" class="nBtn" id="dBtn">삭제하기</button>
+		         </div>
+			</c:when>
+			<c:otherwise>
+				<div class="btn_area">
+					<button type="submit" class="nBtn" id="applyBtn">신청하기</button>
+				</div>
+			</c:otherwise>
+		</c:choose>
     </div><!--//wrap-->
 	
 	<script>

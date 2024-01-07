@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.littleEco.member.model.vo.Member;
 import com.kh.littleEco.moiza.model.service.MoizaService;
 import com.kh.littleEco.moiza.model.vo.Moiza;
+import com.kh.littleEco.moiza.model.vo.MoizaCategory;
+import com.kh.littleEco.moiza.model.vo.MoizaMember;
 
 @Controller
 public class MoizaController {
@@ -36,36 +39,36 @@ public class MoizaController {
 	@RequestMapping(value="moizaList",  produces="application/json; charset=UTF-8")
 	public ArrayList<Moiza> MoizaList() {
 		
-		ArrayList<Moiza> mzList = moizaService.MoizaList();
+		ArrayList<Moiza> mzList = moizaService.selectMoizaList();
 		
 		
-		System.out.println(mzList);
 		return mzList;
 	}
-	@GetMapping("moizaInsert")
+	
+	@GetMapping("moiza.in")
 	public String MoizaInsert() {
 		
 		
 		return "moiza/moizaInsert";
 	}
 	
-	@PostMapping("moizaInsert")
+	@PostMapping("moiza.in")
 	public String MoizaInsert(Moiza moiza,HttpSession session) {
 		
 		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
 		
 		
 		//moiza 관련 insert 메소드
-		int moizaResult = moizaService.MoizaInsert(moiza);
+		int moizaResult = moizaService.insertMoiza(moiza);
 		
 		int creatorResult = 0;
 		
 		int categoryResult = 0;
 		if(moizaResult > 0) {
 			
-			creatorResult = moizaService.MoizaCreatorInsert(memberNo);
+			creatorResult = moizaService.insertMoizaCreator(memberNo);
 			
-			categoryResult = moizaService.MoizaCategory(moiza);
+			categoryResult = moizaService.insertMoizaCategory(moiza);
 		}
 		
 		int result = creatorResult * categoryResult;
@@ -82,4 +85,89 @@ public class MoizaController {
 		
 		
 	}
-}
+	
+	
+	@GetMapping("moiza.de")
+	public String MoizaDetail(int mno,
+								Model model) {
+		
+		Moiza m = moizaService.selectMoizaDetail(mno);
+		
+		ArrayList<MoizaCategory> cList = moizaService.selectMoizaCategory(mno);
+		
+		MoizaMember mMember = moizaService.selectMoizaCreator(mno);
+		model.addAttribute("m",m);
+		model.addAttribute("cList",cList);
+		model.addAttribute("mMember",mMember);
+		
+		return "moiza/moizaDetail";
+	}
+	
+	
+	@GetMapping("moiza.up")
+	public String MoizaUpdate(int mno
+								,Model model) {
+		
+		Moiza m = moizaService.selectMoizaDetail(mno);
+		
+		ArrayList<MoizaCategory> cList = moizaService.selectMoizaCategory(mno);
+		
+		MoizaMember mMember = moizaService.selectMoizaCreator(mno);
+		model.addAttribute("m",m);
+		model.addAttribute("cList",cList);
+		model.addAttribute("mMember",mMember);
+		
+		return "moiza/moizaUpdate";
+	}
+	
+	@PostMapping("moiza.up")
+	public String MoizaUpdate(Moiza moiza
+								,Model model
+								,HttpSession session) {
+		
+		int moizaUpdate = moizaService.updateMoiza(moiza);
+		
+		int deleteCategory = moizaService.deleteMoizaCategory(moiza);
+		
+		
+		int insertCategory  = 0;
+		if(deleteCategory > 0) {
+			
+			insertCategory = moizaService.insertNewMoizaCategory(moiza);
+		}
+		
+		
+		int result = moizaUpdate * deleteCategory * insertCategory;
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "게시글 수정 성공");
+			return "redirect:moiza";
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "게시글 수정 실패");
+			return "redirect:moiza";
+			
+		}
+	}
+	
+	//모집게시판 삭제
+	@GetMapping("moiza.d")
+	public String MoizaDelete(int mno
+								,HttpSession session) {
+		
+		int deleteResult = moizaService.deleteMoiza(mno);
+		
+		
+		if(deleteResult > 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:moiza";
+		}else {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:moiza";
+		}
+		
+		
+	}
+	

@@ -145,7 +145,7 @@
         </div><!--//notice header-->
         
         <div class="moiza_write">
-         <form id="noticeInsertForm" method="post" action="moizaInsert" enctype="multipart/form-data">
+         <form id="noticeInsertForm" method="post" action="moiza.in" enctype="multipart/form-data">
             <table class="moiza_write_table" align="center">
                 <tbody>
                     <tr class="tableCol" id="titleTr">
@@ -219,7 +219,18 @@
 
     </div><!--//wrap-->
 
+	<script>
+	 //카테고리 3개 제한
+    $("input[type='checkbox']").on("click",function(){
+    var count = $("input:checked[type='checkbox']").length;
 
+    if(count>3){
+      $(this).prop("checked",false);
+      alert("카테고리는 최대 3개까지 선택할 수 있습니다");
+    }
+
+  });
+	</script>
 
    	<!-- footer -->
     <jsp:include page="../common/footer.jsp" />

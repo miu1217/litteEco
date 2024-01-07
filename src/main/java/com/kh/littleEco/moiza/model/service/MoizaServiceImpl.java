@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.littleEco.moiza.model.dao.MoizaDao;
 import com.kh.littleEco.moiza.model.vo.Moiza;
+import com.kh.littleEco.moiza.model.vo.MoizaCategory;
+import com.kh.littleEco.moiza.model.vo.MoizaMember;
 
 @Service
 public class MoizaServiceImpl implements MoizaService{
@@ -22,29 +24,80 @@ public class MoizaServiceImpl implements MoizaService{
 	
 	//모집 게시판 리스트 메소드 
 	@Override
-	public ArrayList<Moiza> MoizaList() {
+	public ArrayList<Moiza> selectMoizaList() {
 		
-		return moizaDao.MoizaList(sqlSession);
+		return moizaDao.selectMoizaList(sqlSession);
 	}
 	@Override
-	public int MoizaInsert(Moiza moiza) {
+	public int insertMoiza(Moiza moiza) {
 		
-		return moizaDao.MoizaInsert(sqlSession, moiza);
+		return moizaDao.insertMoiza(sqlSession, moiza);
 	}
 
 	//모집 게시판 insert 시 생성자를 moizaMemebr 테이블에 입력 
 	@Override
-	public int MoizaCreatorInsert(int memberNo) {
+	public int insertMoizaCreator(int memberNo) {
 		
-		return moizaDao.MoizaCreatorInsert(sqlSession,memberNo);
+		return moizaDao.insertMoizaCreator(sqlSession,memberNo);
 	}
 
 	//모집 게시판 category 입력
 	@Override
-	public int MoizaCategory(Moiza moiza) {
+	public int insertMoizaCategory(Moiza moiza) {
 		
-		return moizaDao.MoizaCategory(sqlSession, moiza);
+		return moizaDao.insertMoizaCategory(sqlSession, moiza);
 	}
+	
+	//모집 게시판 상세 페이지 조회
+	@Override
+	public Moiza selectMoizaDetail(int mno) {
+		
+		return moizaDao.selectMoizaDetail(sqlSession, mno);
+	}
+	
+	//모집 게시판 상세 페이지 조회 시 카테고리 조회
+	@Override
+	public ArrayList<MoizaCategory> selectMoizaCategory(int mno) {
+		
+		return moizaDao.selectMoizaCategory(sqlSession, mno);
+	}
+	
+	//모집 게시판 상세 페이지 생성자 조회
+	@Override
+	public MoizaMember selectMoizaCreator(int mno) {
+		
+		return moizaDao.selectMoizaCreator(sqlSession, mno);
+	}
+	
+	//모집 게시판 업데이트 하는 메소드
+	@Override
+	public int updateMoiza(Moiza moiza) {
+		
+		return moizaDao.updateMoiza(sqlSession,moiza);
+	}
+	
+	//모집 게시판 업데이트 시 카테고리 삭제
+	@Override
+	public int deleteMoizaCategory(Moiza moiza) {
+		
+		return moizaDao.deleteMoizaCategory(sqlSession, moiza);
+	}
+	
+	//모집 게시판 업데이트 시 카테고리 새로 입력
+	@Override
+	public int insertNewMoizaCategory(Moiza moiza) {
+		
+		return moizaDao.insertNewMoizaCategory(sqlSession, moiza);
+	}
+	
+	//모집게시판 삭제
+	@Override
+	public int deleteMoiza(int mno) {
+		
+		return	moizaDao.deleteMoiza(sqlSession, mno);
+	}
+	
 
+	
 
 }
