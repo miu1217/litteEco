@@ -243,10 +243,18 @@ public class AdminController {
 	
 	
 	@RequestMapping("brandDelete.ad")
-	public String brandDelete(int bno) {
+	public String brandDelete(int bno
+								,HttpSession session) {
 		int brandResult = adminService.deleteBrand(bno);
 		
-		return "redirect:brand.ad";
+		
+		if(brandResult > 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:brand.ad";
+		}else {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:brand.ad";
+		}
 	}
 	
 	//브랜드 관련 파일 업로드 시 파일 이름 변경 하는 메소드
