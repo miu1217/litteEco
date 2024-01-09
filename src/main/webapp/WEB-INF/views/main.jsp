@@ -439,58 +439,7 @@ color: #000;
    font-weight: 400;
    color: #666;
 }
-/*----------------랭킹------------------*/
-#bestbg{
-   width: 400px;
-   /* height: 100%; */
-   border: 1px solid #a1a1a1;
-   border-radius: 20px;
-   margin-left: 20px;
-}
 
-/* 초기에는 첫 번째 요소만 보이도록 설정 */
-#scroll li:not(:first-child) {
-    display: none;
-}
-
-/* 마우스가 #best에 들어오면 나머지 요소들이 나타남 */
-#best:hover #scroll li {
-    display: list-item;
-}
-
-/* ol 요소의 리스트 스타일 설정 */
-#scroll {
-    list-style: decimal;
-    counter-reset: item; /* 카운터 초기화 */
-}
-
-/* /* 각 인기 검색어 앞에 숫자를 추가 */
-#scroll li {
-    counter-increment: item;
-} */
-
-/* 인기 검색어의 숫자를 가상 요소로 표시 */
-#scroll li:before {
-    content: counter(item) ". ";
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-
-#bestbg p{
-   margin-left: 40px;   
-   font-size: 26px;
-   font-weight: 500;
-   color: #4c4c4c;
-}
-
-#bestbg li{
-   margin-left: 30px;
-   padding-bottom: 10px;
-   font-size: 16px;
-   font-weight: 500;
-   color: #595959;
-}
 
 .banner{
    width: 100%;
@@ -525,23 +474,6 @@ color: #000;
 
 
   
-#scroll {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2개의 열로 설정 */
-  
-}
-
-/* 홀수 행에 배치하는 아이템 */
-#scroll li:nth-child(odd) {
-  grid-row: span 2; /* 현재 행을 2로 설정 */
-}
-
-/* 짝수 행에 배치하는 아이템 */
-#scroll li:nth-child(even) {
-  grid-row: span 2; /* 현재 행을 2로 설정 */
-}
-
-
    
 
     </style>
@@ -713,14 +645,12 @@ color: #000;
 								
                               </ol>
                            </div>
-                           
-
                         </div>
                         
 				<script type="text/javascript">
-				$(document).ready(function () {
+/* 				$(document).ready(function () {
 				    var intervalId;
-
+					
 				    function showNextKeyword(keywords, index) {
 				        if (index < keywords.length) {
 				            var keyword = keywords[index].keyword;
@@ -753,7 +683,7 @@ color: #000;
 				        url: "select.ps",
 				        dataType: "json",
 				        success: function (result) {
-				            // 일반적인 경우에는 1위, 2위, 3위를 2초마다 한 개씩 보여줌
+				            // 일반적인 경우에는 순위별로 2초마다 한 개씩 보여줌
 				            showNextKeyword(result, 0);
 
 				            // 호버 시에 전체 목록을 보여주는 이벤트
@@ -762,7 +692,7 @@ color: #000;
 				                showAllKeywords(result);
 				            });
 
-				            // 호버에서 벗어나면 다시 1위, 2위, 3위를 2초마다 한 개씩 보여줌
+				            // 호버에서 벗어나면 다시 2초마다 한 개씩 보여줌
 				            $("#best").mouseleave(function () {
 				                showNextKeyword(result, 1);
 				            });
@@ -796,7 +726,7 @@ color: #000;
 
 				        $("#scroll").html(list);
 				    }
-				});
+				}); */
 
 				</script>
                         
