@@ -12,8 +12,25 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias type="com.kh.littleEco.member.model.vo.Member" alias="member"/>
-		<typeAlias type="com.kh.littleEco.popularSearch.model.vo.PopularSearch" alias="search"/>
-		<typeAlias type="com.kh.littleEco.mypage.model.vo.Mypage" alias="mypage"/>
+		<typeAlias type="com.kh.littleEco.popularSearch.model.vo.PopularSearch"
+			 alias="search"/>
+		<typeAlias type="com.kh.littleEco.mypage.model.vo.Mypage" 
+			alias="mypage"/>
+		<typeAlias type="com.kh.littleEco.member.model.vo.Member"
+			alias="member" />
+		<typeAlias type="com.kh.littleEco.member.model.vo.MemberCategory"
+			alias="memberCategory" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Category"
+			alias="category" />
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.recycleBoard" 
+			alias="recycleBoard"/>
+		<typeAlias type="com.kh.littleEco.searchEco.model.vo.SearchEco" 
+			alias="searchEco"/>
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.boardAttachment" 
+			alias="boardAttachment"/>	
+			<typeAlias type="com.kh.littleEco.mypage.model.vo.InterestBoard"
+			alias="InterestBoard"/>
 	</typeAliases>
+	
+
 </configuration>

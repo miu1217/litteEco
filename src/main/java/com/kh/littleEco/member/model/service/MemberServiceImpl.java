@@ -1,23 +1,39 @@
 package com.kh.littleEco.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.littleEco.member.model.dao.MemberDao;
 import com.kh.littleEco.member.model.vo.Member;
+import com.kh.littleEco.member.model.vo.MemberCategory;
 
 @Service
-public class MemberServiceImp implements MemberService {
-
-	//스프링이 관리할 수 있도록 어노테이션 등록
-	@Autowired
-	private MemberDao memberDao;
-			
+public class MemberServiceImpl implements MemberService{
+	
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	//회원가입 메소드
+	@Autowired
+	private MemberDao memberDao;
+	
+	//회원정보 수정
+	@Override
+	public int updateMember(Member loginUser) {
+		
+		return memberDao.updateMember(sqlSession,loginUser);
+	}
+	//비밀번호 변경
+	@Override
+	public int updateMember2(Member loginUser) {
+		// TODO Auto-generated method stub
+		return memberDao.updateMember2(sqlSession,loginUser);
+	}
+	
+	//회원가입
 	@Override
 	public int insertMember(Member m) {
 		
@@ -50,7 +66,21 @@ public class MemberServiceImp implements MemberService {
 	public Member loginMember(Member m) {
 		return memberDao.loginMember(m,sqlSession);
 	}
-
-
 	
+	//회원탈퇴 메소드
+	@Override
+	public int deleteMember(Member loginUser) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteMember(loginUser,sqlSession);
+	}
+	@Override
+	public int updateCategory(ArrayList<MemberCategory> categoryList) {
+		
+		
+		return memberDao.updateCategory(categoryList,sqlSession);
+	}
+
+
+
+
 }
