@@ -114,7 +114,6 @@
             height: 60px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
-            font-weight: bold;
         }
 
         .nBtn:hover {
@@ -130,6 +129,18 @@
             color: white;
             background-color: #02215a;
         }
+
+
+         #mBtn, #uBtn{
+            background-color: #002C7B;
+            color: #E6E6E6;
+        }
+
+        #mBtn #uBtn:hover{
+            color: white;
+            background-color: #02215a;
+        }
+
 
 
     </style>
@@ -218,14 +229,15 @@
 				<div class="btn_area">
 					<button type="button" class="nBtn" id="cBtn" onclick="javascript:history.go(-1);">취소하기</button>
 		            <button type="button" class="nBtn" id="uBtn">수정하기</button>
+		            <button type="button" class="nBtn" id="mBtn">회원 관리하기</button>
 		            <button type="button" class="nBtn" id="dBtn">삭제하기</button>
 		         </div>
 			</c:when>
-			<c:otherwise>
+			<c:when test="${not empty  loginUser}">
 				<div class="btn_area">
 					<button type="submit" class="nBtn" id="applyBtn">신청하기</button>
 				</div>
-			</c:otherwise>
+			</c:when>
 		</c:choose>
     </div><!--//wrap-->
 	
@@ -243,35 +255,47 @@
 			
 			location.href = "moiza.d?mno=" + mno;
 		});
+		
+		$(document).on("click","#applyBtn", function(){
+			
+			location.href = "moiza.ap?mno=" + mno;
+		});
+		
+		$(document).on("click","#mBtn", function(){
+			
+			location.href = "moiza.m?mno=" + mno;
+		});
 	});
 	
+		
+		 // 이 예제에서는 cList가 이미 서버에서 받아온 데이터로 가정
+	    var cList = [
+	    	 <c:forEach items="${cList}" var="c"  varStatus="status">
+	    		{
+	    			categoryNo : '${c.categoryNo}'
+	    		}<c:if test="${!status.last}">,</c:if>
+	  	  	</c:forEach>
+	    
+	    ];
+	    
+	    cList.forEach(function(item) {
+	    	
+	        $("input[name=categoryNo][value=" + item.categoryNo + "]").prop('checked', true);
+	    });
+	    
+	    
+	  //카테고리 3개 제한
+	    $("input[type='checkbox']").on("click",function(){
+	    var count = $("input:checked[type='checkbox']").length;
 	
-	 // 이 예제에서는 cList가 이미 서버에서 받아온 데이터로 가정
-    var cList = [
-    	 <c:forEach items="${cList}" var="c"  varStatus="status">
-    		{
-    			categoryNo : '${c.categoryNo}'
-    		}<c:if test="${!status.last}">,</c:if>
-  	  	</c:forEach>
-    
-    ];
-    
-    cList.forEach(function(item) {
-    	
-        $("input[name=categoryNo][value=" + item.categoryNo + "]").prop('checked', true);
-    });
-    
-    
-  //카테고리 3개 제한
-    $("input[type='checkbox']").on("click",function(){
-    var count = $("input:checked[type='checkbox']").length;
-
-    if(count>3){
-      $(this).prop("checked",false);
-      alert("카테고리는 최대 3개까지 선택할 수 있습니다");
-    }
-
-  });
+	    if(count>3){
+	      $(this).prop("checked",false);
+	      alert("카테고리는 최대 3개까지 선택할 수 있습니다");
+	    }
+	
+	  });
+	  
+	  
 	</script>
    	<!-- footer -->
     <jsp:include page="../common/footer.jsp" />

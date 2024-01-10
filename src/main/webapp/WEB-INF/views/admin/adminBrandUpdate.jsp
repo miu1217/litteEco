@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="brand">
+                        <a class="nav-link" href="brand.ad">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>Brand</p>
                         </a>
@@ -67,7 +67,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#pablo"> User </a>
+                    <a class="navbar-brand" href="#pablo"> Brand </a>
                 </div>
             </nav>
             <!-- End Navbar -->
@@ -77,7 +77,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Brand Insert</h4>
+                                    <h4 class="card-title">Brand Update</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="brandUpdate.ad" method="post" id="enroll-area" enctype="multipart/form-data">

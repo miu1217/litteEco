@@ -15,19 +15,34 @@
   			<result column="STATUS" property="status"/>
   		</resultMap>
   		
-  	<resultMap type="moizaCategory" id="moizaCategory">
-		<result column="MOIZA_NO" property="moizaNo" />
-		<result column="CATEGORY_NO" property="categoryNo" />
-	</resultMap>
-	
-	<resultMap type="moizaMember" id="moizaMember">
-		<result column="MOIZA_NO" property="moizaNo" />
-		<result column="MEMBER_NO" property="memberNo" />
-		<result column="MEMBER_LEVEL" property="memberLevel" />
-		<result column="APPROVAL_STATUS" property="approvalStatus" />
-		<result column="CREATE_DATE" property="createDate"/>
-		<result column="DELETE_DATE" property="deleteDate"/>
-	</resultMap>
+	  	<resultMap type="moizaCategory" id="moizaCategory">
+			<result column="MOIZA_NO" property="moizaNo" />
+			<result column="CATEGORY_NO" property="categoryNo" />
+		</resultMap>
+		
+		<resultMap type="moizaMember" id="moizaMember">
+			<result column="MOIZA_NO" property="moizaNo" />
+			<result column="MEMBER_NO" property="memberNo" />
+			<result column="MEMBER_LEVEL" property="memberLevel" />
+			<result column="APPROVAL_STATUS" property="approvalStatus" />
+			<result column="CREATE_DATE" property="createDate"/>
+			<result column="DELETE_DATE" property="deleteDate"/>
+		</resultMap>
+		
+		
+		<resultMap type="member" id="memberResultSet">
+	  			<result column="MEMBER_NO" property="memberNo"/>
+	  			<result column="MEMBER_ID" property="memberId"/>
+	  			<result column="MEMBER_PWD" property="memberPwd"/>
+	  			<result column="MEMBER_NAME" property="memberName"/>
+	  			<result column="NICKNAME" property="nickName"/>
+	  			<result column="BIRTH" property="birth"/>
+	  			<result column="GENDER" property="gender"/>
+	  			<result column="EMAIL" property="email"/>
+	  			<result column="PHONE" property="phone"/>
+	  			<result column="CREATE_DATE" property="createDate"/>
+	  			<result column="STATUS" property="status"/>
+	  		</resultMap>
   		<select id="selectMoizaList" resultMap="moiza">
 	  		SELECT MOIZA_NO
 	                ,MOIZA_NAME
@@ -133,5 +148,88 @@
 			SET STATUS = 'N'
 			WHERE MOIZA_NO = #{mno}
 			AND STATUS = 'Y'
+		</update>
+		
+		<insert id="insertMoizaMember">
+			INSERT INTO MOIZA_MEMBER (MOIZA_NO  
+                                      ,MEMBER_NO
+                                      ,MEMBER_LEVEL
+                                      ,APPROVAL_STATUS)
+                                    VALUES(#{moizaNo}
+                                    		,#{memberNo}
+                                    		,2
+                                    		,0)
+		</insert>
+		
+		
+		<select id="selectMoizaMember" resultMap="memberResultSet">
+			SELECT 	MEMBER_NO
+					,MEMBER_ID
+	                ,MEMBER_NAME
+	                ,EMAIL
+			FROM MOIZA_MEMBER MM
+			JOIN MEMBER M USING (MEMBER_NO)
+			JOIN MOIZA MZ USING (MOIZA_NO)
+			WHERE MOIZA_NO = #{mno}
+			AND APPROVAL_STATUS = 1
+			AND DELETE_DATE IS NULL
+		</select>
+		
+		
+		<select id="selectMoizaApplyMember" resultMap="memberResultSet">
+			SELECT 	MEMBER_NO
+					,MEMBER_ID
+	                ,MEMBER_NAME
+	                ,EMAIL
+			FROM MOIZA_MEMBER MM
+			JOIN MEMBER M USING (MEMBER_NO)
+			JOIN MOIZA MZ USING (MOIZA_NO)
+			WHERE MOIZA_NO = #{mno}
+			AND APPROVAL_STATUS = 0
+			AND DELETE_DATE IS NULL
+		</select>
+		
+		<select id="selectMoizaHoldMember" resultMap="memberResultSet">
+			SELECT 	MEMBER_NO
+					,MEMBER_ID
+	                ,MEMBER_NAME
+	                ,EMAIL
+			FROM MOIZA_MEMBER MM
+			JOIN MEMBER M USING (MEMBER_NO)
+			JOIN MOIZA MZ USING (MOIZA_NO)
+			WHERE MOIZA_NO = #{mno}
+			AND APPROVAL_STATUS = 2
+			AND DELETE_DATE IS NULL
+		</select>
+		
+		
+		<update id="holdMember">
+			UPDATE MOIZA_MEMBER
+			SET APPROVAL_STATUS = 2
+			WHERE MEMBER_NO = #{memberNo}
+			AND MOIZA_NO = #{moizaNo}
+			AND DELETE_DATE IS NULL
+		</update>
+		
+		
+		<delete id="deleteApplyMember">
+			DELETE FROM MOIZA_MEMBER
+			WHERE MEMBER_NO = #{memberNo}
+			AND MOIZA_NO = #{moizaNo}
+		</delete>
+		
+		<update id="acceptApplyMember">
+			UPDATE MOIZA_MEMBER
+			SET APPROVAL_STATUS = 1
+			WHERE MEMBER_NO = #{memberNo}
+			AND MOIZA_NO = #{moizaNo}
+			AND DELETE_DATE IS NULL
+		</update>
+		
+		<update id="deleteMember">
+			UPDATE MOIZA_MEMBER
+			SET DELETE_DATE = SYSDATE
+			WHERE MEMBER_NO = #{memberNo}
+			AND MOIZA_NO = #{moizaNo}
 		</update>
     </mapper>

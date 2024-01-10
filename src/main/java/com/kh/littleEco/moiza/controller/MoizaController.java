@@ -37,11 +37,14 @@ public class MoizaController {
 	//모집 게시판 리스트 메소드 
 	@ResponseBody
 	@RequestMapping(value="moizaList",  produces="application/json; charset=UTF-8")
-	public ArrayList<Moiza> MoizaList() {
+	public ArrayList<Moiza> MoizaList(int page) {
+
+
+		int moizaPage = 2;
+		
+		int startIndex = (page - 1) * moizaPage + 1;
 		
 		ArrayList<Moiza> mzList = moizaService.selectMoizaList();
-		
-		
 		return mzList;
 	}
 	
@@ -96,6 +99,7 @@ public class MoizaController {
 		ArrayList<MoizaCategory> cList = moizaService.selectMoizaCategory(mno);
 		
 		MoizaMember mMember = moizaService.selectMoizaCreator(mno);
+		
 		model.addAttribute("m",m);
 		model.addAttribute("cList",cList);
 		model.addAttribute("mMember",mMember);
@@ -164,10 +168,191 @@ public class MoizaController {
 			session.setAttribute("alertMsg", "게시글 삭제 성공");
 			return "redirect:moiza";
 		}else {
-			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			session.setAttribute("alertMsg", "게시글 삭제 실패");
 			return "redirect:moiza";
 		}
 		
 		
 	}
 	
+	
+	//-------------모집 게시판 신청 및 회원 관리 메소드-----------------------
+	//모집 신청하기 버튼 클릭 시 신청되는 메소드
+	@GetMapping("moiza.ap")
+	public String MoizaApply(int mno
+				,HttpSession session) {
+		
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
+		
+		MoizaMember m = new MoizaMember();
+		
+		m.setMemberNo(memberNo);
+		m.setMoizaNo(mno);
+		
+		
+		int result = moizaService.insertMoizaMember(m);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "모집 신청 성공");
+			return "redirect:moiza";
+		}else {
+			session.setAttribute("alertMsg", "모집 신청 실패");
+			return "redirect:moiza";
+		}
+		
+	}
+	
+	
+	//모집 단체 회원 관리 메인페이지
+	@GetMapping("moiza.m")
+	public String MoizaMember(int mno
+						,HttpSession session) {
+		
+		session.setAttribute("mno", mno);
+		
+		return "moiza/moizaMember";
+	}
+	
+	//모집 단체 회원 리스트
+	@ResponseBody
+	@RequestMapping(value="moizaMemberList",  produces="application/json; charset=UTF-8")
+	public ArrayList<Member> MoizaMemberList(int mno) {
+		
+		ArrayList<Member> mList = moizaService.selectMoizaMember(mno);
+		
+		
+		return mList;
+	}
+	
+	
+	//모집 단체 요청 리스트
+	@ResponseBody
+	@RequestMapping(value="moizaApplyList",  produces="application/json; charset=UTF-8")
+	public ArrayList<Member> MoizaApplyList(int mno) {
+			
+			ArrayList<Member> mList = moizaService.selectMoizaApplyMember(mno);
+			
+			
+			return mList;
+	}
+	
+	//모집 단체 요청 리스트
+	@ResponseBody
+	@RequestMapping(value="moizaHoldList",  produces="application/json; charset=UTF-8")
+	public ArrayList<Member> MoizaHoldList(int mno){
+				
+				ArrayList<Member> mList = moizaService.selectMoizaHoldMember(mno);
+				
+				
+				return mList;
+		}
+	
+	
+	//신청자 보류하는 메소드
+	@RequestMapping("memberHold")
+	public String MemberApplyHold(int memberNo
+						,int moizaNo
+						,HttpSession session) {
+		
+		MoizaMember m = new MoizaMember();
+		
+		m.setMoizaNo(moizaNo);
+		m.setMemberNo(memberNo);
+		
+		int result = moizaService.holdMember(m);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "회원 보류 성공");
+
+			return "redirect:moiza.m?mno="+moizaNo;
+		}else {
+			session.setAttribute("alertMsg", "회원 보류 실패");
+
+			return "redirect:moiza.m?mno="+moizaNo;
+		}
+		
+		
+	}
+	
+	
+	//신청자 거절하는 메소드
+	@RequestMapping("memberApplyDelete")
+	public String MemberApplyDelete(int memberNo
+							,int moizaNo
+							,HttpSession session) {
+			
+		
+			MoizaMember m = new MoizaMember();
+			
+			m.setMoizaNo(moizaNo);
+			m.setMemberNo(memberNo);
+			int result = moizaService.deleteApplyMember(m);
+			
+			if(result > 0) {
+				session.setAttribute("alertMsg", "회원 거절 성공");
+
+				return "redirect:moiza.m?mno="+moizaNo;
+			}else {
+				session.setAttribute("alertMsg", "회원 거절 실패");
+
+				return "redirect:moiza.m?mno="+moizaNo;
+			}
+			
+			
+		}
+
+	//신청자 수락 메소드
+	@RequestMapping("memberApplyAccept")
+	public String MemberApplyAccept(int memberNo
+							,int moizaNo
+							,HttpSession session) {
+			
+		
+			MoizaMember m = new MoizaMember();
+			
+			m.setMoizaNo(moizaNo);
+			m.setMemberNo(memberNo);
+			int result = moizaService.acceptApplyMember(m);
+			
+			if(result > 0) {
+				session.setAttribute("alertMsg", "회원 수락 성공");
+
+				return "redirect:moiza.m?mno="+moizaNo;
+			}else {
+				session.setAttribute("alertMsg", "회원 수락 실패");
+
+				return "redirect:moiza.m?mno="+moizaNo;
+			}
+			
+			
+		}
+
+	//신청자 수락 메소드
+		@RequestMapping("memberDelete")
+		public String MemberDelete(int memberNo
+								,int moizaNo
+								,HttpSession session) {
+				
+			
+				MoizaMember m = new MoizaMember();
+				
+				m.setMoizaNo(moizaNo);
+				m.setMemberNo(memberNo);
+				int result = moizaService.deleteMember(m);
+				
+				if(result > 0) {
+					session.setAttribute("alertMsg", "회원 내보내기 성공");
+
+					return "redirect:moiza.m?mno="+moizaNo;
+				}else {
+					session.setAttribute("alertMsg", "회원 내보내기 실패");
+
+					return "redirect:moiza.m?mno="+moizaNo;
+				}
+				
+				
+			}
+		
+
+		
+}

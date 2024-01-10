@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.littleEco.member.model.vo.Member;
 import com.kh.littleEco.moiza.model.vo.Moiza;
 import com.kh.littleEco.moiza.model.vo.MoizaCategory;
 import com.kh.littleEco.moiza.model.vo.MoizaMember;
@@ -77,6 +78,54 @@ public class MoizaDao {
 	public int deleteMoiza(SqlSession sqlSession, int mno) {
 		
 		return sqlSession.delete("moizaMapper.deleteMoiza", mno);
+	}
+
+	
+	//-------------모집 게시판 신청 및 회원 관리 메소드-----------------------
+	//신청하기 버튼 눌렀을 때 신청되는 메소드
+	public int insertMoizaMember(SqlSession sqlSession, MoizaMember m) {
+		
+		return sqlSession.insert("moizaMapper.insertMoizaMember", m);
+	}
+
+	//모집 단체 회원 리스트
+	public ArrayList<Member> selectMoizaMember(SqlSession sqlSession, int mno) {
+		
+		return (ArrayList)sqlSession.selectList("moizaMapper.selectMoizaMember", mno);
+	}
+
+	//모집 단체 요청 리스트
+	public ArrayList<Member> selectMoizaApplyMember(SqlSession sqlSession, int mno) {
+		
+		return (ArrayList)sqlSession.selectList("moizaMapper.selectMoizaApplyMember", mno);
+	}
+
+	//모집 단체 보류 리스트
+	public ArrayList<Member> selectMoizaHoldMember(SqlSession sqlSession, int mno) {
+		
+		return (ArrayList)sqlSession.selectList("moizaMapper.selectMoizaHoldMember", mno);
+	}
+
+	//신청자 보류하는 메소드
+	public int holdMember(SqlSession sqlSession, MoizaMember m) {
+	
+		return sqlSession.update("moizaMapper.holdMember", m);
+	}
+
+	//신청자 거절하는 메소드
+	public int deleteApplyMember(SqlSession sqlSession, MoizaMember m) {
+		
+		return sqlSession.delete("moizaMapper.deleteApplyMember", m);
+	}
+
+	public int acceptApplyMember(SqlSession sqlSession, MoizaMember m) {
+		
+		return sqlSession.update("moizaMapper.acceptApplyMember", m);
+	}
+
+	public int deleteMember(SqlSession sqlSession, MoizaMember m) {
+		
+		return sqlSession.delete("moizaMapper.deleteMember", m);
 	}
 
 
