@@ -66,7 +66,8 @@
             border-radius: 0.5rem;
             padding: 1rem;
             margin-bottom: 30px;
-            margin-left: 55px;
+            margin-left: 140px;
+            margin-right: 55px;
             width: 600px;
         }
         
@@ -207,8 +208,8 @@
         </c:if>
        
         <div class="container">
-
         </div>
+        	<button type="button" id="loadMoreBtn" class="btn btn-info btn-fill">더보기</button>
     </div>
     
     <script>
@@ -231,13 +232,25 @@
 			    var mno = $(this).find('input[name="moizaNo"]').val();
 			    location.href = "moiza.de?mno=" + mno;
 			});
-
+			
+			
+			var page = 1; // Initial page number
+		    var reviewsPerPage = 9;
+		        // $(document).ready에서 한 번 실행
+		        $(document).ready(function () {
+		            // 초기 로드
+		            loadMoreReviews();
+		            // 클릭 이벤트 핸들러 등록
+		            $("#loadMoreBtn").click(selectMoizaList);
+		           
+		        });
 			
     	});
     	
     	function selectMoizaList(){
     		$.ajax({
     			url:"moizaList",
+    			data: { page: page },
     			success : function(result){
     				var str = "";
     				
@@ -249,13 +262,16 @@
 	    						+ "<div id='mTitle' name='moziaTitle'>"+result[i].moizaTitle+"</div>"
 	               				+ "<div id='mGoal' name='moizaGoal'>"+ result[i].moizaGoal+"</div>"
 	               				+ "<div id='mName' name='moizaName'>"+ result[i].moizaName+"</div>"
-	               				+ "<button type='button' id='btn' class='btn btn-info btn-fill pull-right'> 모집링크 </button>"
 	               				+ "</div>"
 	               				+ "</div>";
 	
 								$(".container").html(str);
-	    				}
+	    				},complete: function () {
+	                        // Increment the page number for the next load, regardless of success or error
+	                        page++;
+	                    }
     				
+	    			
     				
     			},error : function() {
 					console.log("MOIZALIST 통신 오류");
@@ -264,7 +280,50 @@
     	}
     
     </script>
-    
+    <script>
+    function loadMoreReviews() {
+               
+                $.ajax({
+                    url: "moizaMore",
+                    type: "GET",
+                    data: { page: page },
+                    success: function (data) {
+                        console.log('sccuess');
+                        console.log(data);
+                        // Iterate through the received reviews and append them to the review tab
+                            $.each(data, function (index, pm) {
+                            var productHtml = '<div class="product"data-category-no="'+pm.categoryNo+'" data-product-no="'+pm.productNo+'" data-product-name="'+pm.productName+'">';
+                            productHtml += '<div class="product-info"><img src="${contextPath}'+pm.imgsrc+'" id="product-img" data-product-no="'+pm.productNo+'" onclick="productDetail(this)">';
+                            productHtml += '<div id="product-name"><p>'+pm.productName+'</p></div>';
+                            productHtml += '<div class="product-infomation"><p>'+pm.categoryName+'</p></div>';
+                            productHtml += '<div class="product-foot"><div class="product-price"><p id="product-price">'+pm.productPrice+'원</p>';
+                            productHtml += '</div><div class="product-compare"><img src="${contextPath }/resources/assets/icons/plus.svg" class="plusIcon" /> <span>비교하기</span></div>';
+                            productHtml += '</div></div></div>'; 
+                            
+                            var moizaHtml = "<div class= 'container'>"
+                            	moizaHtml +="<div class= 'content-card'>"
+                            	moizaHtml += "<input type='hidden' id='mnNo' name='moizaNo' value='"+ result[i].moizaNo + "'>"
+                            	moizaHtml += "<div id='mTitle' name='moziaTitle'>"+result[i].moizaTitle+"</div>"
+                            	moizaHtml +=  "<div id='mGoal' name='moizaGoal'>"+ result[i].moizaGoal+"</div>"
+                            	moizaHtml +=  "<div id='mName' name='moizaName'>"+ result[i].moizaName+"</div>"
+                            	moizaHtml +=  "</div>"
+                            	moizaHtml +=  "</div>";
+                            	
+                            	
+                            $("container").append(moizaHtml);
+                        });
+                    },
+                    error: function () {
+                        console.error("Error loading more reviews.");
+                    },
+                    complete: function () {
+                        // Increment the page number for the next load, regardless of success or error
+                        page++;
+                    }
+                });
+            }
+        
+    </script>
     <%@ include file="../common/footer.jsp" %>
 </body>
 

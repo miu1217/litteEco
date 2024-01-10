@@ -113,7 +113,8 @@
             height: 60px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 300;
+            border:none;
         }
 
         .nBtn:hover {
@@ -123,6 +124,7 @@
         #sBtn{
             background-color: #002C7B;
             color: #E6E6E6;
+            border:none;
         }
 
         #sBtn:hover{
@@ -130,6 +132,7 @@
             background-color: #02215a;
         }
 
+		#cBtn{border-style:none;}
 
     </style>
         
