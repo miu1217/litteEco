@@ -220,7 +220,7 @@
            
             <div class="sidebar-wrapper" style="background-color: #002c7b;">
                 <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text">
+                    <a href="http://localhost:8887/littleEco" class="simple-text">
                         Litte Eco
                     </a>
                 </div>
@@ -286,13 +286,13 @@
         <div class="paginationBox" id="brand_pagination" align="center">
 			<ul class="pagination">
 				<%-- <c:if test="${pi.currentPage ne 1 }"> --%>
-                    <li class="page-item"><a class="page-link" href="searchEco.bo?currentPage=${pi.currentPage-1}">＜</a></li>
+                    <li class="page-item"><a class="page-link" href="brand.ad?currentPage=${pi.currentPage-1}">＜</a></li>
 	 			<%-- </c:if> --%>
 	 			<c:forEach begin="${pi.startPage }" end="${pi.endPage }" var="p" >
-	                <li class="page-item"><a class="page-link" href="searchEco.bo?currentPage=${p}">${p }</a></li>
+	                <li class="page-item"><a class="page-link" href="brand.ad?currentPage=${p}">${p }</a></li>
 	 			</c:forEach>
                 <%-- <c:if test="${pi.currentPage ne pi.maxPage }"> --%>
-	                <li class="page-item"><a class="page-link" href="searchEco.bo?currentPage=${pi.currentPage+1}">＞</a></li>
+	                <li class="page-item"><a class="page-link" href="brand.ad?currentPage=${pi.currentPage+1}">＞</a></li>
                 <%-- </c:if> --%>
 			</ul>
         </div>

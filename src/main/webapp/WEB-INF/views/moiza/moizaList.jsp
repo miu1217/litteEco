@@ -253,7 +253,7 @@
 			
 			
 		        // $(document).ready에서 한 번 실행
-		        $(document).ready(function () {
+		        $(document).click(function () {
 		            // 초기 로드
 		            loadMoreReviews();
 		            // 클릭 이벤트 핸들러 등록
@@ -308,13 +308,7 @@
                         console.log(data);
                         // Iterate through the received reviews and append them to the review tab
                             $.each(data, function (index, pm) {
-                            var productHtml = '<div class="product"data-category-no="'+pm.categoryNo+'" data-product-no="'+pm.productNo+'" data-product-name="'+pm.productName+'">';
-                            productHtml += '<div class="product-info"><img src="${contextPath}'+pm.imgsrc+'" id="product-img" data-product-no="'+pm.productNo+'" onclick="productDetail(this)">';
-                            productHtml += '<div id="product-name"><p>'+pm.productName+'</p></div>';
-                            productHtml += '<div class="product-infomation"><p>'+pm.categoryName+'</p></div>';
-                            productHtml += '<div class="product-foot"><div class="product-price"><p id="product-price">'+pm.productPrice+'원</p>';
-                            productHtml += '</div><div class="product-compare"><img src="${contextPath }/resources/assets/icons/plus.svg" class="plusIcon" /> <span>비교하기</span></div>';
-                            productHtml += '</div></div></div>'; 
+                            
                             
                             var moizaHtml = "<div class= 'container'>"
                             	moizaHtml +="<div class= 'content-card'>"

@@ -114,7 +114,6 @@
             height: 60px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
-            font-weight: bold;
         }
 
         .nBtn:hover {

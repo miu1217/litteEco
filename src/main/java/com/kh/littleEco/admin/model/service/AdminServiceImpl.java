@@ -11,6 +11,7 @@ import com.kh.littleEco.admin.model.dao.AdminDao;
 import com.kh.littleEco.brand.model.vo.Attachment;
 import com.kh.littleEco.brand.model.vo.Brand;
 import com.kh.littleEco.brand.model.vo.Category;
+import com.kh.littleEco.common.model.vo.PageInfo;
 import com.kh.littleEco.member.model.vo.Member;
 
 import oracle.security.o3logon.a;
@@ -97,9 +98,9 @@ public class AdminServiceImpl implements AdminService{
 
 	//brand List 조회 메소드
 	@Override
-	public ArrayList<Brand> brandList() {
+	public ArrayList<Brand> brandList(PageInfo pi) {
 		
-		return adminDao.brandList(sqlSession);
+		return adminDao.brandList(sqlSession, pi);
 	}
 
 	//brand 상세 보기 메소드
@@ -156,6 +157,16 @@ public class AdminServiceImpl implements AdminService{
 	public int deleteBrand(int bno) {
 		// TODO Auto-generated method stub
 		return adminDao.deleteBrand(sqlSession, bno);
+	}
+
+
+	@Override
+	public int brandListCount() {
+		
+		
+
+		int count = adminDao.brandListCount(sqlSession);
+		return count;
 	}
 
 }
