@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="brand">
+                        <a class="nav-link" href="brand.ad">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>Brand</p>
                         </a>
@@ -67,7 +67,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#pablo"> User </a>
+                    <a class="navbar-brand" href="#pablo"> Brand </a>
                 </div>
             </nav>
             <!-- End Navbar -->
@@ -77,7 +77,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Brand Insert</h4>
+                                    <h4 class="card-title">Brand Update</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="brandUpdate.ad" method="post" id="enroll-area" enctype="multipart/form-data">
@@ -215,6 +215,16 @@
 						        			});
 						            	});
 						            	
+									    //카테고리 3개 제한
+						                $("input[type='checkbox']").on("click",function(){
+						                var count = $("input:checked[type='checkbox']").length;
+
+						                if(count>3){
+						                  $(this).prop("checked",false);
+						                  alert("카테고리는 최대 3개까지 선택할 수 있습니다");
+						                }
+
+						              });
 									</script>
 
                                 </div>

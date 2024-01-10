@@ -113,7 +113,8 @@
             height: 60px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 300;
+            border:none;
         }
 
         .nBtn:hover {
@@ -123,6 +124,7 @@
         #sBtn{
             background-color: #002C7B;
             color: #E6E6E6;
+            border:none;
         }
 
         #sBtn:hover{
@@ -130,6 +132,7 @@
             background-color: #02215a;
         }
 
+		#cBtn{border-style:none;}
 
     </style>
         
@@ -145,7 +148,7 @@
         </div><!--//notice header-->
         
         <div class="moiza_write">
-         <form id="noticeInsertForm" method="post" action="moizaInsert" enctype="multipart/form-data">
+         <form id="noticeInsertForm" method="post" action="moiza.in" enctype="multipart/form-data">
             <table class="moiza_write_table" align="center">
                 <tbody>
                     <tr class="tableCol" id="titleTr">
@@ -219,7 +222,18 @@
 
     </div><!--//wrap-->
 
+	<script>
+	 //카테고리 3개 제한
+    $("input[type='checkbox']").on("click",function(){
+    var count = $("input:checked[type='checkbox']").length;
 
+    if(count>3){
+      $(this).prop("checked",false);
+      alert("카테고리는 최대 3개까지 선택할 수 있습니다");
+    }
+
+  });
+	</script>
 
    	<!-- footer -->
     <jsp:include page="../common/footer.jsp" />

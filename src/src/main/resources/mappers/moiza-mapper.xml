@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="moizaMapper">
+    <resultMap type="moiza" id="moiza">
+  			<result column="MOIZA_NO" property="moizaNo"/>
+  			<result column="MOIZA_NAME" property="moizaName"/>
+  			<result column="MOIZA_TITLE" property="moizaTitle"/>
+  			<result column="MOIZA_GOAL" property="moizaGoal"/>
+  			<result column="MOIZA_MISSION" property="moizaMission"/>
+  			<result column="MOIZA_INFO" property="moizaInfo"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  		</resultMap>
+  		
+  	<resultMap type="moizaCategory" id="moizaCategory">
+		<result column="MOIZA_NO" property="moizaNo" />
+		<result column="CATEGORY_NO" property="categoryNo" />
+	</resultMap>
+	
+	<resultMap type="moizaMember" id="moizaMember">
+		<result column="MOIZA_NO" property="moizaNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MEMBER_LEVEL" property="memberLevel" />
+		<result column="APPROVAL_STATUS" property="approvalStatus" />
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="DELETE_DATE" property="deleteDate"/>
+	</resultMap>
+  		<select id="selectMoizaList" resultMap="moiza">
+	  		SELECT MOIZA_NO
+	                ,MOIZA_NAME
+	                ,MOIZA_TITLE
+	                ,MOIZA_GOAL
+	                ,MOIZA_MISSION
+	                ,MOIZA_INFO
+			FROM MOIZA
+			WHERE STATUS = 'Y'
+  		</select>
+  		
+    	<insert id="insertMoiza" parameterType="moiza">
+    		INSERT INTO MOIZA (MOIZA_NO
+                               ,MOIZA_NAME
+                               ,MOIZA_TITLE
+                               ,MOIZA_GOAL
+                               ,MOIZA_MISSION
+                               ,MOIZA_INFO)
+                                VALUES(SEQ_MZNO.NEXTVAL
+                                  		 ,#{moizaName}
+                                  		 ,#{moizaTitle}
+                                         ,#{moizaGoal}
+                                         ,#{moizaMission}
+                                         ,#{moizaInfo})
+    	</insert>
+    	
+    	<insert id="insertMoizaCreator" parameterType="moizaMember">
+    	INSERT INTO MOIZA_MEMBER(MOIZA_NO
+                                ,MEMBER_NO
+                                ,MEMBER_LEVEL
+                                ,APPROVAL_STATUS)
+                        VALUES(SEQ_MZNO.CURRVAL
+                                ,#{memberNo}
+                                ,1
+                                ,1)
+    	</insert>
+    	
+    	
+    	<insert id="insertMoizaCategory" parameterType="moiza">	
+	  		<foreach collection="categoryNo" item="category"  open="INSERT ALL" close="SELECT * FROM DUAL">
+	    	INTO MOIZA_CATEGORY(MOIZA_NO, CATEGORY_NO)
+	    		     VALUES (SEQ_MZNO.CURRVAL,#{category})
+	  		</foreach>
+		</insert>
+		
+		<select id="selectMoizaDetail" resultMap="moiza">
+			SELECT MOIZA_NO
+                ,MOIZA_NAME
+                ,MOIZA_TITLE
+                ,MOIZA_MISSION
+                ,MOIZA_GOAL
+                ,MOIZA_INFO
+			FROM MOIZA
+			WHERE MOIZA_NO = #{mno}
+			AND STATUS = 'Y'
+		</select>
+		
+		<select id="selectMoizaCategory" resultMap="moizaCategory">
+			SELECT C.CATEGORY_NO
+	            ,C.CATEGORY_TYPE_NAME
+	            ,C.CATEGORY_NAME
+			FROM CATEGORY C
+			JOIN MOIZA_CATEGORY MC ON  (C.CATEGORY_NO = MC.CATEGORY_NO)
+			WHERE MOIZA_NO = #{mno}
+		</select>
+		
+		
+		<select id="selectMoizaCreator" resultMap="moizaMember">
+			SELECT MEMBER_NO
+			FROM MOIZA_MEMBER
+			WHERE MOIZA_NO = #{mno}
+			AND MEMBER_LEVEL = 1
+		</select>
+		
+		<update id="updateMoiza" parameterType="moiza">
+			UPDATE MOIZA
+			SET MOIZA_NAME = #{moizaName}
+			        ,MOIZA_TITLE = #{moizaTitle}
+			        ,MOIZA_MISSION = #{moizaMission}
+			        ,MOIZA_GOAL= #{moizaGoal}
+			        ,MOIZA_INFO =#{moizaInfo}
+			WHERE MOIZA_NO = #{moizaNo}
+			AND STATUS = 'Y'
+		</update>
+		
+		<delete id="deleteMoizaCategory">
+			DELETE FROM MOIZA_CATEGORY
+			WHERE MOIZA_NO = #{moizaNo}
+		</delete>
+		
+		
+		<insert id="insertNewMoizaCategory" parameterType="moiza">	
+	  		<foreach collection="categoryNo" item="category"  open="INSERT ALL" close="SELECT * FROM DUAL">
+	    	INTO MOIZA_CATEGORY(MOIZA_NO, CATEGORY_NO)
+	    		     VALUES (#{moizaNo},#{category})
+	  		</foreach>
+		</insert>
+		
+		
+		
+		<update id="deleteMoiza" parameterType="_int">
+			UPDATE MOIZA
+			SET STATUS = 'N'
+			WHERE MOIZA_NO = #{mno}
+			AND STATUS = 'Y'
+		</update>
+		
+		<insert id="insertMoizaMember">
+			INSERT INTO MOIZA_MEMBER (MOIZA_NO  
+                                      ,MEMBER_NO
+                                      ,MEMBER_LEVEL
+                                      ,APPROVAL_STATUS)
+                                    VALUES(#{moizaNo}
+                                    		,#{member_no}
+                                    		,2
+                                    		,0)
+		</insert>
+    </mapper>

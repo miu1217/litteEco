@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,8 @@ import com.kh.littleEco.admin.model.service.AdminService;
 import com.kh.littleEco.brand.model.vo.Attachment;
 import com.kh.littleEco.brand.model.vo.Brand;
 import com.kh.littleEco.brand.model.vo.Category;
+import com.kh.littleEco.common.model.vo.PageInfo;
+import com.kh.littleEco.common.template.Pagination;
 import com.kh.littleEco.member.model.vo.Member;
 
 
@@ -33,9 +36,17 @@ public class AdminController {
 	
 	//adminMain.jsp 이동
 	@GetMapping("admin")
-	public String Admin() {
+	public String Admin(HttpSession session) {
 		
-		return "admin/adminMain";
+		String memberName = ((Member)session.getAttribute("loginUser")).getMemberName();
+		
+		if(memberName == "user02") {
+			return "admin/adminMain";
+		}else {
+			
+			return "redirect:/";
+		}
+		
 			
 	}
 	
@@ -117,12 +128,21 @@ public class AdminController {
 	
 	//admin 페이지에서 brand 가져오는 메소드
 	@GetMapping("brand.ad")
-	public String brandList(Model model) {
+	public String brandList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model) {
+		// 전체 게시글 개수
+		int listCount = adminService.brandListCount();
+
+		int boardLimit = 5;
+		int pageLimit = 10;
 		
-		ArrayList<Brand> bList = adminService.brandList();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+
+		ArrayList<Brand> bList = adminService.brandList(pi);
 		
 		
 		model.addAttribute("bList", bList);
+		model.addAttribute("pi", pi);
 		return "admin/adminBrandList";
 	}
 	
@@ -243,10 +263,18 @@ public class AdminController {
 	
 	
 	@RequestMapping("brandDelete.ad")
-	public String brandDelete(int bno) {
+	public String brandDelete(int bno
+								,HttpSession session) {
 		int brandResult = adminService.deleteBrand(bno);
 		
-		return "redirect:brand.ad";
+		
+		if(brandResult > 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:brand.ad";
+		}else {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:brand.ad";
+		}
 	}
 	
 	//브랜드 관련 파일 업로드 시 파일 이름 변경 하는 메소드

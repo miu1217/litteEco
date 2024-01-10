@@ -45,6 +45,7 @@
 
         .moiza_write {
             height: auto;
+            margin-bottom: 50px;
         }
 
         .moiza_write_table {
@@ -113,7 +114,6 @@
             height: 60px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
-            font-weight: bold;
         }
 
         .nBtn:hover {
@@ -145,82 +145,124 @@
         </div><!--//notice header-->
         
         <div class="moiza_write">
-         <form id="noticeInsertForm" method="post" action="insert.no" enctype="multipart/form-data">
+         <form id="noticeInsertForm" method="post" action="moiza.up" enctype="multipart/form-data">
+        	<input type="hidden" id="moizaNo" name="moizaNo" value="${m.moizaNo }">
             <table class="moiza_write_table" align="center">
                 <tbody>
                     <tr class="tableCol" id="titleTr">
                     	<th>
-                    		<label for="cName">프로젝트명</label>
+                    		<label for="mName">프로젝트명</label>
                     	</th>
                         <td colspan="2">
-                            <input type="text" name="boardTitle" id="cName" value="제목" required>
+                            <input type="text" name="moizaName" id="mName" value="${m.moizaName}" required>
                         </td>
                     </tr>
                     <tr class="tableCol" id="titleTr">
                     	<th>
-                    		<label for="cName">미션</label>
+                    		<label for="mTitle">한줄 소개</label>
                     	</th>
                         <td colspan="2">
-                            <input type="text" name="boardTitle" id="cName" value="제목" required>
+                            <input type="text" name="moizaTitle" id="mTitle" value="${m.moizaTitle}" required>
                         </td>
                     </tr>
                     <tr class="tableCol" id="titleTr">
                     	<th>
-                    		<label for="cName">비전</label>
+                    		<label for="mMission">미션</label>
                     	</th>
                         <td colspan="2">
-                            <input type="text" name="boardTitle" id="cName" value="제목" required>
+                            <input type="text" name="moizaMission" id="mMission" value="${m.moizaMission}" required>
                         </td>
                     </tr>
                     <tr class="tableCol" id="titleTr">
                     	<th>
-                    		<label for="cName">카테고리</label>
+                    		<label>카테고리</label>
                     	</th>
-                        <td>
-                            <input type="text" name="boardTitle" id="cName" value="제목" required>
-                            <input type="text" name="boardTitle" id="cName" value="제목" required>
-                            <input type="text" name="boardTitle" id="cName" value="제목" required>
+                        <td class="form-group">
+                          <input type="checkbox" id="category1" name="categoryNo" value="1"><label for="category1" class="checkboxCss item1">&nbsp 지속 가능 제품 </label>
+                          <input type="checkbox" id="category2" name="categoryNo" value="2"><label for="category2" class="checkboxCss item2">&nbsp 사회적 기업 </label>
+                          <input type="checkbox" id="category3" name="categoryNo" value="3"><label for="category3" class="checkboxCss item3">&nbsp 제로웨이스트 및 친환경 제품 </label>
+                          <input type="checkbox" id="category4" name="categoryNo" value="4"><label for="category4" class="checkboxCss item4">&nbsp 친환경 교육 및 커뮤니티 </label>
+                      
+                         <br>
+                          <input type="checkbox" id="category5" name="categoryNo" value="5"><label for="category5" class="checkboxCss item5">&nbsp 유기농 식품 </label>
+                          <input type="checkbox" id="category6" name="categoryNo" value="6"><label for="category6" class="checkboxCss item6">&nbsp 주방 용품 </label>             
+                          <input type="checkbox" id="category7" name="categoryNo" value="7"><label for="category7" class="checkboxCss item7">&nbsp 욕실 용품 </label>
+                          <input type="checkbox" id="category8" name="categoryNo" value="8"><label for="category8" class="checkboxCss item8">&nbsp 생활 용품 </label>
+                          <input type="checkbox" id="category9" name="categoryNo" value="9"><label for="category9" class="checkboxCss item9">&nbsp 패션 </label>
                         </td>
                     </tr>
                     <tr class="tableCol" id="contentTr">
                     	<th>
-                    		<label for="cName">시즌목표</label>
+                    		<label for="mGoal">목표</label>
                     	</th>
                         <td colspan="2">
-                            <textarea name="boardContent" id="nContent" cols="30" rows="5" required></textarea>
+                            <textarea name="moizaGoal" id="mGoal" cols="30" rows="5" required>${m.moizaGoal}</textarea>
                         </td>
                     </tr>
                     <tr class="tableCol" id="contentTr">
                     	<th>
-                    		<label for="cName">미팅일정</label>
+                    		<label for="mInfo">단체 정보</label>
                     	</th>
                         <td colspan="2">
-                            <textarea name="boardContent" id="nContent" cols="30" rows="5" required></textarea>
-                        </td>
-                    </tr>
-                    <tr class="tableCol" id="contentTr">
-                    	<th>
-                    		<label for="cName">공지사항</label>
-                    	</th>
-                        <td colspan="2">
-                            <textarea name="boardContent" id="nContent" cols="30" rows="5" required></textarea>
+                            <textarea name="moizaInfo" id="mInfo" cols="30" rows="5" required>${m.moizaInfo}</textarea>
                         </td>
                     </tr>
                 </tbody>
 
             </table>
         </div><!--//notice write-->
-
-        <div class="btn_area">
-            <button type="button" class="nBtn" id="cBtn" onclick="javascript:history.go(-1);">취소하기</button>
-            <button type="submit" class="nBtn" id="sBtn">작성하기</button>
-        </div>
+		
+	        <div class="btn_area">
+	            <button type="button" class="nBtn" id="cBtn" onclick="javascript:history.go(-1);">취소하기</button>
+	            <button type="submit" class="nBtn" id="sBtn">수정하기</button>
+	        </div>
         </form>
-
     </div><!--//wrap-->
+	
+	<script>
+	$(function(){
+		
+		var mno = $("#moizaNo").val();
+		
+		$(document).on("click","#uBtn", function(){
+			
+			location.href = "moiza.up?mno=" + mno;
+		});
+		
+		$(document).on("click","#dBtn", function(){
+			
+			location.href = "moiza.d?mno=" + mno;
+		});
+	});
+	
+	
+	 // 이 예제에서는 cList가 이미 서버에서 받아온 데이터로 가정
+    var cList = [
+    	 <c:forEach items="${cList}" var="c"  varStatus="status">
+    		{
+    			categoryNo : '${c.categoryNo}'
+    		}<c:if test="${!status.last}">,</c:if>
+  	  	</c:forEach>
+    
+    ];
+    
+    cList.forEach(function(item) {
+    	
+        $("input[name=categoryNo][value=" + item.categoryNo + "]").prop('checked', true);
+    });
+    
+    
+  //카테고리 3개 제한
+    $("input[type='checkbox']").on("click",function(){
+    var count = $("input:checked[type='checkbox']").length;
 
+    if(count>3){
+      $(this).prop("checked",false);
+      alert("카테고리는 최대 3개까지 선택할 수 있습니다");
+    }
 
-
+  });
+	</script>
    	<!-- footer -->
     <jsp:include page="../common/footer.jsp" />
     
