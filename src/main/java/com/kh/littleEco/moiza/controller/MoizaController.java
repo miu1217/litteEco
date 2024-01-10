@@ -38,13 +38,13 @@ public class MoizaController {
 	@ResponseBody
 	@RequestMapping(value="moizaList",  produces="application/json; charset=UTF-8")
 	public ArrayList<Moiza> MoizaList(int page) {
-		
-		ArrayList<Moiza> mzList = moizaService.selectMoizaList();
-		
+
 
 		int moizaPage = 2;
 		
 		int startIndex = (page - 1) * moizaPage + 1;
+		
+		ArrayList<Moiza> mzList = moizaService.selectMoizaList();
 		return mzList;
 	}
 	

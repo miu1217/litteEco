@@ -44,31 +44,37 @@
        
        }
         #ibtn{
-       background-color: #002C7B;
-       border: #002C7B;
-        margin-right: 20px;
+       	background-color: #002C7B;
+      	border: #002C7B;
+        
        }
        
        .btn_area{
-       	margin-bottom: 50px;
+       	margin-bottom: 70px;
+       	margin-right: 50px;
+       	
        }
       
 
         .container {
             display: flex;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 20px;
+            margin-bottom: 30px;
+            margin-left: 30px;
             
         }
         
          .content-card {
-            background-color: #edf2f7;
+            background-color: #fffff;
+           	
             border-radius: 0.5rem;
             padding: 1rem;
             margin-bottom: 30px;
             margin-left: 140px;
             margin-right: 55px;
             width: 600px;
+            border: 1px solid #002C7B;
         }
         
         .text-center {
@@ -189,6 +195,16 @@
 		.pull-right {
 		    float: right;
 		}
+		
+		#loadMoreBtn{
+			margin-left: 920px;
+			margin-bottom: 30px;
+			 background-color: #002C7B;
+		}
+		
+		#mTitle{
+			font-weight: bold;
+		}
     </style>
 </head>
 <body>
@@ -213,6 +229,8 @@
     </div>
     
     <script>
+    var page = 1; // Initial page number
+    var reviewsPerPage = 9;
     	$(function(){
     		selectMoizaList();
     		
@@ -234,8 +252,6 @@
 			});
 			
 			
-			var page = 1; // Initial page number
-		    var reviewsPerPage = 9;
 		        // $(document).ready에서 한 번 실행
 		        $(document).ready(function () {
 		            // 초기 로드
@@ -266,16 +282,16 @@
 	               				+ "</div>";
 	
 								$(".container").html(str);
-	    				},complete: function () {
-	                        // Increment the page number for the next load, regardless of success or error
-	                        page++;
-	                    }
+	    				}
     				
 	    			
     				
     			},error : function() {
 					console.log("MOIZALIST 통신 오류");
-				}
+				},complete: function () {
+                    // Increment the page number for the next load, regardless of success or error
+                    page++;
+                }
     		});
     	}
     

@@ -234,7 +234,7 @@
 		            <button type="button" class="nBtn" id="dBtn">삭제하기</button>
 		         </div>
 			</c:when>
-			<c:when test="${not empty  loginUser} ">
+			<c:when test="${not empty  loginUser}">
 				<div class="btn_area">
 					<button type="submit" class="nBtn" id="applyBtn">신청하기</button>
 				</div>
