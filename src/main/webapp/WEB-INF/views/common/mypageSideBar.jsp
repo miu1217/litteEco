@@ -69,9 +69,9 @@
 	<div class="sidebar">
 	     <div class="mysidebar">
 	  <a href="mypage.me" class="menuBtn">MY INFO</a>
-	  <a href="scrap.mp" class="menuBtn">MY SCRAP</a>
-	  <a href="moiza.mp" class="menuBtn">MY ECO</a>
-	  <a href="delete.me" class="menuBtn">회원 탈퇴</a>
+	  <a href="scrap.mp" class="menuBtn">MY POST</a>
+	  <a href="moiza.mp" class="menuBtn">MY MOIZA</a>
+	  <a href="delete.me" class="menuBtn">WITHDRAW</a>
         </div>
 	</div>
 	

@@ -259,11 +259,10 @@ hr {
         <hr>
         <div class="mypage-menu" >
             <ul>
-                <li><a href="#" class="menu-link" data-target="all-posts"><button>모두</button></a></li>
                 <li><a href="scrap.mp" class="menu-link1" data-target="scrap"><button>스크랩</button></a></li>
                 <li><a href="myPost.mp" class="menu-link" data-target="myPost"><button>내가 쓴 글</button></a></li>
                 <li><a href="#" class="menu-link" data-target="my-replies"><button>내가 쓴 댓글</button></a></li>
-                <li><a href="#" class="menu-link" data-target="my-folder"><button>폴더</button></a></li>
+                <li><a href="#" class="menu-link" data-target="my-folder"><button>좋아요 한 글</button></a></li>
             </ul>
             <span id="update-area">
             <button id="toggleBtn">편집</button>

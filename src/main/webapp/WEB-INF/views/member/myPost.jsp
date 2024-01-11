@@ -115,7 +115,7 @@
      <c:forEach items="${list }" var="hrb">
      	<c:if test="${not empty hrb.ecoTitle }">
             <li>
-         <div id="thumbnail" onclick="location.href='rbdetail.hrb?rbno=${hrb.rcyBoardNo}'"> 
+         <div id="thumbnail" onclick="location.href='detail.sbo?bno=${hrb.ecoBoardNo}'"> 
         </div>
        	
         <table id="s_tit"> 

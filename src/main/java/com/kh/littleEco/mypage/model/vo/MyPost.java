@@ -18,6 +18,9 @@ public class MyPost {
 	private String ecoTitle;
 	private int rcyBoardNo;
 	private String rcyTitle;
+	private int moizaNo;
+	private String moizaName;
+	
     private int count;
 	
 	private SearchEco SearchEco;

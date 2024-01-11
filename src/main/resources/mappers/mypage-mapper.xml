@@ -47,7 +47,8 @@
 	<result column="BOARD_NO" property="rcyBoardNo"/>
 	<result column="RECY_BOARD_TITLE" property="rcyTitle"/>
 	<result column="COUNT" property="count"/>
-	
+	<result column="MOIZA_NAME" property="moizaName"/>
+	<result column="MOIZA_NO" property="moizaNo"/>
 </resultMap>
 
 <!-- RECYCLE_BOARD용 ResultMap -->

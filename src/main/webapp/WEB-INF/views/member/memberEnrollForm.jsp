@@ -3,569 +3,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>회원가입 화면</title>
+    <title>마이페이지</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-</head>
-<style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-  @import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Diphylleia&family=Nanum+Pen+Script&family=Noto+Sans+Display:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Song+Myung&display=swap');
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+
+  </head>
+  <style>
+    
+
+    
 
 * {
+ 
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-a {
-  text-decoration: none;
-  color: black;
+body {
+  font-family: 'Noto Sans KR',  sans-serif !important;
+  
 }
 
-li {
-  list-style: none;
-}
 
-.wrap {
+.mywrap {
   width: 100%;
-  height : 1500px;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  align-items: flex-start;
   justify-content: center;
   background: rgba(0, 0, 0, 0.1);
   background-color: white;
+  position: relative; 
+  white-space:nowrap; 
+  
+  
 }
 
-.login {
-  width: 30%;
-  height: 600px;
+.mypage-info {
+  width: 60%;
+  min-height: 500px; /* height 대신 min-height 사용 */
+  margin-bottom: 50px; /* 원하는 아래쪽 여백에 맞게 조절 */
   background: white;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-left : 20px;
+  box-sizing: border-box;
+
+  
+}
+
+.empty-space {
+  width: 200px;
+  margin-top:20px;
   
 }
 
 h2 {
   color: black;
-  font-size: 2em;
-  font-weight: 800;
+  font-size: 2.5em;
+  font-weight: 450;
+  margin-bottom: 80px;
+  margin-top: 100px;
 }
 
 .memberInfo {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 80%;
+  display: flex;
+ 
+  align-items: center;
 }
 
-.memberInfo input , .memberCategory input {
-  width: 100%;
-  height: 50px;
-  margin-top: 13px;
-  padding: 0px 20px;
+.memberInfo input {
+  width: 40%;
+  height: 40px;
+  margin-top: 0px;
+  padding: 20px 20px;
   border: 1px solid lightgray;
+  left : 1;
+  right : 10%;
+  position : relative;
   outline: none;
+}
+
+.memberInfo div {
+  width: 80%;
+  height: 40px;
+  margin-top: 0px;
+  padding: 0px 20px;
+  
+  outline: none;
+}
+.memberInfo h4 {
+  width: 40%;
+}
+
+h3 {
+  margin-right: 66%;
+  margin-bottom: 10px;
 }
 
 .submit {
   margin-top: 20px;
-  width: 80%;
+  width: 70%;
+
 }
 
-.submit button {
-  width: 100%;
-  height: 50px;
-  border: 0;
+.submit input {
+  width: 30%;
+  height: 40px;
+  border: 1px solid lightgray;
   outline: none;
   color: white;
-  background-color: #878795;
-  font-size: 1.2em;
+  background-color: navy;
+  font-size: 0.9em;
   letter-spacing: 2px;
-  font-weight: bold;
+  font-weight: 550;
   cursor: pointer;
+  
 }
 
-.submit :hover{
-    background-color: navy;
-}
-
-.form-tag{
+.myform-tag{
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+hr {
+  width: 80%;
 
-.login-bottom{
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  border: 0;
+  height: 2px;
+  background-color: black;
+} 
 
-/* 라디오 스타일 */
-.gender {
-    display: flex;
-}
-.gender input[type=radio]{
-    display: none;
-}
 
-.gender input[type=radio]+label{
-    display: inline-block;
-    cursor: pointer;
-    height: 35px;
-    width: 100%;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
-    background-color: #fff;
-    color: #333;
-}
 
-.gender input[type=radio]:checked+label{
-    background-color: navy;
-    color: #fff;
-}
-.gender p{
-  margin-top : 5.005px;
-}
 
-/* 체크박스 스타일 */
 
-.category input[type=checkbox]{
-  display: none;
-}
-.category input[type=checkbox]+label{
-  display: inline-block;
-    cursor: pointer;
-    height: 45px;
-    width: 100%;
-    border: 1px solid #333;
-    line-height: 24px;
-    text-align: center;
-    font-weight:bold;
-    font-size:13px;
-    background-color: #fff;
-    color: #333;
-}
-.category input[type=checkbox]:checked+label{
-    background-color: navy;
-    color: #fff;
-}
-.checkboxCss {
-  margin-top: 10px;
-  border-radius: 20px;
-}
-.checkboxCss div{
-  font-size: 12px;
-  margin-top: 10.005px;
-}
 
-.grid-div{
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  grid-template-rows: auto;
-  grid-gap: 5px;
-}
-
-.item3{
-  grid-column : 3/5;
-}
-.item4{
-  grid-column: 1/3;
-}
-
-.grid-div2{
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: auto;
-  grid-gap: 5px;
-}
-
-.checkIdBtn {
-  border: 1px solid lightgray;
-  outline: none;
+#deleteBtn{
+  background-color: red;
   color: white;
-  background-color: #878795;
-  cursor: pointer;
-  float: right;
-  margin-top: 5px;
 }
+
+.mWrp{
+	position: fixed;
+	z-index: 200;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.3);
+	display: none;
+}
+.mBody{
+ 	width: 700px;
+ 	height: 600px;
+ 	padding: 40px 40px;
+ 	margin: 0 auto;
+ 	border: 1px solid #777;
+ 	background-color: #fff;
+ 	overflow : auto;
+}
+.cBtn{
+	float: right;
+	font-weight: bold;
+	color : #777;
+	font-size: 25px;
+	cursor: pointer;
+}
+#c2modalBody table{
+	
+	width: 600px;
+	height: 56px;
+	border-bottom: 1px solid #343434;
+	border-top: 1px solid #343434;
+	text-align: center;
+}
+#c2modalBody th{
+	border-bottom: 1px solid #DFDFE4;
+}
+
+
+
+      /*메뉴 버튼 관련*/
+      .custom-tab-link {
+    /* 원하는 스타일을 여기에 추가하세요 */
+    background-color: #007bff; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: 1px solid #007bff; /* 버튼 테두리 스타일 */
+    border-radius: 5px; /* 버튼 테두리 둥글기 */
+    padding: 8px 16px; /* 내부 여백 */
+    cursor: pointer; /* 포인터 커서로 변경 */
+  }
+
+  .custom-tab-link:hover {
+    /* 마우스 오버 시의 스타일을 여기에 추가하세요 */
+    background-color: #0056b3; /* 버튼 배경색 변경 */
+    color: #fff; /* 버튼 텍스트 색상 변경 */
+  }
+  .showPwd{
+  	position : relative;
+  	right:20;
+  	
+  }
+
+
+
+
+
 
 </style>
 <body>
-
-	<%@ include file="../common/header.jsp" %>
 	
-    <div class="wrap">
-        <div class="login">
-            <h2>회원가입</h2>
-            <form class="form-tag" action="insert.me" method="post">
+	<%@include file = "../common/header.jsp" %>
+    
+    
+    <div class="mywrap">
+<div class="empty-space">
+	<%@include file = "../common/mypageSideBar.jsp" %>
+</div>
+<!--         <div class="mysidebar">
+          <h3>Hello user</h3>
+          <button class="menuBtn" 
+          data-bs-target="#mypage-info"
+          id="mypage">MY INFO</button>
+          <button class="menuBtn"
+          data-bs-toggle="tab"
+          data-bs-target="#scrapTab"
+          id="scrapBtn">MY SCRAP</button>
+          <button class="menuBtn" 
+          data-bs-target="#ecoTab"
+          id="ecoBtn">MY ECO</button>
+        </div> -->
+        
+
+      <div class="mypage-info" id="mypage-info">
+        <h2>MY PAGE</h2>
+        
+        <h3>나의 회원 정보</h3>
+        
+       
+        <form class="myform-tag" action="update.me" method="post" id="updateForm">
+              <hr>
+              <br>
+              <br>
               <div class="memberInfo">
+              <input type="hidden" name="memberId" value="${loginUser.memberId }">
                   <h4>아이디</h4>
-                  <input type="text" name="memberId" id="memberId" class="memberId" onchange="checkId();" placeholder="영문,숫자 5자이상 12자이하의 아이디를 입력해주세요" maxlength="12" required>
-                  <span id="checkIdMsg"></span>
+                  <div>${loginUser.memberId}</div>
               </div>
-              <div class="memberInfo">
-                  <h4>비밀번호</h4>
-                  <input type="password" name="memberPwd" id="memberPwd" class="memberPwd" placeholder="영문,숫자,특수문자를 포함한 8자 이상의 비밀번호를 입력해주세요" required>
-                  <span id="checkPwdMsg"></span>
-              </div>
-              <div class="memberInfo">
-                <h4>비밀번호 확인</h4>
-                <input type="password" name="memberPwd2" id="memberPwd2" class="memberPwd" placeholder="영문,숫자,특수문자를 포함한 8자 이상의 비밀번호를 입력해주세요" required>
-                <span id="checkPwdMsg2"></span>
-              </div>
+              
               <div class="memberInfo">
                 <h4>이름</h4>
-                <input type="text" name="memberName" id="memberName" class="memberName" required>
-                <span id="checkNameMsg"></span>
+                <div>${loginUser.memberName}</div>
               </div>
               <div class="memberInfo">
                 <h4>닉네임</h4>
-                <input type="text" name="nickName" id="nickName" class="nickName" onchange="checkNick();" required>
-                <span id="checkNickNameMsg"></span>
+                <input type="text" name="nickName" id="nickName" required placeholder="2글자 이상 8글자 이하" maxlength="8" value="${loginUser.nickName}">
               </div>
+              <span id="resultNick"></span>
               <div class="memberInfo">
                 <h4>생년월일</h4>
-                <input type="text" name="birth" class="" id="birth" placeholder="생년월일 8자리" maxlength="8">
-                <span id="checkBirthMsg"></span>
-              </div>
-              <div class="memberInfo">
-                <div class="gender">
-                  <input type="radio" id="f" name="gender" value="F"><label for="f"><p>여자</p></label>
-                  <input type="radio" id="m" name="gender" value="M"><label for="m"><p>남자</p></label>
-                </div>
+                <input type="text" id="birth" name="birth" placeholder="" value="${loginUser.birth}">
               </div>
               <div class="memberInfo">
                 <h4>이메일</h4>
-                <input type="email" id="email" name="email" class="email" onchange="checkEmail();">
-                <span id="checkEmailMsg"></span>
+                <input type="email" name="email" id="email" value="${loginUser.email}">
               </div>
               <div class="memberInfo">
                 <h4>휴대전화번호</h4>
-                <input type="text" id="phone" name="phone" class="phone" onchange="checkPhone();" placeholder="-  제외" maxlength="11" required>
-                <span id="checkPhoneMsg"></span>
+                <input type="text" id="phone" name="phone" required value="${loginUser.phone}" maxlength="11">
               </div>
+              <span id="resultPhone"></span>
               <div class="memberInfo">
-                <div class="category">
-                  <h4>관심태그(3개)</h4>
-                  <h6>(선택사항)</h6>
-                  <div class="grid-div">
-                    <input type="checkbox" id="category1" name="categoryNo" value="1"><label for="category1" class="checkboxCss item1"><div>#지속 가능 제품</div></label>
-                    <input type="checkbox" id="category2" name="categoryNo" value="2"><label for="category2" class="checkboxCss item2"><div>#사회적 기업</div></label>
-                    <input type="checkbox" id="category3" name="categoryNo" value="3"><label for="category3" class="checkboxCss item3"><div>#제로웨이스트 및 친환경 제품</div></label>
-                    <input type="checkbox" id="category4" name="categoryNo" value="4"><label for="category4" class="checkboxCss item4"><div>#친환경 교육 및 커뮤니티</div></label>
-                    <input type="checkbox" id="category5" name="categoryNo" value="5"><label for="category5" class="checkboxCss item5"><div>#유기농 식품</div></label>
-                    <input type="checkbox" id="category6" name="categoryNo" value="6"><label for="category6" class="checkboxCss item6"><div>#주방 용품</div></label>             
-                  </div>
-                  <div class="grid-div2">
-                  	<input type="checkbox" id="category7" name="categoryNo" value="7"><label for="category7" class="checkboxCss item7"><div>#욕실 용품</div></label>
-                    <input type="checkbox" id="category8" name="categoryNo" value="8"><label for="category8" class="checkboxCss item8"><div>#생활 용품</div></label>
-                    <input type="checkbox" id="category9" name="categoryNo" value="9"><label for="category9" class="checkboxCss item9"><div>#패션</div></label>
-                  </div>
-                </div>
+                <h4>비밀번호 확인</h4>
+                <input type="password" name="memberPwd" class="memberPwd" >
               </div>
-              
-              <div class="submit">
-                  <button type="submit" id="enrollBtn" class="submitBtn">가입하기</button>
+              <div class="submit" align="center">
+                  <input type="submit" class="submitBtn" id="updateBtn" value="회원정보 변경"/>
               </div>
 
             </form>
-            <!--***************************** 회원가입 유효성검사 스크립트 *********************************-->
-            <script>
+            <br><br><br><br><br><br>
+            <form class="myform-tag" action="updatePwd.me" method="post">
+              <h3>비밀번호 수정</h3>
+              <hr>
+              <br><br>
+              <div class="memberInfo">
+                <h4>기존 비밀번호</h4>
+                <input type="password" name="memberPwd" class="" id="userPwd">
+              </div>
+              <div class="memberInfo">
+                <h4>새 비밀번호</h4>
+                <input type="password" name="newPwd" class="password-input" placeholder="영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요" id="newPwd">
+              </div>
               
-                //아이디 중복처리
-                function checkId(){
-                	
-                	var memberId = $("#memberId").val();
-                	
-                	$.ajax({
-                		url : "checkId.me",
-                		type : "post",
-                		data : {memberId : memberId},
-                		success : function(result){
-                			
-                			if(result == 1){ //중복된 아이디발견
-                				$("#memberId").val("");
-                                $("#checkIdMsg").text("중복된 아이디입니다").css("color","red");
-                                $("#memberId").css("border","1px solid red");
-                                $("#memberId").focus();
-                			}
-                			
-                		},error : function(){
-                			console.log("실패했어..ㅠㅠ");
-                		}
-                	});
-                	
-                }
-                            
-              	//아이디 조건처리
-                $("#memberId").on("blur", function() {
+              <div class="memberInfo">
+                <h4>새 비밀번호 확인</h4>
+                <input type="password" name="checkPwd" class="password-input" id="checkPwd" >
+              </div>
+              <br>
+              <span style="margin-right: 500px;" class="showPwd">
+                <input type="checkbox" id="showPwd">  비밀번호 표시
+              </span>
+              <span id="resultDiv"></span>
+              <div class="submit" align="center">
+                  <input type="submit" value="비밀번호 수정" class="submitBtn" id="pwdBtn">
+              </div>
+            </form>
+			
 
-                      var memberId = $(this).val();
-                      var idTest = /[a-zA-Z0-9]{5,12}$/g;
-                          
-                      if (idTest.test(memberId)) {
-                          $("#checkIdMsg").text("사용가능한 아이디입니다").css("color","blue");
-                          $("#memberId").css("border","1px solid lightgray");
-                      } else {
-                          $("#memberId").val("");
-                          $("#checkIdMsg").text("사용할 수 없는 아이디입니다").css("color","red");
-                          $("#memberId").css("border","1px solid red");
-                          $("#memberId").focus();
-                      }
-                });
-                   
-                //비밀번호 조건처리(8자리 이상 영문 대소문자, 숫자, 특수문자가 각각 1개 이상)
-                $("#memberPwd").on("blur", function() {
-
-                      var memberPwd = $(this).val();
-                      var pwdTest = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
-                          
-                      if (pwdTest.test(memberPwd)) {
-                          $("#checkPwdMsg").text("사용가능한 비밀번호입니다").css("color","blue");
-                          $("#memberPwd").css("border","1px solid lightgray");
-                      } else {
-                          $("#memberPwd").val("");
-                          $("#checkPwdMsg").text("사용할 수 없는 비밀번호입니다").css("color","red");
-                          $("#memberPwd").css("border","1px solid red");
-                          $("#memberPwd").focus();
-                      }
-                 });
-
-                //비밀번호 재확인처리
-                $("#memberPwd2").on("blur", function() {
-
-                      var memberPwd = $("#memberPwd").val();
-                      var memberPwd2 = $(this).val();
-
-                      if (memberPwd === memberPwd2) {
-                           $("#checkPwdMsg2").text("비밀번호가 일치합니다").css("color","blue");
-                           $("#memberPwd2").css("border","1px solid lightgray");
-                      } else {
-                          $("#memberPwd2").val("");
-                          $("#checkPwdMsg2").text("비밀번호가 일치하지않습니다").css("color","red");
-                          $("#memberPwd2").css("border","1px solid red");
-                          $("#memberPwd2").focus();
-                      }
-
-                });
-
-                //이름 조건처리
-                $("#memberName").on("blur", function() {
-
-                  var memeberName = $(this).val();
-                  var memberNameTest = /^[가-힣]+$/;
-
-                  if (memberNameTest.test(memeberName)) {
-                      $("#checkNameMsg").text("");
-                      $("#memberName").css("border","1px solid lightgray");
-                  } else {
-                      $("#memberName").val("");
-                      $("#checkNameMsg").text("한글만 입력 가능합니다").css("color","red");
-                      $("#memberName").css("border","1px solid red");
-                      $("#memberName").focus();
-                  }
-                  });
-
-                  
-                 //닉네임 중복처리
-                 function checkNick(){
-                	  
-                	  var nickName = $("#nickName").val();
-                	  
-                	  $.ajax({
-                		 url : "checkNick.me",
-                		 type : "post",
-                		 data : {nickName : nickName},
-                		 success : function(result){
-                			 
-                			 if(result == 1){
-                				 $("#nickName").val("");
-                                 $("#checkNickNameMsg").text("중복된 닉네임입니다").css("color","red");
-                                 $("#nickName").css("border","1px solid red");
-                                 $("#nickName").focus();
-                			 }
-                			 
-                		 },error : function(){
-                			 console.log("실패했어..ㅠㅠ");
-                		 }
-                	  });
-                	 
-                  }
-                  
-                //닉네임 조건처리
-                $("#nickName").on("blur", function() {
-
-                    var nickName = $(this).val();
-                    var nickNameTest = /^([a-zA-Z0-9가-힣]).{1,9}$/;
-
-                    if (nickNameTest.test(nickName)) {
-                        $("#checkNickNameMsg").text("사용가능한 닉네임입니다").css("color","blue");
-                        $("#nickName").css("border","1px solid lightgray");
-                    } else {
-                        $("#nickName").val("");
-                        $("#checkNickNameMsg").text("사용할 수 없는 닉네임입니다").css("color","red");
-                        $("#nickName").css("border","1px solid red");
-                        $("#nickName").focus();
-                    }
-                    });
-
-				//생년월일 8자리확인처리
-                $("#birth").on("blur", function() {
-
-                    var birth = $(this).val();
-                    var birthTest = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-
-                    if(birthTest.test(birth)){
-                      $("#checkBirthMsg").text("");
-                      $("#birth").css("border","1px solid lightgray");
-                    }else{
-                      $("#birth").val("");
-                      $("#checkBirthMsg").text("올바른 생년월일을 입력하세요").css("color","red");
-                      $("#birth").css("border","1px solid red");
-                      $("#birth").focus();
-                    }
-
-                    });
-
-                //이메일 중복처리
-                function checkEmail(){
-                    	
-                    	var email = $("#email").val();
-                    	
-                    	$.ajax({
-                    		url : "checkEmail.me",
-                    		type : "post",
-                    		data : {email : email},
-                    		success : function(result){
-                    			
-                    			if(result == 1){
-                    				$("#email").val("");
-                                    $("#checkEmailMsg").text("중복된 이메일입니다").css("color","red");
-                                    $("#email").css("border","1px solid red");
-                                    $("#email").focus();
-                    			}
-                    			
-                    		},error : function(){
-                    			console.log("통신 실패");
-                    		}
-                    	});
-                    	
-                    }
-                    
-                //이메일 조건처리
-                $("#email").on("blur", function() {
-
-                  var email = $(this).val();
-                  var emailTest =  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
-
-                  if(emailTest.test(email)){
-                    $("#checkEmailMsg").text("");
-                    $("#checkEmailMsg").text("사용가능한 이메일입니다").css("color","blue");
-                    $("#email").css("border","1px solid lightgray");
-                  }else{
-                    $("#email").val("");
-                    $("#checkEmailMsg").text("올바른 이메일 양식을 입력하세요").css("color","red");
-                    $("#email").css("border","1px solid red");
-                    $("#email").focus();
-                  }
-
-                  });
-                
-                //폰번호 중복처리
-                function checkPhone(){
-                	
-                	var phone = $("#phone").val();
-             
-                	$.ajax({
-                		url : "checkPhone.me",
-                		type : "post",
-                		data : {phone : phone},
-                		success : function(result){
-                		
-                			if(result == 1){
-                				
-                				$("#phone").val("");
-                                $("#checkPhoneMsg").text("이미 등록된 핸드폰 번호입니다").css("color","red");
-                                $("#phone").css("border","1px solid red");
-                			}
-                			
-                		},error : function(){
-                			console.log("통신안된당");
-                		}
-                	});
-                	
-                }
-
-                //폰번호 조건처리
-                $("#phone").on("blur", function() {
-
-                  var phone = $(this).val();
-                  var phoneTest = /^010-?([0-9]{4})-?([0-9]{4})$/;
-
-                  if(phoneTest.test(phone)){
-                    $("#checkPhoneMsg").text("");
-                    $("#checkPhoneMsg").text("사용가능한 핸드폰 번호입니다").css("color","blue");
-                    $("#phone").css("border","1px solid lightgray");
-                  }else{
-                    $("#phone").val("");
-                    $("#checkPhoneMsg").text("올바른 핸드폰 번호을 입력하세요").css("color","red");
-                    $("#phone").css("border","1px solid red");
-                  }
-
-                });
-
-                //카테고리 3개 제한
-                $("input[type='checkbox']").on("click",function(){
-                var count = $("input:checked[type='checkbox']").length;
-
-                if(count>3){
-                  $(this).prop("checked",false);
-                  alert("카테고리는 최대 3개까지 선택할 수 있습니다");
-                }
-
-              });
-                            
-            </script>
-            <!-- *****************************카테고리(체크박스) 선택한 값 여러개 가져오기***************************** -->
-            <script>
-
-            	$("#enrollBtn").click(function(){//
-            		
-	            		var cArr = []; //카테고리배열 초기화
-	            		
-	            		$("input[name='categoryNo']:checked").each(function(i){
-	            			
-	            			cArr.push($(this).val()); //체크된 값들 배열에 넣기
-	            			
-	            		});
-	            		
-	            		  $.ajax({
-	            			url : "insert.me"
-	            			,type : "post"
-	            			,data :{
-	            				categoryNo : cArr //키값 : 밸류 categoryNo -> VO 필드명으로 맞춰줘서 같이 가져오기
-	            			} 			
-	            		}); 
-  
-            	});
-            
-            </script>
-                      
         </div>
+        
+        
+        
+        <div class="empty-space"> </div>
+        <script>
+
+          //비밀번호 변경 관련
+          $(function(){
+
+            var regExp = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+
+            var userPwd = $("#userPwd");
+            var newPwd = $("#newPwd");
+            var chkPwd = $("#checkPwd");
+            
+
+            newPwd.blur(function(){
+
+            if(!regExp.test(newPwd.val())){
+              $("#resultDiv").css("color","red");
+              $("#resultDiv").text("잘못된 비밀번호 형식입니다");
+              newPwd.css("border"," 1px solid red");  
+              
+
+            }else if(chkPwd.val()===newPwd.val()){
+
+              $("#resultDiv").css("color","blue");
+                $("#resultDiv").text("사용가능한 비밀번호 입니다");  
+                newPwd.css("border"," 1px solid lightgray");  
+                
+            }
+            
+
+              
+            chkPwd.blur(function(){
+              
+              if(chkPwd.val()===newPwd.val() && regExp.test(newPwd.val())){
+                $("#resultDiv").css("color","blue");
+                $("#resultDiv").text("사용가능한 비밀번호 입니다");      
+                chkPwd.css("border"," 1px solid lightgray");  
+                
+
+              }else{
+                $("#resultDiv").css("color","red");
+                $("#resultDiv").text("비밀번호가 일치하지 않습니다");
+                chkPwd.css("border"," 1px solid red");  
+                
+                return false;
+                
+              }
+            });
+            
+
+
+          });
+        });
+
+                        //폰번호 조건처리
+                        $("#phone").on("blur", function() {
+
+                            var phone = $(this).val();
+                            var phoneTest = /^010-?([0-9]{4})-?([0-9]{4})$/;
+
+                            if(phoneTest.test(phone)){
+                            $("#resultPhone").text("");
+                            $("#resultPhone").text("사용가능한 핸드폰 번호입니다").css("color","blue");
+                            $("#phone").css("border","1px solid lightgray");
+                            }else{
+                            $("#phone").val("");
+                            $("#resultPhone").text("올바른 핸드폰 번호을 입력하세요").css("color","red");
+                            $("#phone").css("border","1px solid red");
+                            }
+
+                            });
+
+
+        //닉네임 관련
+        $(function(){
+
+          var regExp = /^[a-zA-Z0-9가-힣]{2,8}$/;
+
+          var nickName = $("#nickName");          
+          
+            
+            nickName.blur(function(){
+              
+              if(regExp.test(nickName.val())){
+                $("#resultNick").css("color","blue");
+                $("#resultNick").text("사용가능한 닉네임 입니다");
+                $("#nickName").css("border"," 1px solid lightgray");
+                
+                $("#updateBtn").prop("disabled", false);
+                
+              }else{
+
+                $("#resultNick").css("color","red");
+                $("#resultNick").text("2~8 글자 한글,영어,숫자만 입력해주세요");
+                $("#nickName").css("border"," 1px solid red");
+                
+                $("#updateBtn").prop("disabled", true);
+                
+                nickName.focus();
+                
+
+                  
+                }
+                
+              });
+              
+            
+        });
+
+
+        $('#showPwd').change(function() {
+            
+            var pwdInput = $('.password-input');
+            
+            pwdInput.attr('type', this.checked ? 'text' : 'password');
+        });
+        //이메일 형식 틀렸을 시 submit 막기
+
+            $(function(){
+
+              $("#updateBtn").click(function(){
+                
+                var email = $("#email");
+                var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+                
+                if(regExp.test(email.val()) || email.val()===""){
+                  
+                  $("#updateForm").submit();
+                  
+                }else{
+                  alert("올바른 이메일 형식이 아닙니다");
+                  email.focus();
+                  return false;
+                }
+              });
+            });
+
+            
+            
+            
+            $(document).on("click", "#scrapBtn", function() {
+                // 해당 HTML 파일을 scrap.jsp로 로드하여 scrapTab 영역에 삽입
+                $("#scrapTab").load("scrap.jsp");
+            });
+
+        </script>
+
+
     </div>
-    <%@ include file="../common/footer.jsp" %>
->>>>>>> branch 'develop' of https://github.com/miu1217/littleEco.git
+
+    
 </body>
 </html>
