@@ -33,10 +33,7 @@ public class aboutOpenData {
 	@ResponseBody
 	public ArrayList<RecyclingInfo> recyclingInfo() throws  UnsupportedEncodingException, IOException, JsonSyntaxException {
 		
-		
 		String url = "https://www.recycling-info.or.kr/sds/JsonApi.do?";
-		
-		
 		
 		url += "PID=NTN004";
 				
@@ -57,9 +54,7 @@ public class aboutOpenData {
 		String text = "";
 		
 		String line;
-		
 	
-		
 		while((line = br.readLine()) != null) {
 			
 			text += line;
@@ -67,9 +62,6 @@ public class aboutOpenData {
 		}
 		
 		//JsonArray jarr = JsonParser.parseString(text).getAsJsonArray();
-		
-		
-		System.out.println("JSON 데이터: " + text);
 		//System.out.println("JSON jarr 데이터: " + jarr);
 		
 		/*
@@ -100,49 +92,16 @@ public class aboutOpenData {
 		
 		ArrayList<RecyclingInfo> list = new ArrayList<> ();
 		
-		
-		System.out.println("items : "+ items);
-
-
-//		for(int i = 0; i < items.size(); i++) {
-//			
-//			RecyclingInfo info = new RecyclingInfo();
-//
-//			JsonObject item = items.get(i).getAsJsonObject();
-//			
-//			info.setWsteQty(item.get("wsteQty").getAsString());
-//			info.setTotRecyQty(item.get("totRecyQty").getAsString());
-//			
-//			list.add(info);
-//			
-//			
-//		}
-		
 		for(int i = 0; i < items.size(); i++) {
 			
 			JsonObject item = items.get(i).getAsJsonObject();
 			
 			String wsteQty = item.get("WSTE_QTY").getAsString();
-			
-			System.out.println(wsteQty);
+
 			String totRecyQty = item.get("TOT_RECY_QTY").getAsString();
 			
-			System.out.println(wsteQty);
-			System.out.println(totRecyQty);
-			//RecyclingInfo info = new Gson().fromJson(items.get(i).getAsJsonObject(), RecyclingInfo.class);
-		
-			
-			//list.add(info);
 		}
-		
-
-//		for(RecyclingInfo info:list) {
-//			
-//			System.out.println("wsteQty: " + info.getWsteQty());
-//		    System.out.println("totRecyQty: " + info.getTotRecyQty());
-//
-//		}
-		
+			
 		br.close();
 		urlCon.disconnect();
 		
