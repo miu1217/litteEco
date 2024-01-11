@@ -11,6 +11,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <style>
 
      *{
@@ -120,8 +123,8 @@
 							<div class="nav">
 								<a href="enrollForm.me">Join</a>
 								<a href="loginForm.me">Login</a>
-								<a href="">FAQ</a>
-								<a href="">Notice</a>
+								<a href="faqList.bo">FAQ</a>
+								<a href="notice.bo">Notice</a>
 							</div>
 						</div>
 					</div>
@@ -132,10 +135,10 @@
 					<div class="inner">
 						<div class="aside">
 							<div class="nav">
-								<a href="">Mypage</a>
+								<a href="mypage.me">Mypage</a>
 								<a href="logout.me">Logout</a>
-								<a href="">FAQ</a>
-								<a href="">Notice</a>
+								<a href="faqList.bo">FAQ</a>
+								<a href="notice.bo">Notice</a>
 							</div>
 						</div>
 					</div>
@@ -150,9 +153,9 @@
               <!--메뉴!!-->
               <div class="menu">
                   <ul>
-                      <li class="menus"><a href="">About</a></li>
-                      <li class="menus"><a href="">searchEco</a></li>
-                      <li class="menus"><a href="">How2Recycle</a></li>
+                      <li class="menus"><a href="about.ab">About</a></li>
+                      <li class="menus"><a href="searchEco.bo">searchEco</a></li>
+                      <li class="menus"><a href="rblist.hrb">How2Recycle</a></li>
                       <li class="menus"><a href="moiza">moiza</a></li>
                   </ul>
 

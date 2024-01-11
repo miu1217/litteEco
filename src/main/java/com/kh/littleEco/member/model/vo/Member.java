@@ -26,5 +26,6 @@ public class Member {
 	private String phone;
 	private String createDate;
 	private String status;
+	private String withdrawalReason;  // WITHDRAWAL_REASON 탈퇴사유 담을 컬럼
 	
 }

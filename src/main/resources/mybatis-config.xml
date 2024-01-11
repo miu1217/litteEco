@@ -14,21 +14,38 @@
 	<typeAliases>
 		<typeAlias type="com.kh.littleEco.member.model.vo.Member"
 			alias="member" />
-		<typeAlias type="com.kh.littleEco.member.model.vo.MemberCategory"
+		<typeAlias
+			type="com.kh.littleEco.member.model.vo.MemberCategory"
 			alias="memberCategory" />
 		<typeAlias type="com.kh.littleEco.brand.model.vo.Category"
 			alias="category" />
 		<typeAlias type="com.kh.littleEco.brand.model.vo.Brand"
 			alias="brand" />
-		<typeAlias type="com.kh.littleEco.brand.model.vo.BrandCategory"
+		<typeAlias
+			type="com.kh.littleEco.brand.model.vo.BrandCategory"
 			alias="brandCategory" />
 		<typeAlias type="com.kh.littleEco.brand.model.vo.Attachment"
 			alias="brandAttachment" />
 		<typeAlias type="com.kh.littleEco.moiza.model.vo.Moiza"
 			alias="moiza" />
-		<typeAlias type="com.kh.littleEco.moiza.model.vo.MoizaMember"
+		<typeAlias
+			type="com.kh.littleEco.moiza.model.vo.MoizaMember"
 			alias="moizaMember" />
-		<typeAlias type="com.kh.littleEco.moiza.model.vo.MoizaCategory"
+		<typeAlias
+			type="com.kh.littleEco.moiza.model.vo.MoizaCategory"
 			alias="moizaCategory" />
+		<typeAlias type="com.kh.littleEco.board.model.vo.Notice"
+			alias="notice" />
+		<typeAlias
+			type="com.kh.littleEco.board.model.vo.BoardAttachment"
+			alias="boardAttachment" />
+		<typeAlias
+			type="com.kh.littleEco.searchEco.model.vo.SearchEco"
+			alias="searchEco" />
+		<typeAlias
+			type="com.kh.littleEco.searchEco.model.vo.EcoLike" alias="ecoLike" />
+		<typeAlias
+			type="com.kh.littleEco.recycleboard.model.vo.recycleBoard"
+			alias="recycleBoard" />
 	</typeAliases>
 </configuration>

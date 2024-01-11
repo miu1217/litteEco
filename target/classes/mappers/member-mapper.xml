@@ -136,5 +136,28 @@
 	FROM MEMBER
 	WHERE PHONE = #{phone}
 	</select>
-   
+	
+	<update id="updateMember" parameterType="member">
+  	UPDATE MEMBER
+  	SET NICKNAME = #{nickName}
+  		,BIRTH = #{birth}
+  		,EMAIL = #{email}
+  		,PHONE = #{phone}
+  	WHERE MEMBER_ID = #{memberId} 
+  	AND STATUS = 'Y'
+  	</update>
+	
+	<update id="updatePwd">
+  	UPDATE MEMBER
+  	SET MEMBER_PWD = #{memberPwd}
+  	WHERE MEMBER_ID = #{memberId}
+  	</update>
+	
+	<update id="deleteMember">
+	UPDATE MEMBER
+	SET STATUS = 'N'
+		,WITHDRAWAL_REASON = #{withdrawalReason}
+	WHERE MEMBER_ID = #{memberId}
+	</update>
+	
   </mapper>

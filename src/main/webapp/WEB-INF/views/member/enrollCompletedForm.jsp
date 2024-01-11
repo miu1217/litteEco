@@ -107,7 +107,7 @@ h2 {
                   <div class="info2" align="center">회원가입이 완료되었습니다</div>
               </div>
               <div class="login">
-                  <button type="button" class="loginBtn"><a href="loginForm.me">로그인하기</a></button>
+                  <button type="button" class="loginBtn"><a href="/littleEco">메인으로</a></button>
               </div>
         </div>
     </div>
