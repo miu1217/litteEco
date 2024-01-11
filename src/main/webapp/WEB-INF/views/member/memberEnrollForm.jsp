@@ -325,7 +325,7 @@ h2 {
                 });
                    
                 //비밀번호 조건처리(8자리 이상 영문 대소문자, 숫자, 특수문자가 각각 1개 이상)
-                $("#memberPwd").on("blur", function() {
+                $("#memberPwd").on("change", function() {
 
                       var memberPwd = $(this).val();
                       var pwdTest = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
@@ -341,7 +341,7 @@ h2 {
                  });
 
                 //비밀번호 재확인처리
-                $("#memberPwd2").on("blur", function() {
+                $("#memberPwd2").on("change", function() {
 
                       var memberPwd = $("#memberPwd").val();
                       var memberPwd2 = $(this).val();
