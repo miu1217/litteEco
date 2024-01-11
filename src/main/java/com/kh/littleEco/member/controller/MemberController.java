@@ -217,7 +217,7 @@ public class MemberController {
 			//로그인 후 이전 페이지로 redirect 해주기
 			mv.setViewName("redirect:"+referer);
 		}else {
-			session.setAttribute("alertMsg", "알 수 없는 회원입니다");
+			session.setAttribute("alertMsg", "아이디 및 비밀번호가 틀렸습니다");
 			mv.setViewName("member/memberLoginForm");
 			
 		}
@@ -256,7 +256,7 @@ public class MemberController {
 			model.addAttribute("findMsg", "가입하신 계정");
 			return "member/findCompletedForm";
 		}else {
-			model.addAttribute("alertMsg", "알 수 없는 회원입니다");
+			model.addAttribute("alertMsg", "아이디 및 비밀번호가 틀렸습니다");
 			return "member/findMemberForm";
 		}
 		
@@ -287,7 +287,7 @@ public class MemberController {
 			model.addAttribute("findMember", findMember);
 			return "member/resetMemberPwdForm";
 		}else {
-			model.addAttribute("alertMsg", "알 수 없는 회원입니다");
+			model.addAttribute("alertMsg", "아이디 및 비밀번호가 틀렸습니다");
 			return "member/findMemberForm";
 		}
 
