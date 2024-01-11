@@ -144,23 +144,6 @@
                     	<td colspan="5"><a href="${s.brandUrl}" target="_blank">${s.brandUrl}</a></td>
                     	
                     </tr>
-                    <!-- 
-                   <tr>
-                        <th>첨부파일</th>
-                        <td colspan="5">
-                        
-                       <c:choose>
-                    		<c:when test="${empty at.originName }">
-                    			첨부파일이 없습니다.
-                        	</c:when>
-                       	<c:otherwise>
-                        		<a href="${at.changeName }" download="${at.originName }" >${at.originName }</a>
-                        	</c:otherwise>
-                        </c:choose>
-                        	
-                        </td>
-                    </tr> 
-                      -->
                     <tr>
                         <td colspan="6" width="100%" id="contents">
                         	${s.ecoBoardContent }
@@ -182,7 +165,7 @@
 
     </div>
     
-    <script >
+    <script>
     
 	$(function(){
 		//삭제하기 버튼에 form submit함수 작성하기 
@@ -225,25 +208,11 @@
 			
 			//최종적으로 완성된 form태그 obj를 submit()하기 
 			obj.submit();
-			 
-			 
-			// location.href="delete.sbo?bno="+bno;
+
 		});
 		
 	});
-	
-	 
-    
-    
     </script>
-    
-    
-    
-    
        <%@ include file="../common/footer.jsp" %>
 </body>
-
-
-
-
 </html>
