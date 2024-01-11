@@ -12,11 +12,11 @@
   		<result column="RECY_BOARD_CONTENT" property="recycleBoardContent"/>
   		<result column="THUM_IMG" property="thumImg"/>
   		<result column="COUNT" property="count"/>
-  		<result column="RECY_ORIGINNAME" property="boOriginName"/>
-  		<result column="RECY_CHANGENAME" property="boChangeName"/>
+  		<result column="BO_ORIGIN_NAME" property="boOriginName"/>
+  		<result column="BO_CHANGE_NAME" property="boChangeName"/>
   		<result column="CREATE_DATE" property="createDate"/>
   		<result column="MODIFY_DATE" property="modifyDate"/>
-
+  		<result column="FILE_PATH" property="filePath"/>
   	</resultMap>
 
   	 
@@ -49,21 +49,19 @@
   	</update>
   	
   	<select id="recycleDetail"  resultMap="recycleBoardResultSet" >
-<!--   		SELECT *
-  		FROM RECYCLE_BOARD
-  		WHERE BOARD_NO = #{boardNo}
-  		AND STATUS = 'Y' -->
-  		
   		 SELECT R.BOARD_NO
 		      , R.RECY_BOARD_TITLE
 		      , R.RECY_BOARD_CONTENT
 		      , R.COUNT
 		      , R.CREATE_DATE
 		      , B.BO_ORIGIN_NAME
-		  FROM RECYCLE_BOARD R
-		  LEFT JOIN BOARD_ATTACHMENT B ON R.BOARD_NO = B.BOARD_NO
-		 WHERE R.BOARD_NO = #{boardNo}
-		   AND R.STATUS = 'Y'
+		      , B.BO_CHANGE_NAME 
+		      , B.FILE_PATH
+		  FROM BOARD_ATTACHMENT B
+		  LEFT JOIN RECYCLE_BOARD R ON R.BOARD_NO = B.BOARD_NO
+		  WHERE R.BOARD_NO = #{rbno}
+		  AND BOARD_TYPE = 3
+		  AND R.STATUS = 'Y'
   	</select>
   	
   	<select id="getNextRecycleNo" resultType="_int" >
@@ -93,7 +91,7 @@
 	              )       
 		
 		</insert>
-  <resultMap type="boardAttachment" id="bAttachResultSet">
+  <resultMap type="recyAttachment" id="bAttachResultSet">
   	<result column ="BO_FILE_NO" property="boFileNo"/>
   	<result column ="BOARD_NO" property="boardNo"/>
   	<result column ="BOARD_TYPE" property="boardType"/>
