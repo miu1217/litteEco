@@ -38,9 +38,11 @@ public class AdminController {
 	@GetMapping("admin")
 	public String Admin(HttpSession session) {
 		
-		String memberName = ((Member)session.getAttribute("loginUser")).getMemberName();
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
-		if(memberName == "user02") {
+		System.out.println(memberId);
+		
+		if(memberId.equals("admin")) {
 			return "admin/adminMain";
 		}else {
 			
