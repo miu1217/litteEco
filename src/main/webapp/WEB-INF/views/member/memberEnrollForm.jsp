@@ -320,8 +320,7 @@ h2 {
                       } else {
                           $("#memberId").val("");
                           $("#checkIdMsg").text("사용할 수 없는 아이디입니다").css("color","red");
-                          $("#memberId").css("border","1px solid red");
-                          $("#memberId").focus();
+                          $("#memberId").css("border","1px solid red"); 
                       }
                 });
                    
@@ -338,7 +337,6 @@ h2 {
                           $("#memberPwd").val("");
                           $("#checkPwdMsg").text("사용할 수 없는 비밀번호입니다").css("color","red");
                           $("#memberPwd").css("border","1px solid red");
-                          $("#memberPwd").focus();
                       }
                  });
 
@@ -355,9 +353,7 @@ h2 {
                           $("#memberPwd2").val("");
                           $("#checkPwdMsg2").text("비밀번호가 일치하지않습니다").css("color","red");
                           $("#memberPwd2").css("border","1px solid red");
-                          $("#memberPwd2").focus();
-                      }
-
+					  }
                 });
 
                 //이름 조건처리
@@ -373,7 +369,6 @@ h2 {
                       $("#memberName").val("");
                       $("#checkNameMsg").text("한글만 입력 가능합니다").css("color","red");
                       $("#memberName").css("border","1px solid red");
-                      $("#memberName").focus();
                   }
                   });
 
@@ -416,7 +411,6 @@ h2 {
                         $("#nickName").val("");
                         $("#checkNickNameMsg").text("사용할 수 없는 닉네임입니다").css("color","red");
                         $("#nickName").css("border","1px solid red");
-                        $("#nickName").focus();
                     }
                     });
 
@@ -433,7 +427,6 @@ h2 {
                       $("#birth").val("");
                       $("#checkBirthMsg").text("올바른 생년월일을 입력하세요").css("color","red");
                       $("#birth").css("border","1px solid red");
-                      $("#birth").focus();
                     }
 
                     });
@@ -540,7 +533,7 @@ h2 {
             <!-- *****************************카테고리(체크박스) 선택한 값 여러개 가져오기***************************** -->
             <script>
 
-            	$("#enrollBtn").click(function(){//
+            	$("#enrollBtn").click(function(){
             		
 	            		var cArr = []; //카테고리배열 초기화
 	            		
