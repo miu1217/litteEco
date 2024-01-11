@@ -60,45 +60,7 @@
   				, #{ecoBoardNo}
   				 )
   		</insert>
-  		
-<!--   		<select id="ecoLikeCount" resultType="_int">
-  			SELECT COUNT(*) COUNT
-  			FROM ECO_LIKE 
-  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
-  		</select> -->
-  		
-<!--   		<select id="ecoLikeCheck" parameterType="ecoLike">
-  			SELECT COUNT(*) COUNT
-  			FROM ECO_LIKE
-  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
-  			AND MEMBER_NO = #{memberNo}
-  		
-  		</select> -->
-  		
-<!--   		<update id="ecoLikeUpdate" parameterType="ecoLike">
-  			UPDATE ECO_LIKE
-  			SET ECO_BOARD_NO = #{ecoBoardNo}
-  			  , MEMBER_NO = #{memberNo}
-  		</update>
-  		
-  		<delete id="ecoLikeDelete" parameterType="ecoLike">
-  			DELETE FROM ECO_LIKE
-  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
-  		</delete>
-  		
-  		<select id="likeMemCheck" parameterType="ecoLike">
-  			SELECT MEMBER_NO
-  			FROM ECO_LIKE
-  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
-  			AND ME MBER_NO = #{memberNo}
-  		</select>  -->
-  		
-  		
-  		<!-- 시퀀스 채번 mapper들 -->
-  		<!-- <select id="getNextNoticeNo" resultType="_int" >
-  			SELECT SEQ_NFNO.NEXTVAL FROM DUAL
-  		</select> -->
-  		
+
   		<select id="getNextBrandNo" resultType="_int">
   			SELECT SEQ_BNO.NEXTVAL FROM DUAL
   		</select>
@@ -110,47 +72,7 @@
   		<select id="getNextFileNo" resultType="_int">
   			SELECT SEQ_ANO.NEXTVAL FROM DUAL
   		</select>
-  		
-  		<!-- 
-  		<insert id="insertSearchEco" parameterType="searchEco">
-  		
-  									   
-  			INSERT INTO SEARCHECO_BOARD(ECO_BOARD_NO,
-  										BRAND_NO,
-  										MEMBER_NO,
-  										ECO_BOARD_TITLE,
-  										ECO_BOARD_CONTENT)
-  								VALUES(SEQ_EBNO.NEXTVAL,
-  									   SEQ_BNO.CURRVAL,
-  									   '1',
-      								   #{ecoBoardTitle},
-  									   #{ecoBoardContent})						   
-  		
-  		</insert>
-  		-->
-  		
-  		<!-- 
-  		<insert id="insertSearchEco" parameterType="searchEco">
-		    <selectKey keyProperty="brandNo" resultType="int" order="BEFORE">
-		        SELECT SEQ_BNO.NEXTVAL AS brandNo FROM DUAL
-		    </selectKey>
-		    <![CDATA[
-		    INSERT INTO SEARCHECO_BOARD 
-		    			(ECO_BOARD_NO
-		    			, BRAND_NO
-		    			, MEMBER_NO
-		    			, ECO_BOARD_TITLE
-		    			, ECO_BOARD_CONTENT)
-		    	 VALUES (SEQ_EBNO.NEXTVAL
-		    	 		, #{brandNo}
-		    	 		, '1'
-		    	 		, #{ecoBoardTitle}
-		    	 		, #{ecoBoardContent})
-		    ]]>
-		</insert>
-		
-		 -->
-		 
+ 
 		 <insert id="insertBrand" parameterType="brand">
 		 	INSERT INTO BRAND (
 				 		  BRAND_NO
@@ -163,8 +85,7 @@
 						, #{brandUrl}
 						, #{brandInfo}	)
 		 </insert>
-		 
-		 
+		 	 
 		 <insert id="insertSearchEco" parameterType="searchEco">
 		 	INSERT INTO SEARCHECO_BOARD
 		 				(
