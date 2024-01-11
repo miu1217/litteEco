@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="searchEcoMapper">
+  
+    	<resultMap type="searchEco" id="ecoResultSet">
+	  		<result column="ECO_BOARD_NO" property="ecoBoardNo"/>
+	  		<result column="MEMBER_NO" property="memberNo"/>
+	  		<result column="BRAND_NO" property="brandNo"/>
+	  		<result column="THUM_IMG" property="thumImg"/>
+	  		<result column="ECO_BOARD_TITLE" property="ecoBoardTitle"/>
+	  		<result column="ECO_BOARD_CONTENT" property="ecoBoardContent"/>
+	  		<result column="COUNT" property="count"/>
+	  		<result column="LIKE_COUNT" property="likeCount"/>
+	  		<result column="CREATE_DATE" property="createDate"/>
+	  		<result column="MODIFY_DATE" property="modifyDate"/>
+	  		<result column="BRAND_INFO" property="brandInfo"/>
+	  		<result column="BRAND_URL" property="brandUrl"/>
+	  		<result column="STATUS" property="status"/>
+  		</resultMap>
+	  
+	  <resultMap type="brand" id="brandResultMap">
+			<result column="BRAND_NO" property="brandNo" />
+			<result column="BRAND_NAME" property="brandName" />
+			<result column="BRAND_URL" property="brandUrl" />
+			<result column="BRAND_INFO" property="brandInfo" />
+			<result column="CREATE_DATE" property="createDate" />
+			<result column="STATUS" property="status" />
+			<result column="IMGSRC" property="imgSrc"/>
+		</resultMap>
+	
+  		<select id="searchEcoListCount" resultType="_int" >
+  			SELECT COUNT(*)
+  			FROM SEARCHECO_BOARD
+  			WHERE STATUS = 'Y'
+  		</select>
+  		
+  		<select id="searchEcoList" resultMap="ecoResultSet"> 
+  			SELECT FILE_PATH || CHANGE_NAME THUM_IMG
+  				 , ECO_BOARD_TITLE
+  				 , ECO_BOARD_CONTENT
+  				 , LIKE_COUNT
+  				 , ECO_BOARD_NO
+  				 , BRAND_INFO
+  			FROM SEARCHECO_BOARD S
+  			JOIN ATTACHMENT AT USING (BRAND_NO)
+  			JOIN BRAND B USING (BRAND_NO)
+  			WHERE S.STATUS = 'Y'
+  			ORDER BY S.CREATE_DATE DESC
+  		</select>
+  		
+  		<insert id="ecoLikeInsert" parameterType="ecoLike">
+  			INSERT INTO ECO_LIKE
+  				( MEMBER_NO
+				, ECO_BOARD_NO )
+  			VALUES
+  				( #{memberNo}
+  				, #{ecoBoardNo}
+  				 )
+  		</insert>
+  		
+<!--   		<select id="ecoLikeCount" resultType="_int">
+  			SELECT COUNT(*) COUNT
+  			FROM ECO_LIKE 
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  		</select> -->
+  		
+<!--   		<select id="ecoLikeCheck" parameterType="ecoLike">
+  			SELECT COUNT(*) COUNT
+  			FROM ECO_LIKE
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  			AND MEMBER_NO = #{memberNo}
+  		
+  		</select> -->
+  		
+<!--   		<update id="ecoLikeUpdate" parameterType="ecoLike">
+  			UPDATE ECO_LIKE
+  			SET ECO_BOARD_NO = #{ecoBoardNo}
+  			  , MEMBER_NO = #{memberNo}
+  		</update>
+  		
+  		<delete id="ecoLikeDelete" parameterType="ecoLike">
+  			DELETE FROM ECO_LIKE
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  		</delete>
+  		
+  		<select id="likeMemCheck" parameterType="ecoLike">
+  			SELECT MEMBER_NO
+  			FROM ECO_LIKE
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  			AND ME MBER_NO = #{memberNo}
+  		</select>  -->
+  		
+  		
+  		<!-- 시퀀스 채번 mapper들 -->
+  		<!-- <select id="getNextNoticeNo" resultType="_int" >
+  			SELECT SEQ_NFNO.NEXTVAL FROM DUAL
+  		</select> -->
+  		
+  		<select id="getNextBrandNo" resultType="_int">
+  			SELECT SEQ_BNO.NEXTVAL FROM DUAL
+  		</select>
+  		
+  		<select id="getNextEcoBoardNo" resultType="_int">
+  			SELECT SEQ_EBNO.NEXTVAL FROM DUAL
+  		</select>
+  		
+  		<select id="getNextFileNo" resultType="_int">
+  			SELECT SEQ_ANO.NEXTVAL FROM DUAL
+  		</select>
+  		
+  		<!-- 
+  		<insert id="insertSearchEco" parameterType="searchEco">
+  		
+  									   
+  			INSERT INTO SEARCHECO_BOARD(ECO_BOARD_NO,
+  										BRAND_NO,
+  										MEMBER_NO,
+  										ECO_BOARD_TITLE,
+  										ECO_BOARD_CONTENT)
+  								VALUES(SEQ_EBNO.NEXTVAL,
+  									   SEQ_BNO.CURRVAL,
+  									   '1',
+      								   #{ecoBoardTitle},
+  									   #{ecoBoardContent})						   
+  		
+  		</insert>
+  		-->
+  		
+  		<!-- 
+  		<insert id="insertSearchEco" parameterType="searchEco">
+		    <selectKey keyProperty="brandNo" resultType="int" order="BEFORE">
+		        SELECT SEQ_BNO.NEXTVAL AS brandNo FROM DUAL
+		    </selectKey>
+		    <![CDATA[
+		    INSERT INTO SEARCHECO_BOARD 
+		    			(ECO_BOARD_NO
+		    			, BRAND_NO
+		    			, MEMBER_NO
+		    			, ECO_BOARD_TITLE
+		    			, ECO_BOARD_CONTENT)
+		    	 VALUES (SEQ_EBNO.NEXTVAL
+		    	 		, #{brandNo}
+		    	 		, '1'
+		    	 		, #{ecoBoardTitle}
+		    	 		, #{ecoBoardContent})
+		    ]]>
+		</insert>
+		
+		 -->
+		 
+		 <insert id="insertBrand" parameterType="brand">
+		 	INSERT INTO BRAND (
+				 		  BRAND_NO
+						, BRAND_NAME
+						, BRAND_URL
+						, BRAND_INFO )
+					VALUES (
+						  #{brandNo}
+						, #{brandName}
+						, #{brandUrl}
+						, #{brandInfo}	)
+		 </insert>
+		 
+		 
+		 <insert id="insertSearchEco" parameterType="searchEco">
+		 	INSERT INTO SEARCHECO_BOARD
+		 				(
+		 					ECO_BOARD_NO
+							, MEMBER_NO
+							, BRAND_NO
+							, ECO_BOARD_TITLE
+							, ECO_BOARD_CONTENT	
+		 				)
+		 			VALUES 
+		 				(
+		 					#{ecoBoardNo}
+		 					, 1
+		 					, #{brandNo}
+		 					, #{ecoBoardTitle}
+		 					, #{ecoBoardContent}
+		 				)
+
+		 </insert>
+  		
+  		<insert id="insertAttachment" parameterType="brandAttachment">
+  			INSERT INTO ATTACHMENT(FILE_NO,
+  								   BRAND_NO,
+  								   ORIGIN_NAME,
+  								   CHANGE_NAME,
+  								   FILE_PATH,
+  								   FILE_LEVEL)
+  					  VALUES(#{fileNo},
+  					  		 #{brandNo},
+  					  		 #{originName},
+  					  		 #{changeName},
+  					  		 #{filePath},
+  					  		 #{fileLevel})			   
+  		
+  		</insert>
+  		
+  		
+  		<update id="increaseCountSearchEco" parameterType="_int">
+  			UPDATE SEARCHECO_BOARD
+			SET COUNT = COUNT + 1 
+			WHERE ECO_BOARD_NO = #{bno}
+			AND STATUS = 'Y' 
+  		</update>
+  		
+  		
+  		
+  		<select id="detailSearchEco" resultMap="ecoResultSet">
+  			SELECT S.ECO_BOARD_TITLE 
+       			 , S.ECO_BOARD_CONTENT 
+       			 , S.COUNT 
+       			 , S.ECO_BOARD_NO 
+       			 , B.BRAND_URL 
+                 , S.CREATE_DATE 
+			FROM SEARCHECO_BOARD S
+			JOIN BRAND B USING(BRAND_NO)
+  			WHERE S.STATUS = 'Y'
+            AND S.ECO_BOARD_NO = #{bno}
+  		</select>
+  
+  		<select id="selectBrandNo" resultMap="brandResultMap">
+  			SELECT BRAND_NO
+  			FROM BRAND
+  			WHERE BRAND_NAME = #{brandName}
+  		</select>
+  		
+  		
+  		<select id="brandList" resultMap="brandResultMap">
+			SELECT BRAND_NO
+	                ,BRAND_NAME
+	                ,FILE_PATH || CHANGE_NAME IMGSRC
+			FROM BRAND B
+			JOIN ATTACHMENT AT USING (BRAND_NO)
+			WHERE B.STATUS = 'Y'
+			ORDER BY B.CREATE_DATE DESC
+		</select>
+		
+		
+		<delete id="searchEcoDelete" parameterType="_int">
+			UPDATE SEARCHECO_BOARD
+				SET STATUS = 'N'
+				WHERE STATUS = 'Y'
+				AND ECO_BOARD_NO = #{bno}
+		
+		</delete>
+		
+		<update id="searchEcoUpdate" parameterType="searchEco">
+				UPDATE SEARCHECO_BOARD
+				SET ECO_BOARD_TITLE = #{ecoBoardTitle}
+				   ,ECO_BOARD_CONTENT = #{ecoBoardContent}
+				WHERE ECO_BOARD_NO = #{ecoBoardNo}
+		</update>
+		
+		<insert id="likeSave" parameterType="ecoLike">
+  			INSERT INTO ECO_LIKE
+  				( MEMBER_NO
+				, ECO_BOARD_NO
+				 )
+  			VALUES
+  				( #{memberNo}
+  				, #{ecoBoardNo}
+  				 )
+  		</insert>
+		
+		<update id="likeUp" parameterType="searchEco">
+  			UPDATE SEARCHECO_BOARD
+  			SET LIKE_COUNT = LIKE_COUNT + 1
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  		</update>
+		
+  		
+  		<select id="likeCount" resultType="_int">
+  			SELECT LIKE_COUNT
+  			FROM SEARCHECO_BOARD
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  			<!-- AND STATUS = 'Y' -->
+  
+  		</select>
+  		
+  		<delete id="likeRemove" parameterType="ecoLike">
+  			DELETE FROM ECO_LIKE
+  			WHERE ECO_BOARD_NO = #{ecoBoardNo}
+  			AND MEMBER_NO=#{memberNo}
+  		</delete>
+  		
+  		<update id="likedown" parameterType="searchEco">
+		  	UPDATE SEARCHECO_BOARD
+		  	SET LIKE_COUNT = LIKE_COUNT - 1
+		  	WHERE ECO_BOARD_NO = #{ecoBoardNo}
+	  	</update>  
+	  	
+	  	<select id="selectLikeYn" resultType="_int">
+	  		SELECT COUNT(*)
+		    FROM ECO_LIKE
+		    WHERE ECO_BOARD_NO = #{ecoBoardNo}
+		    AND MEMBER_NO = #{memberNo}
+	  	</select>
+  		
+		<select id="getBoardNo" resultType="_int">
+			SELECT ECO_BOARD_NO
+			FROM SEARCHECO_BOARD
+			WHERE BRAND_NO = #{boardNo}
+		</select>
+		
+		
+  </mapper>
