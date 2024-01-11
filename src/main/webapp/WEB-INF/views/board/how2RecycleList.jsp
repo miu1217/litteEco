@@ -153,7 +153,7 @@
         </div>
     
     
-   <c:if test="${not empty loginUser and loginUser.memberId eq ('admin1')}">
+   <c:if test="${not empty loginUser and loginUser.memberId eq ('admin')}">
 	<div id=insertbtn>
 		<button id="hrbtn" onclick="location.href='rbinsert.hrb'" >글작성</button>
 	</div>    	

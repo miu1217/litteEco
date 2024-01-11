@@ -438,7 +438,7 @@ Member loginMember = (Member) session.getAttribute("loginMember");
         <!-- 관리자일때만 보여야됨 -->
         
         <div class="notice_write_btnBox">
-        <c:if test="${not empty loginUser and loginUser.memberId eq ('user1234')}">
+        <c:if test="${not empty loginUser and loginUser.memberId eq ('admin')}">
             <button type="" class="notice_writeBtn" onclick="location.href='searchEcoInsert.bo'">글작성</button>
         </c:if>
         </div>
