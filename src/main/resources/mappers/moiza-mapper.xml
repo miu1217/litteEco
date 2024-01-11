@@ -233,7 +233,6 @@
 			AND MOIZA_NO = #{moizaNo}
 		</update>
 		
-		
 		<select id="searchMoiza" resultMap="moiza">
 		    SELECT * FROM(
             select m.* from moiza m
@@ -248,4 +247,5 @@
 		JOIN MOIZA_MEMBER MM USING(MOIZA_NO)
 		WHERE MEMBER_NO = #{mno}
 		</select>
+
     </mapper>

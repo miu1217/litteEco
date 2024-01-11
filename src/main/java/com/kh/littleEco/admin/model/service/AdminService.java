@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.littleEco.brand.model.vo.Attachment;
 import com.kh.littleEco.brand.model.vo.Brand;
 import com.kh.littleEco.brand.model.vo.Category;
+import com.kh.littleEco.common.model.vo.PageInfo;
 import com.kh.littleEco.member.model.vo.Member;
 
 public interface AdminService {
@@ -41,7 +42,7 @@ public interface AdminService {
 	int insertBrandAttachment(Attachment at);
 	
 	//brand List 조회 메소드
-	ArrayList<Brand> brandList();
+	ArrayList<Brand> brandList(PageInfo pi);
 
 	//brand 상세 보기 메소드
 	Brand selectBrand(int bno);
@@ -66,5 +67,7 @@ public interface AdminService {
 
 	//brand delete 하는 메소드
 	int deleteBrand(int bno);
+
+	int brandListCount();
 
 }

@@ -154,6 +154,7 @@
 	<select id="brandList" resultMap="brandResultMap">
 		SELECT BRAND_NO
                 ,BRAND_NAME
+                ,BRAND_INFO
                 ,FILE_PATH || CHANGE_NAME IMGSRC
 		FROM BRAND B
 		JOIN ATTACHMENT AT USING (BRAND_NO)
@@ -226,4 +227,10 @@
 		AND STATUS = 'Y'
 	
 	</update>
+	
+	
+	<select id="brandListCount" resultType="_int">
+		 SELECT COUNT(*) FROM
+        BRAND WHERE STATUS = 'Y'
+	</select>
 	</mapper>

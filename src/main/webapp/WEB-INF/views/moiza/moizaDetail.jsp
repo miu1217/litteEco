@@ -114,7 +114,6 @@
             height: 60px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 18px;
-            font-weight: bold;
         }
 
         .nBtn:hover {
@@ -141,7 +140,7 @@
             color: white;
             background-color: #02215a;
         }
-        
+
             /* 모달영역 */
     .mWrp{
       position: fixed;
@@ -206,6 +205,23 @@
 	.submitBtn:hover {
 	    background-color: #45a049; /* 호버시 배경색 변경 */
 	}
+	
+	
+	.container {
+            gap: 10px;
+            display:flex;
+            flex-wrap: wrap;
+        }
+         .content-card {
+         flex: 1 0 calc(50% - 10px); /* 50% - gap */
+            background-color: #EDF2F7;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 30px;
+            margin-left: 55px;
+            width: 400px;
+        }
+
 
 
     </style>
@@ -316,12 +332,13 @@
 		            <button type="button" class="nBtn" id="dBtn">삭제하기</button>
 		         </div>
 			</c:when>
-			<c:when test="${not empty  loginUser} ">
+			<c:when test="${not empty  loginUser}">
 				<div class="btn_area">
 					<button type="submit" class="nBtn" id="applyBtn">신청하기</button>
 				</div>
 			</c:when>
 		</c:choose>
+		
     </div><!--//wrap-->
 	
 	<script>
@@ -445,8 +462,7 @@
 	$(document).on("click", "#updateBtn", function () {
 	    showConfirmationDialog();
 	});
-	  
-	  
+
 	</script>
 	
 	

@@ -44,31 +44,37 @@
        
        }
         #ibtn{
-       background-color: #002C7B;
-       border: #002C7B;
-        margin-right: 20px;
+       	background-color: #002C7B;
+      	border: #002C7B;
+        
        }
        
        .btn_area{
-       	margin-bottom: 50px;
+       	margin-bottom: 70px;
+       	margin-right: 50px;
+       	
        }
       
 
         .container {
             display: flex;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 20px;
+            margin-bottom: 30px;
+            margin-left: 30px;
             
         }
         
          .content-card {
-            background-color: #edf2f7;
+            background-color: #fffff;
+           	
             border-radius: 0.5rem;
             padding: 1rem;
             margin-bottom: 30px;
             margin-left: 140px;
             margin-right: 55px;
             width: 600px;
+            border: 1px solid #002C7B;
         }
         
         .text-center {
@@ -189,6 +195,16 @@
 		.pull-right {
 		    float: right;
 		}
+		
+		#loadMoreBtn{
+			margin-left: 920px;
+			margin-bottom: 30px;
+			 background-color: #002C7B;
+		}
+		
+		#mTitle{
+			font-weight: bold;
+		}
     </style>
 </head>
 <body>
@@ -215,8 +231,7 @@
     <script>
     var page = 1; // Initial page number
     var reviewsPerPage = 9;
-    
-    	$(function(){
+	$(function(){
     		selectMoizaList();
     		
     		$(document).on("click","#btn", function(){
@@ -238,6 +253,7 @@
 			
 			
 		        // $(document).ready에서 한 번 실행
+
 		        $(document).ready(function () {
 		            // 초기 로드
 		            loadMoreReviews();
@@ -293,14 +309,6 @@
                         console.log(data);
                         // Iterate through the received reviews and append them to the review tab
                             $.each(data, function (index, pm) {
-                            var productHtml = '<div class="product"data-category-no="'+pm.categoryNo+'" data-product-no="'+pm.productNo+'" data-product-name="'+pm.productName+'">';
-                            productHtml += '<div class="product-info"><img src="${contextPath}'+pm.imgsrc+'" id="product-img" data-product-no="'+pm.productNo+'" onclick="productDetail(this)">';
-                            productHtml += '<div id="product-name"><p>'+pm.productName+'</p></div>';
-                            productHtml += '<div class="product-infomation"><p>'+pm.categoryName+'</p></div>';
-                            productHtml += '<div class="product-foot"><div class="product-price"><p id="product-price">'+pm.productPrice+'원</p>';
-                            productHtml += '</div><div class="product-compare"><img src="${contextPath }/resources/assets/icons/plus.svg" class="plusIcon" /> <span>비교하기</span></div>';
-                            productHtml += '</div></div></div>'; 
-                            
                             var moizaHtml = "<div class= 'container'>"
                             	moizaHtml +="<div class= 'content-card'>"
                             	moizaHtml += "<input type='hidden' id='mnNo' name='moizaNo' value='"+ result[i].moizaNo + "'>"

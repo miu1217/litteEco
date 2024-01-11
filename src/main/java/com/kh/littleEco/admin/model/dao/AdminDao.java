@@ -3,12 +3,14 @@ package com.kh.littleEco.admin.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.littleEco.brand.model.vo.Attachment;
 import com.kh.littleEco.brand.model.vo.Brand;
 import com.kh.littleEco.brand.model.vo.Category;
+import com.kh.littleEco.common.model.vo.PageInfo;
 import com.kh.littleEco.member.model.vo.Member;
 import com.kh.littleEco.member.model.vo.MemberCategory;
 
@@ -77,9 +79,17 @@ public class AdminDao {
 	}
 
 	//brand List 조회 메소드
-	public ArrayList<Brand> brandList(SqlSession sqlSession) {
+	public ArrayList<Brand> brandList(SqlSession sqlSession, PageInfo pi) {
 		
-		return (ArrayList)sqlSession.selectList("adminMapper.brandList");
+		
+
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.brandList", null ,rowBounds);
 	}
 
 	//brand 상세 보기 메소드
@@ -126,6 +136,11 @@ public class AdminDao {
 	public int deleteBrand(SqlSession sqlSession, int bno) {
 		
 		return sqlSession.update("adminMapper.deleteBrand", bno);
+	}
+
+	public int brandListCount(SqlSession sqlSession) {
+		
+		return sqlSession.selectOne("adminMapper.brandListCount");
 	}
 
 }

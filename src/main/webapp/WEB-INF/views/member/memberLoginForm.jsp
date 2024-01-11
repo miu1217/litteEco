@@ -190,6 +190,8 @@ h2 {
 			<p id="token-result"></p>
 		
 		</div>
+			
+		<!-- 아이디 저장 스크립트 -->
 	<script>
 	
 		$(document).ready(function(){
