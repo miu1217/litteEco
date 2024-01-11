@@ -120,8 +120,8 @@
 							<div class="nav">
 								<a href="enrollForm.me">Join</a>
 								<a href="loginForm.me">Login</a>
-								<a href="">FAQ</a>
-								<a href="">Notice</a>
+								<a href="faqList.bo">FAQ</a>
+								<a href="notice.bo">Notice</a>
 							</div>
 						</div>
 					</div>
@@ -132,10 +132,10 @@
 					<div class="inner">
 						<div class="aside">
 							<div class="nav">
-								<a href="">Mypage</a>
+								<a href="mypage.me">Mypage</a>
 								<a href="logout.me">Logout</a>
-								<a href="">FAQ</a>
-								<a href="">Notice</a>
+								<a href="faqList.bo">FAQ</a>
+								<a href="notice.bo">Notice</a>
 							</div>
 						</div>
 					</div>
@@ -150,9 +150,9 @@
               <!--메뉴!!-->
               <div class="menu">
                   <ul>
-                      <li class="menus"><a href="">About</a></li>
-                      <li class="menus"><a href="">searchEco</a></li>
-                      <li class="menus"><a href="">How2Recycle</a></li>
+                      <li class="menus"><a href="about.ab">About</a></li>
+                      <li class="menus"><a href="searchEco.bo">searchEco</a></li>
+                      <li class="menus"><a href="rblist.hrb">How2Recycle</a></li>
                       <li class="menus"><a href="moiza">moiza</a></li>
                   </ul>
 
