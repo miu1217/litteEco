@@ -32,5 +32,5 @@ public class Member {
     private SearchEco SearchEco;
     private recycleBoard recycleBoard;
 	
-	//private ArrayList<Category>cList;
+
 }

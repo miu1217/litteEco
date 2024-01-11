@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +57,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="brand">
+                        <a class="nav-link" href="brand.ad">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>Brand</p>
                         </a>
@@ -164,8 +165,6 @@
 <script src="/littleEco/resources/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 <script src="/littleEco/resources/assets/js/plugins/bootstrap-switch.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!--  Chartist Plugin  -->
 <script src="/littleEco/resources/assets/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->

@@ -68,6 +68,37 @@
   		
   	
 
+
+  	
+	
+	
+	
+<!--   	<update id="updateCategory">	
+	  <foreach collection="categoryNo" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		UPDATE MEMBER_CATEGORY
+		SET CATEGORY_NO = #{item}
+		WHERE MEMBER_NO = #{memberNo}
+	  </foreach>
+	</update> -->
+	
+<update id="updateCategory" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+        UPDATE MEMBER_CATEGORY 
+        SET CATEGORY_NO = #{item.categoryNo}
+        WHERE MEMBER_NO = #{item.memberNo}
+    </foreach>
+</update>
+
+
+
+	
+	<!-- 회원탈퇴 메소드 -->
+	<update id="deleteMember">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		,WITHDRAWAL_REASON = #{withdrawalReason}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
   	
   	<select id="loginMember" resultMap="enrollMemberResultSet">
   		SELECT  MEMBER_NO
@@ -82,11 +113,26 @@
 		        ,CREATE_DATE
 		        ,STATUS
 		        ,CATEGORY_NO
-		        ,WITHDRAWAL_REASON
 		FROM MEMBER
 		LEFT JOIN MEMBER_CATEGORY USING (MEMBER_NO)
 		WHERE MEMBER_ID = #{memberId}
 	    AND STATUS = 'Y'
+  	</select>
+  	
+  	<select id="selectFindId" resultMap="memberResultSet">
+  		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{memberName}
+		AND EMAIL = #{email}
+  	</select>
+  	
+  	<select id="selectFindMember" resultMap="memberResultSet">
+  		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_NAME = #{memberName}
+		AND EMAIL = #{email}
+		AND STATUS = 'Y'
   	</select>
   	
 	<insert id="insertMember" parameterType="member">
@@ -124,49 +170,35 @@
 	  </foreach>
 	</insert>
 	
-	
-	
-<!--   	<update id="updateCategory">	
-	  <foreach collection="categoryNo" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
-		UPDATE MEMBER_CATEGORY
-		SET CATEGORY_NO = #{item}
-		WHERE MEMBER_NO = #{memberNo}
-	  </foreach>
-	</update> -->
-	
-<update id="updateCategory" parameterType="java.util.List">
-    <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
-        UPDATE MEMBER_CATEGORY 
-        SET CATEGORY_NO = #{item.categoryNo}
-        WHERE MEMBER_NO = #{item.memberNo}
-    </foreach>
-</update>
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-	
-	<!-- 회원탈퇴 메소드 -->
-	<update id="deleteMember">
+	<update id="resetMemberPwd">
 		UPDATE MEMBER
-		SET STATUS = 'N'
-		,WITHDRAWAL_REASON = #{withdrawalReason}
+		SET MEMBER_PWD = #{memberPwd}
 		WHERE MEMBER_ID = #{memberId}
+		AND STATUS = 'Y'
 	</update>
+	
+	<select id="checkId" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="checkNick" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE NICKNAME = #{nickName}
+	</select>
+	
+	<select id="checkEmail" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE EMAIL = #{email}
+	</select>
+   
+   <select id="checkPhone" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE PHONE = #{phone}
+	</select>
    
   </mapper>

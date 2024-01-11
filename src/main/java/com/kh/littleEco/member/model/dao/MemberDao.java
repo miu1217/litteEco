@@ -23,6 +23,23 @@ public class MemberDao {
 	}
 
 
+
+	//회원탈퇴
+	public int deleteMember(Member loginUser,SqlSessionTemplate sqlSession) {
+		
+		
+		return sqlSession.update("memberMapper.deleteMember",loginUser);
+	}
+	//카테고리 수정
+	public int updateCategory(ArrayList<MemberCategory> categoryList, SqlSessionTemplate sqlSession) {
+		
+		
+		return sqlSession.update("memberMapper.updateCategory",categoryList);
+	}
+
+
+
+
 	//회원가입 메소드
 	public int insertMember(Member m,SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("memberMapper.insertMember",m);
@@ -38,17 +55,39 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMemberCategory", m);
 	}
 
-	//회원탈퇴
-	public int deleteMember(Member loginUser,SqlSessionTemplate sqlSession) {
-		
-		
-		return sqlSession.update("memberMapper.deleteMember",loginUser);
-	}
-	//카테고리 수정
-	public int updateCategory(ArrayList<MemberCategory> categoryList, SqlSessionTemplate sqlSession) {
-		
-		
-		return sqlSession.update("memberMapper.updateCategory",categoryList);
+	//id 찾기
+	public Member selectFindId(Member m, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.selectFindId", m);
 	}
 
+	//pwd 찾기(확인)
+	public Member selectFindPwd(Member m, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.selectFindMember", m);
+	}
+
+	//pwd 새로입력
+	public int resetMemberPwd(Member m, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("memberMapper.resetMemberPwd", m);
+	}
+
+	//아이디중복확인
+	public int checkId(String memberId, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.checkId", memberId);
+	}
+
+	//닉네임중복확인
+	public int checkNick(String nickName, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.checkNick", nickName);
+	}
+
+	//이메일중복확인
+	public int checkEmail(String email, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.checkEmail", email);
+	}
+
+	//폰번호 중복확인
+	public int checkPhone(String phone, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.checkPhone",phone);
+	}
+	
 }

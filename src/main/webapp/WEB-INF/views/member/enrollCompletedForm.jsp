@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 성공화면</title>
+
+<title>계정 찾기 성공화면</title>
 </head>
 <style>
 

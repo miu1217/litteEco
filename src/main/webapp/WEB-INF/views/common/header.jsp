@@ -14,6 +14,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <!-- 부트스트랩 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    
     <style>
 
      *{
@@ -158,7 +163,7 @@
 
 #bestbg{
 
-    width: 400px;
+    width: 300px;
     margin-left: 80%;
     margin-right : auto;
     margin-top: 20px;
@@ -173,8 +178,9 @@
 /* 마우스가 #best에 들어오면 나머지 요소들이 나타남 */
 #best:hover #scroll li {
     display: list-item;
-    background-color: #fff; /* Set background color to white */
-    box-shadow: 3px 3px; /* 그림자 설정 */
+    background-color: #fff; 
+    box-shadow: 2px 2px; 
+    height : 30px;
 }
 
 #scroll {
@@ -189,7 +195,12 @@
 /* /* 각 인기 검색어 앞에 숫자를 추가 */
 #scroll li {
     counter-increment: item;
-     margin-bottom: -50px;
+         margin-left: 30px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #595959;
+    position: relative; 
+    
      
 } */
 
@@ -201,32 +212,22 @@
 }
 
 
-/* #bestbg p{
-   margin-left: 40px;   
-   font-size: 26px;
-   font-weight: 500;
-   color: #4c4c4c;
-} */
-
-#bestbg li {
-    margin-left: 30px;
-    padding-bottom: 10px;
-    font-size: 16px;
-    color: #595959;
-    position: relative; /* position 변경 */
-}
 
 #scroll li a {
     text-decoration: none; /* 밑줄 제거 */
     color: inherit; /* 부모 요소의 색상 상속 */
+    text-align:center;
 }
-    
+
     
     #scroll {
   display: grid;
 }
 
-
+#mainBtn{
+	text-decoration: none; /* 밑줄 제거 */
+	color: inherit; /* 부모 요소의 색상 상속 */
+}
     
     
     
@@ -280,29 +281,13 @@
         </div>
         </div>
         </div>
-        <!--****************************로그인 후 헤더************************************************-->
-<%--             <div class="top-area">
-             <div class="inner">
-                <div class="aside">
-                    <div class="nav">
-        		<c:otherwise>
-                        <a href="logout.me">Logout</a>
-                        <a href="">FAQ</a>
-                        <a href="scrap.mp">Notice</a>
-                        <a href="mypage.me">Mypage</a>
-		        </c:otherwise>
-                </div>
-          
-        </div>
 
-        </div>
-        </div> --%>
           
         <div class="gnb-area">
             <div class="gnb-wrap">
                 <div class="inner">
                     <!--로고예용-->
-                    <h1 class="lelogo">LittleECO</h1>
+                    <h1 class="lelogo"><a href="/littleEco" id="mainBtn">LittleECO</h1>
                     <!--메뉴!!-->
                     <div class="menu">
                     
@@ -310,7 +295,7 @@
                       <li class="menus"><a href="about.ab">About</a></li>
                       <li class="menus"><a href="searchEco.bo">searchEco</a></li>
                       <li class="menus"><a href="rblist.hrb">How2Recycle</a></li>
-                      <li class="menus"><a href="">moiza</a></li>
+                      <li class="menus"><a href="moiza">moiza</a></li>
                         </ul>
                         
 
@@ -393,21 +378,22 @@
 			        if (index < keywords.length) {
 			            var keyword = keywords[index].keyword;
 			            var rank = index + 1;
-			            var listItem = $("<li>").append("<a href='#' class='popular-keyword'>"+ "<strong>"+ rank +"</strong>" +". " + keyword + "</a>");
+			            var listItem = $("<li>").append("<a href='#' class='popular-keyword'>"
+			            		+ "<strong>"+ rank +"</strong>" +". " + keyword + "</a>");
 
-			            // 클릭 이벤트를 추가하여 검색어를 클릭할 때 동작하도록 함
+			            //클릭 이벤트를 추가하여 검색어를 클릭할 때 동작하도록 함
 			            listItem.find(".popular-keyword").on("click", function (e) {
 			                e.preventDefault(); // 기본 동작 막기
 
-			                // 선택한 검색어를 가져와서 searchBox에 넣기
+			                //선택한 검색어를 가져와서 searchBox(검색창)에 넣기
 			                var selectedKeyword = $(this).text().split('. ')[1];
 			                $("#searchBox").val(selectedKeyword);
 
-			                // searchBtn2를 클릭하여 검색 수행
+			                //searchBtn2를 클릭하여 검색 
 			                $("#searchBtn2").click();
 			            });
 
-			            $("#scroll").html($("<ol>").css("list-style-type", "none").append(listItem)); // 번호를 표시하지 않음
+			            $("#scroll").html($("<ol>").css("list-style-type", "none").append(listItem));//번호 표시안함
 
 			            // 다음 검색어를 2초 뒤에 표시
 			            intervalId = setTimeout(function () {

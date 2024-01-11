@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="noticeMapper">
+  
+    	<resultMap type="notice" id="noticeResultSet">
+	  		<result column="BOARD_NO" property="boardNo"/>
+	  		<result column="MEMBER_NO" property="memberNo"/>
+	  		<result column="BOARD_CATEGORY" property="boardCategory"/>
+	  		<result column="BOARD_TITLE" property="boardTitle"/>
+	  		<result column="BOARD_CONTENT" property="boardContent"/>
+	  		<result column="COUNT" property="count"/>
+	  		<result column="CREATE_DATE" property="createDate"/>
+	  		<result column="MODIFY_DATE" property="modifyDate"/>
+	  		<result column="STATUS" property="status"/>
+	  		<result column="BO_ORIGIN_NAME" property="boOriginName"/>
+	  		<result column="BO_CHANGE_NAME" property="boChangeName"/>
+
+	  		
+	  		
+  		</resultMap>
+  
+  		<select id="noticeListCount" resultType="_int" >
+  			SELECT COUNT(*)
+  			FROM NOTICE_FAQ_BOARD
+  			WHERE STATUS = 'Y'
+  		</select>
+  		
+  		<select id="noticeList" resultMap="noticeResultSet">
+  			SELECT BOARD_NO
+			     , BOARD_TITLE
+			     , CREATE_DATE
+			     , COUNT
+			FROM NOTICE_FAQ_BOARD
+			WHERE BOARD_CATEGORY = '1'
+			AND STATUS = 'Y'
+			ORDER BY CREATE_DATE DESC
+  		</select>
+  		
+  		<update id="increaseCountNotice" parameterType="_int">
+  			UPDATE NOTICE_FAQ_BOARD
+			SET COUNT = COUNT + 1 
+			WHERE BOARD_NO = #{bno}
+			AND BOARD_CATEGORY = '1'
+			AND STATUS = 'Y' 
+  		</update>
+  		
+  		<select id="noticeDetail" resultMap="noticeResultSet">
+  			 SELECT 
+				  A.BOARD_NO,
+				  A.MEMBER_NO,
+				  A.BOARD_CATEGORY,
+				  A.BOARD_TITLE,
+				  A.BOARD_CONTENT,
+				  A.COUNT,
+				  A.CREATE_DATE,
+				  A.MODIFY_DATE,
+				  A.STATUS,
+				  B.BO_ORIGIN_NAME,
+				  B.BO_CHANGE_NAME
+				FROM 
+				  NOTICE_FAQ_BOARD A
+				LEFT JOIN 
+				  (
+                SELECT
+                BOARD_NO,
+                  BO_ORIGIN_NAME,
+                  BO_CHANGE_NAME,
+                  STATUS
+                  FROM BOARD_ATTACHMENT
+                  WHERE STATUS = 'Y'
+                  )B ON A.BOARD_NO = B.BOARD_NO 
+				WHERE 
+				  A.BOARD_NO = #{boardNo}
+				  AND A.BOARD_CATEGORY = 1
+				  AND A.STATUS = 'Y'
+  		</select>
+  		
+  		
+  		<insert id="noticeInsert" parameterType="notice">
+<!--   			<selectKey keyProperty="NBNO" resultType="int" order="BEFORE">
+  				SELECT SEQ_NFNO.NEXTVAL FROM DUAL
+  			</selectKey> -->
+  			INSERT
+				INTO NOTICE_FAQ_BOARD
+				(   BOARD_NO
+				  , BOARD_TITLE
+				  , BOARD_CONTENT
+				  , BOARD_CATEGORY
+				  , MEMBER_NO
+				) VALUES 
+				(   #{boardNo}
+				  , #{boardTitle}
+				  , #{boardContent}
+				  , 1 <!-- 공지사항은 1번 -->
+				  , 1 <!-- 이 부분 수정해야함 -->
+				) 
+  		</insert>
+  		
+  		<select id="getNextNoticeNo" resultType="_int" >
+  			SELECT SEQ_NFNO.NEXTVAL FROM DUAL
+  		</select>
+  		
+  		<update id="noticeUpdateForm" parameterType="notice">
+  			UPDATE NOTICE_FAQ_BOARD
+  			SET BOARD_TITLE = #{boardTitle}
+  			  , BOARD_CONTENT = #{boardContent}
+  			WHERE BOARD_NO = #{boardNo}
+  		</update>
+  		
+  		<insert id="insertAttachment" parameterType="boardAttachment">
+  			INSERT INTO BOARD_ATTACHMENT
+  				      ( 
+  				          BO_FILE_NO
+						, BOARD_NO
+						, BOARD_TYPE
+						, BO_ORIGIN_NAME
+						, BO_CHANGE_NAME
+						, FILE_PATH
+
+  				      )
+  			VALUES   (
+  			  			SEQ_BANO.NEXTVAL
+  					  , #{boardNo}
+  					  , '1' <!-- 공지사항은 보드타입 = 1 -->
+  					  , #{boOriginName}
+  					  , #{boChangeName}
+  					  , #{filePath}
+  					 )
+  		</insert>
+  		
+  		
+  		
+  		
+  		<update id="updateAttachment" parameterType="boardAttachment">
+  			UPDATE BOARD_ATTACHMENT
+  			SET BO_ORIGIN_NAME = #{boOriginName}
+  			  , BO_CHANGE_NAME = #{boChangeName}
+  			  , FILE_PATH = #{filePath}
+  			WHERE BO_FILE_NO = #{boFileNo} 
+  			AND BOARD_NO = #{boardNo}
+  			AND STATUS = 'Y'
+  			AND BOARD_TYPE = 1 <!-- 공지사항은 1 -->
+  		</update>
+  		
+  		
+  		
+  		<delete id="noticeDelete" parameterType="notice">
+  			UPDATE NOTICE_FAQ_BOARD
+	  			SET STATUS = 'N'
+	  			WHERE STATUS = 'Y'
+	  			AND BOARD_NO = #{boardNo}
+  		</delete>
+  
+		<delete id="deleteAttachment" parameterType="boardAttachment">
+  			UPDATE BOARD_ATTACHMENT
+	  			SET STATUS = 'N'
+	  			WHERE STATUS = 'Y'
+	  			AND BOARD_NO = #{boardNo}
+  		</delete>
+
+  
+  </mapper>

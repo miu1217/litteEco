@@ -134,6 +134,10 @@ h2 {
 	margin-top: 20px;
 }
 
+
+.kakaoLoginBtn{
+	margin-top: 20px;
+}
 </style>
 <body>
 
@@ -153,7 +157,8 @@ h2 {
 				</div>
 				<div class="login_etc">
 					<div class="checkbox">
-						<label for="rememberId"> <input type="checkbox" id="checkId"> 아이디저장
+						<label for="rememberId">
+						<input type="checkbox" id="checkId" name="remember" value="chk"> 아이디저장
 						</label>
 					</div>
 				</div>
@@ -164,8 +169,8 @@ h2 {
 
 			<div class="userInfo">
 				<a href="enrollForm.me">회원가입</a> | 
-				<a href="findMemberForm.me">아이디 찾기</a> | 
-				<a href="findMemberForm.me">비밀번호 찾기</a>
+				<a href="findMemberIdForm.me">아이디 찾기</a> | 
+				<a href="findMemberPwdForm.me">비밀번호 찾기</a>
 			</div>
 
 			<div class="login-bottom">
@@ -178,72 +183,130 @@ h2 {
 			</div>
 
 			<!-- 카카오톡으로 로그인들어갈 자리 -->
-
+			<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="kakaoLoginBtn">
+			  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
+			    alt="카카오 로그인 버튼" />
+			</a>
+			<p id="token-result"></p>
+		
 		</div>
-
-	</div>
-	<script>	
-			/* ********************************아이디 저장*************************** */
-		$(document).ready(function(){
-			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
-			 var key = getCookie("key");
-		    $("#logId").val(key); 
-		     
-		    // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-		    if($("#logId").val() != ""){ 
-		        $("#checkId").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
-		    }
-		     
-		    $("#checkId").change(function(){ // 체크박스에 변화가 있다면,
-		        if($("#checkId").is(":checked")){ // ID 저장하기 체크했을 때,
-		            setCookie("key", $("#id").val(), 7); // 7일 동안 쿠키 보관
-		        }else{ // ID 저장하기 체크 해제 시,
-		            deleteCookie("key");
-		        }
-		    });
-		     
-		    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-		    $("#logId").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
-		        if($("#checkId").is(":checked")){ // ID 저장하기를 체크한 상태라면,
-		            setCookie("key", $("#logId").val(), 7); // 7일 동안 쿠키 보관
-		        }
-		    });
+	<script>
 	
-		// 쿠키 저장하기 
-		// setCookie => saveid함수에서 넘겨준 시간이 현재시간과 비교해서 쿠키를 생성하고 지워주는 역할
-		function setCookie(cookieName, value, exdays) {
+		$(document).ready(function(){
+		
+				//저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+				var logId = getCookie("logId");
+			
+				$("input[name='memberId']").val(logId);  
+			 
+				if($("input[name='memberId']").val() != ""){ //처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+					$("#checkId").attr("checked", true); //ID 저장하기를 체크 상태로 두기.
+				}
+			
+				$("#checkId").change(function(){ //체크박스에 변화가 있다면,
+					if($("#checkId").is(":checked")){ //ID 저장하기 체크했을 때,
+						var logId = $("input[name='memberId']").val();
+						setCookie("logId",logId,1); //1일 동안 쿠키 보관
+					}else{ // ID 저장하기 체크 해제 시,
+						deleteCookie("logId");
+					}
+				});
+			
+				//ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+				$("input[name='memberId']").keyup(function(){ //ID 입력 칸에 ID를 입력할 때,
+					if($("#checkId").is(":checked")){ //ID 저장하기를 체크한 상태라면,
+						var logId = $("input[name='memberId']").val();
+						setCookie("logId",logId,1); //1일 동안 쿠키 보관
+					}
+				});
+			
+		});	
+		<%-- 쿠키 설정 --%>
+		function setCookie(cookieName, value, exdays){
 			var exdate = new Date();
+
 			exdate.setDate(exdate.getDate() + exdays);
-			var cookieValue = escape(value)
-					+ ((exdays == null) ? "" : "; expires=" + exdate.toGMTString());
+
+			var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+
 			document.cookie = cookieName + "=" + cookieValue;
 		}
-	
-		// 쿠키 삭제
-		function deleteCookie(cookieName) {
+
+		 
+		<%-- 쿠키 삭제 --%>
+		function deleteCookie(cookieName){
 			var expireDate = new Date();
+
 			expireDate.setDate(expireDate.getDate() - 1);
-			document.cookie = cookieName + "= " + "; expires="
-					+ expireDate.toGMTString();
+
+			document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
 		}
-	     
-		// 쿠키 가져오기
+
+		 
+		<%-- 쿠키 호출 --%>
 		function getCookie(cookieName) {
+
 			cookieName = cookieName + '=';
+
 			var cookieData = document.cookie;
 			var start = cookieData.indexOf(cookieName);
 			var cookieValue = '';
-			if (start != -1) { // 쿠키가 존재하면
+
+			if(start != -1){
 				start += cookieName.length;
+
 				var end = cookieData.indexOf(';', start);
-				if (end == -1) // 쿠키 값의 마지막 위치 인덱스 번호 설정 
-					end = cookieData.length;
-	                console.log("end위치  : " + end);
+
+				if(end == -1)end = cookieData.length;
+
 				cookieValue = cookieData.substring(start, end);
 			}
 			return unescape(cookieValue);
-	}
+		}
+	
 	</script>
+		<!-- 카카오 스크립트 
+		<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+  		  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous">
+		</script>
+		<script>
+		  Kakao.init('4983a14747a2dbcd8543611ab2fe283e'); //사용하려는 앱의 JavaScript 키 입력
+		</script>
+		<script>
+			  function loginWithKakao() {
+			    Kakao.Auth.authorize({
+			      redirectUri: 'http://localhost:8887/littleEco/',
+			    });
+			  }
+			
+			  displayToken()
+			  function displayToken() {
+			    var token = getCookie('authorize-access-token');
+			
+			    if(token) {
+			      Kakao.Auth.setAccessToken(token);
+			      Kakao.Auth.getStatusInfo()
+			        .then(function(res) {
+			          if (res.status === 'connected') {
+			            document.getElementById('token-result').innerText
+			              = 'login success, token: ' + Kakao.Auth.getAccessToken();
+			          }
+			        })
+			        .catch(function(err) {
+			          Kakao.Auth.setAccessToken(null);
+			        });
+			    }
+			  }
+			
+			  function getCookie(name) {
+			    var parts = document.cookie.split(name + '=');
+			    if (parts.length === 2) { return parts[1].split(';')[0]; }
+			  }
+			  
+	</script>
+	-->
+	</div>
+	
 	<%@ include file="../common/footer.jsp"%>
 >>>>>>> branch 'develop' of https://github.com/miu1217/littleEco.git
 </body>

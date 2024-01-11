@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="mypageMapper">
+	<resultMap type="mypage" id="mypageResultSet">
+	    <result column="FOLDER_NO" property="folderNo"/>
+	    <result column="MEMBER_NO" property="memberNo"/>
+	    <result column="FOLDER_NAME" property="folderName"/>
+	    <result column="PARENT_FOLDER_NO" property="parentFolderNo"/>
+	    <result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
+	<!-- MOIZA RESULTMAP -->
+	    <resultMap type="moiza" id="moiza">
+  			<result column="MOIZA_NO" property="moizaNo"/>
+  			<result column="MOIZA_NAME" property="moizaName"/>
+  			<result column="MOIZA_TITLE" property="moizaTitle"/>
+  			<result column="MOIZA_GOAL" property="moizaGoal"/>
+  			<result column="MOIZA_MISSION" property="moizaMission"/>
+  			<result column="MOIZA_INFO" property="moizaInfo"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  		</resultMap>
+  	
+  <!-- SEARCHECO_BOARD용 ResultMap -->
+    	<resultMap type="searchEco" id="ecoResultSet">
+	  		<result column="ECO_BOARD_NO" property="ecoBoardNo"/>
+	  		<result column="MEMBER_NO" property="memberNo"/>
+	  		<result column="BRAND_NO" property="brandNo"/>
+	  		<result column="THUM_IMG" property="thumImg"/>
+	  		<result column="ECO_BOARD_TITLE" property="ecoBoardTitle"/>
+	  		<result column="ECO_BOARD_CONTENT" property="ecoBoardContent"/>
+	  		<result column="COUNT" property="count"/>
+	  		<result column="LIKE_COUNT" property="likeCount"/>
+	  		<result column="CREATE_DATE" property="createDate"/>
+	  		<result column="MODIFY_DATE" property="modifyDate"/>
+	  		<result column="BRAND_INFO" property="brandInfo"/>
+	  		<result column="BRAND_URL" property="brandUrl"/>
+	  		<result column="STATUS" property="status"/>
+  		</resultMap>
+
+<resultMap type="com.kh.littleEco.mypage.model.vo.MyPost" id="myPostResultSet">
+	<id property="memberNo" column="member_no"/>
+	<result column="ECO_BOARD_NO" property="ecoBoardNo"/>
+	<result column="ECO_BOARD_TITLE" property="ecoTitle"/>
+	<result column="BOARD_NO" property="rcyBoardNo"/>
+	<result column="RECY_BOARD_TITLE" property="rcyTitle"/>
+	<result column="COUNT" property="count"/>
+	
+</resultMap>
+
+<!-- RECYCLE_BOARD용 ResultMap -->
+<resultMap id="recycleBoardResultMap" type="recycleBoard">
+    <id property="boardNo" column="BOARD_NO" />
+  		<result column="MEMBER_NO" property="memberNo"/>
+  		<result column="RECY_BOARD_TITLE" property="recycleBoardTitle"/>
+  		<result column="RECY_BOARD_CONTENT" property="recycleBoardContent"/>
+  		<result column="THUM_IMG" property="thumImg"/>
+  		<result column="COUNT" property="count"/>
+  		<result column="CREATE_DATE" property="createDate"/>
+  		<result column="MODIFY_DATE" property="modifyDate"/>
+</resultMap>
+
+<!-- 하나의 복합 ResultMap 정의 -->
+<resultMap id="combinedResultMap" type="member">
+    <id property="memberNo" column="MEMBER_NO" />
+  			<result column="MEMBER_ID" property="memberId"/>
+  			<result column="MEMBER_PWD" property="memberPwd"/>
+  			<result column="MEMBER_NAME" property="memberName"/>
+  			<result column="NICKNAME" property="nickName"/>
+  			<result column="BIRTH" property="birth"/>
+  			<result column="GENDER" property="gender"/>
+  			<result column="EMAIL" property="email"/>
+  			<result column="PHONE" property="phone"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  			<result column="WITHDRAWAL_REASON" property="withdrawalReason"/>
+    
+</resultMap>
+
+<select id="selectBoardList" resultMap="myPostResultSet">
+    SELECT  
+        s.ECO_BOARD_NO,
+        r.BOARD_NO,
+        m.MEMBER_NO,
+        s.ECO_BOARD_TITLE,
+        s.THUM_IMG,
+        s.COUNT,
+        r.RECY_BOARD_TITLE,
+        r.COUNT
+    FROM MEMBER m
+    LEFT JOIN SEARCHECO_BOARD s ON m.MEMBER_NO = s.MEMBER_NO
+    LEFT JOIN RECYCLE_BOARD r ON m.MEMBER_NO = r.MEMBER_NO
+    WHERE m.MEMBER_NO = #{memberNo}
+</select>
+
+  	
+  	<select id="selectFolder" resultMap="mypageResultSet">
+	    SELECT *
+	    FROM MYPAGE P
+	    JOIN MEMBER M USING(MEMBER_NO)
+	    WHERE MEMBER_NO = #{memberNo}
+  	
+  	</select>
+  
+  <insert id="addFolder">
+  	INSERT INTO MYPAGE VALUES 
+  						(SEQ_MYNO.NEXTVAL
+  						,#{memberNo}
+  						,#{folderName}
+  						,DEFAULT
+  						,DEFAULT)
+  </insert>
+  
+  <delete id="deleteFolder">
+  	    DELETE FROM MYPAGE
+        WHERE FOLDER_NO = #{folderNo}
+  </delete>
+  
+  <!-- 총 게시글 수 -->
+  <select id="selectCount" resultType="_int">
+  	SELECT 
+	  (SELECT COUNT(*) FROM SEARCHECO_BOARD WHERE MEMBER_NO = #{memberNo}) +
+	  (SELECT COUNT(*) FROM RECYCLE_BOARD WHERE MEMBER_NO = #{memberNo}) AS TOTAL_COUNT
+	FROM DUAL
+  </select>
+  
+  <!-- 스크랩한 게시물 조회 -->
+<select id="selectScrapList" resultMap="InterestBoardResultSet">
+    SELECT I.*, R.*, S.*,MM.* ,M.FOLDER_NAME
+    FROM INTEREST_BOARD I
+    LEFT JOIN SEARCHECO_BOARD S ON S.ECO_BOARD_NO = I.ECO_BOARD_NO
+    LEFT JOIN RECYCLE_BOARD R ON R.BOARD_NO = I.BOARD_NO
+    LEFT JOIN MOIZA MM ON MM.MOIZA_NO = I.MOIZA_NO
+    LEFT JOIN MYPAGE M ON M.FOLDER_NO = I.FOLDER_NO
+    WHERE I.FOLDER_NO = #{folderNo}
+</select>
+
+<resultMap type="InterestBoard" id="InterestBoardResultSet">
+    <result column="MEMBER_NO" property="memberNo"/>
+    <result column="FOLDER_NO" property="folderNo"/>
+    <result column="BOARD_NO" property="boardNo"/>
+    <result column="ECO_BOARD_NO" property="ecoBoardNo"/>
+    <result column="MOIZA_NO" property="moizaNo"/>
+    <result column="SCRAP_DATE" property="scrapDate"/>
+    <result column="RECY_BOARD_TITLE" property="recycleBoardTitle"/>
+    <result column="ECO_BOARD_TITLE" property="ecoBoardTitle"/>
+    <result column="MOIZA_NAME" property="moizaName"/>
+    <result column="FOLDER_NAME" property="folderName"/>
+    
+<!--     	    <association property="SearchEco" resultMap="searchEcoBoardResultMap"/>
+    <association property="recycleBoard" resultMap="recycleBoardResultMap"/> -->
+</resultMap>
+
+  
+<!-- 리사이클 보드 게시글 스크랩 -->
+<insert id="scrapBoard">
+    INSERT INTO INTEREST_BOARD (BOARD_NO, MEMBER_NO, FOLDER_NO,SCRAP_DATE) 
+    VALUES (#{boardNo}, #{memberNo}, #{folderNo},DEFAULT)
+</insert>
+
+<!-- 에코보드 게시글 스크랩 -->
+<insert id="scrapEcoBoard">
+    INSERT INTO INTEREST_BOARD (ECO_BOARD_NO, MEMBER_NO, FOLDER_NO,SCRAP_DATE) 
+    VALUES (#{ecoBoardNo}, #{memberNo}, #{folderNo},DEFAULT)
+</insert>
+
+<!-- 모이자 게시글 스크랩 -->
+<insert id="scrapMoizaBoard">
+    INSERT INTO INTEREST_BOARD (MOIZA_NO, MEMBER_NO, FOLDER_NO,SCRAP_DATE) 
+    VALUES (#{moizaNo}, #{memberNo}, #{folderNo},DEFAULT)
+</insert>
+
+<!-- 스크랩된 게시글 수 -->
+
+<select id="selectScrapCount" resultType="_int">
+            SELECT count(*)
+            FROM INTEREST_BOARD I
+            LEFT JOIN RECYCLE_BOARD R ON R.BOARD_NO = I.BOARD_NO
+            LEFT JOIN SEARCHECO_BOARD S ON S.ECO_BOARD_NO = I.ECO_BOARD_NO
+            WHERE FOLDER_NO = #{folderNo}
+</select>
+
+<!-- <select id="selectScrapList" resultMap="InterestBoardResultSet">
+	        SELECT I.*, R.RECY_BOARD_TITLE, S.ECO_BOARD_TITLE
+            FROM INTEREST_BOARD I
+            LEFT JOIN RECYCLE_BOARD R ON R.BOARD_NO = I.BOARD_NO
+            LEFT JOIN SEARCHECO_BOARD S ON S.ECO_BOARD_NO = I.ECO_BOARD_NO
+            WHERE FOLDER_NO = #{folderNo}
+</select> -->
+  
+  <!-- 스크랩 중복 확인 -->
+<select id="scrapChk" resultType="_int">
+	select count(*) from interest_board where member_no = #{memberNo} and board_no = #{boardNo}
+</select>
+
+<select id="scrapEcoChk" resultType="_int">
+	select count(*) from interest_board where member_no = #{memberNo} and eco_board_no = #{ecoBoardNo}
+</select>
+
+<select id="scrapMoizaChk" resultType="_int">
+	select count(*) from interest_board where member_no = #{memberNo} and moiza_no = #{moizaNo}
+</select>
+
+<!-- 폴더 이동 -->  
+<update id="updateFolder">
+    UPDATE INTEREST_BOARD
+    SET FOLDER_NO = #{folderNo}
+    WHERE BOARD_NO = #{boardNo} OR ECO_BOARD_NO = #{ecoBoardNo} OR MOIZA_NO = #{moizaNo}
+
+</update>
+
+  
+  
+  </mapper>

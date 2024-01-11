@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="recycleBoardMapper">
+  		
+  	<resultMap type = "recycleBoard" id="recycleBoardResultSet">
+  		<result column="BOARD_NO" property="boardNo"/>
+  		<result column="MEMBER_NO" property="memberNo"/>
+  		<result column="RECY_BOARD_TITLE" property="recycleBoardTitle"/>
+  		<result column="RECY_BOARD_CONTENT" property="recycleBoardContent"/>
+  		<result column="THUM_IMG" property="thumImg"/>
+  		<result column="COUNT" property="count"/>
+  		<result column="RECY_ORIGINNAME" property="boOriginName"/>
+  		<result column="RECY_CHANGENAME" property="boChangeName"/>
+  		<result column="CREATE_DATE" property="createDate"/>
+  		<result column="MODIFY_DATE" property="modifyDate"/>
+
+  	</resultMap>
+
+  	 
+  	
+  	
+  	<select id="selectRecycleListCount" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM RECYCLE_BOARD
+  		WHERE STATUS='Y'
+  	</select>
+  	
+  	<select id="selectRecycleList" resultMap="recycleBoardResultSet">
+		  	
+		SELECT BOARD_NO,
+		       MEMBER_NO,
+		       COUNT,
+		       RECY_BOARD_TITLE,
+		       CREATE_DATE
+				
+		FROM RECYCLE_BOARD
+		WHERE STATUS='Y'
+		ORDER BY CREATE_DATE DESC  	
+  	</select>
+  	
+  	<update id="increaseCount"  parameterType="_int">
+  		UPDATE RECYCLE_BOARD
+  		SET COUNT = COUNT + 1
+  		WHERE BOARD_NO = #{rbno}
+  		AND STATUS = 'Y'
+  	</update>
+  	
+  	<select id="recycleDetail"  resultMap="recycleBoardResultSet" >
+<!--   		SELECT *
+  		FROM RECYCLE_BOARD
+  		WHERE BOARD_NO = #{boardNo}
+  		AND STATUS = 'Y' -->
+  		
+  		 SELECT R.BOARD_NO
+		      , R.RECY_BOARD_TITLE
+		      , R.RECY_BOARD_CONTENT
+		      , R.COUNT
+		      , R.CREATE_DATE
+		      , B.BO_ORIGIN_NAME
+		  FROM RECYCLE_BOARD R
+		   LEFT JOIN BOARD_ATTACHMENT B ON R.BOARD_NO = B.BOARD_NO
+		 WHERE R.BOARD_NO = #{boardNo}
+		   AND R.STATUS = 'Y'
+  	</select>
+  	
+  	<select id="getNextRecycleNo" resultType="_int" >
+  			SELECT SEQ_RBNO.NEXTVAL FROM DUAL
+  	</select>
+  	
+  	 <select id="getNextBoardAttachNo" resultType="_int" >
+  			SELECT SEQ_BANO.NEXTVAL FROM DUAL
+  	</select>
+  	
+  	
+		<insert id="insertRecycle" parameterType ="recycleBoard">
+<!-- 	<selectKey resultType="int" keyProperty="boardNo" order="BEFORE"> -->
+<!-- 		SELECT SEQ_RBNO.NEXTVAL -->
+<!-- 		FROM DUAL -->
+<!-- 	</selectKey> -->
+	 INSERT INTO RECYCLE_BOARD(BOARD_NO,
+	                         RECY_BOARD_TITLE,
+	                        MEMBER_NO,
+	                     RECY_BOARD_CONTENT
+	    
+	              )
+	              VALUES(#{boardNo},
+	                     #{recycleBoardTitle},
+	                     '1',
+	                     #{recycleBoardContent}
+	              )       
+		
+		</insert>
+  <resultMap type="boardAttach" id="bAttachResultSet">
+  	<result column ="BO_FILE_NO" property="boFileNo"/>
+  	<result column ="BOARD_NO" property="boardNo"/>
+  	<result column ="BOARD_TYPE" property="boardType"/>
+  	<result column ="BO_FILE_TYPE" property="boFileType"/>
+  	<result column ="BO_ORIGIN_NAME" property="boOriginName"/>
+  	<result column ="BO_CHANGE_NAME" property="boChangeName"/>
+  	<result column ="FILE_PATH" property="filePath"/>
+  	<result column ="FILE_LEVEL" property="fileLevel"/>
+  	<result column ="CREATE_DATE" property="createDate"/>
+  	<result column ="STATUS" property="status"/>
+  </resultMap>
+   <insert id="insertAttachment" parameterType="boardAttach">
+    INSERT INTO BOARD_ATTACHMENT
+  				      ( 
+  				          BO_FILE_NO
+						, BOARD_NO
+						, BOARD_TYPE
+						, BO_ORIGIN_NAME
+						, BO_CHANGE_NAME
+						, FILE_PATH
+
+  				      )
+  			VALUES   (
+  			  			#{boFileNo}
+  					  , #{boardNo}
+  					  , '3'
+  					  , #{boOriginName}
+  					  , #{boChangeName}
+  					  , #{filePath}
+  					 )
+  	</insert>
+		
+		
+  	
+  	<update id="updateRecycleAttach" parameterType="recycleBoard">
+  	  		UPDATE BOARD_ATTACHMENT
+  			SET BO_ORIGIN_NAME = #{boOriginName}
+  			  , BO_CHANGE_NAME = #{boChangeName}
+  			  , FILE_PATH = #{filePath}
+  			  , CREATE_DATE = SYSDATE
+  			WHERE BO_FILE_NO = #{boFileNo} 
+  			AND BOARD_NO = #{boardNo}
+  			AND STATUS = 'Y'
+  			AND BOARD_TYPE = 3
+  	
+  	</update>
+  	
+  	<update id="updateRecycle" parameterType="recycleBoard">
+  		UPDATE RECYCLE_BOARD
+  			SET RECY_BOARD_TITLE = #{recycleBoardTitle}
+  			  , RECY_BOARD_CONTENT = #{recycleBoardContent}
+ 
+  			WHERE BOARD_NO = #{boardNo}
+  	
+  	</update>
+  	
+  	<delete id="recycleDelete" parameterType="recycleBoard">
+  	
+  		UPDATE RECYCLE_BOARD
+	  			SET STATUS = 'N'
+	  			WHERE STATUS = 'Y'
+	  			AND BOARD_NO = #{rbno}
+  	
+  	</delete>
+  	<delete id="deleteAttachment" parameterType="boardAttach">
+  	
+  	UPDATE BOARD_ATTACHMENT
+	  			SET STATUS = 'N'
+	  			WHERE STATUS = 'Y'
+	  			AND BOARD_NO = #{boardNo}
+  	
+  	</delete>
+  	
+  	
+  	            <!-- 검색창 검색용 -->
+		<select id="searchRecycle" resultMap="recycleBoardResultSet">
+		    SELECT * FROM(
+            select R.* from recycle_board R
+            where R.RECY_BOARD_TITLE like '%'||#{keyword}||'%' or R.RECY_BOARD_CONTENT like '%'||#{keyword}||'%'
+            ORDER BY COUNT DESC)
+            WHERE ROWNUM &lt; =3
+		</select>
+  	
+  	</mapper>

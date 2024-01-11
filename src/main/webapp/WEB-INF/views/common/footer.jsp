@@ -21,7 +21,7 @@
    background-color: #000;
    display: flex;
    /* justify-content: left; */
-   width: 1920px;
+   width: 100%;
    height: 300px;
 }
 .footer_content{

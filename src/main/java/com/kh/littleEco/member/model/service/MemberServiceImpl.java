@@ -79,6 +79,48 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.updateCategory(categoryList,sqlSession);
 	}
+	
+	//id 찾기
+	@Override
+	public Member selectFindId(Member m) {
+		return memberDao.selectFindId(m,sqlSession);
+	}
+
+	//pwd 찾기(확인)
+	@Override
+	public Member selectFindPwd(Member m) {
+		return memberDao.selectFindPwd(m,sqlSession);
+	}
+
+	//resetPwd
+	@Override
+	public int resetMemberPwd(Member m) {
+		return memberDao.resetMemberPwd(m,sqlSession);
+	}
+
+	//아이디 중복확인
+	@Override
+	public int checkId(String memberId) {
+		return memberDao.checkId(memberId,sqlSession);
+	}
+
+	//닉네임 중복확인
+	@Override
+	public int checkNick(String nickName) {
+		return memberDao.checkNick(nickName,sqlSession);
+	}
+
+	//이메일 중복확인
+	@Override
+	public int checkEmail(String email) {
+		return memberDao.checkEmail(email,sqlSession);
+	}
+
+	//폰번호 중복확인
+	@Override
+	public int checkPhone(String phone) {
+		return memberDao.checkPhone(phone,sqlSession);
+	}
 
 
 
