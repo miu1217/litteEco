@@ -54,18 +54,22 @@
        	margin-right: 50px;
        	
        }
-      
+   
 
-        .container {
-            display: flex;
+        .containers {
+        	gap: 10px;
+            display:grid;
+            flex-wrap: wrap;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-            margin-left: 30px;
+           
             
         }
         
          .content-card {
+         
+         	flex: 1 0 calc(50% - 10px); /* 50% - gap */
+            
+            
             background-color: #fffff;
            	
             border-radius: 0.5rem;
@@ -199,12 +203,23 @@
 		#loadMoreBtn{
 			margin-left: 920px;
 			margin-bottom: 30px;
-			 background-color: #002C7B;
+			background-color: #002C7B;
+			border-color: #002C7B;
 		}
 		
 		#mTitle{
 			font-weight: bold;
 		}
+		.moizaCheck{
+			font-weight: bold;
+			color : #002C7B;
+			margin-bottom: 20px;
+		}
+		
+		.moizanull{
+			height: 40px;
+		}
+		
     </style>
 </head>
 <body>
@@ -223,11 +238,12 @@
         </div>
         </c:if>
        
-        <div class="container">
+        <div class="containers">
         </div>
         	<button type="button" id="loadMoreBtn" class="btn btn-info btn-fill">더보기</button>
     </div>
     
+   
     <script>
     var page = 1; // Initial page number
     var reviewsPerPage = 9;
@@ -252,88 +268,60 @@
 			});
 			
 			
-		        // $(document).ready에서 한 번 실행
-		        $(document).click(function () {
+		        $("#loadMoreBtn").click(function () {
 		            // 초기 로드
-		            loadMoreReviews();
 		            // 클릭 이벤트 핸들러 등록
-		            $("#loadMoreBtn").click(selectMoizaList);
+		           selectMoizaList();
 		           
 		        });
 			
     	});
     	
-    	function selectMoizaList(){
-    		$.ajax({
-    			url:"moizaList",
-    			data: { page: page },
-    			success : function(result){
-    				var str = "";
-    				
-	    				for(var i in result){
+    	
+    	
+    	function selectMoizaList() {
+    	    $.ajax({
+    	        url: "moizaList",
+    	        data: { page: page },
+    	        success: function (result) {
+    	            $.each(result.mzList, function (index, pm) {
+    	                var moizaHtml = "<div class= 'content-card'>";
+    	                moizaHtml += "<input type='hidden' id='mnNo' name='moizaNo' value='" + pm.moizaNo + "'>";
+    	                var moizaCheckFound = false;
 
-	    					str += "<div class= 'container'>"
-	    						+"<div class= 'content-card'>"
-	    						+ "<input type='hidden' id='mnNo' name='moizaNo' value='"+ result[i].moizaNo + "'>"
-	    						+ "<div id='mTitle' name='moziaTitle'>"+result[i].moizaTitle+"</div>"
-	               				+ "<div id='mGoal' name='moizaGoal'>"+ result[i].moizaGoal+"</div>"
-	               				+ "<div id='mName' name='moizaName'>"+ result[i].moizaName+"</div>"
-	               				+ "</div>"
-	               				+ "</div>";
-	
-								$(".container").html(str);
-	    				}
-    				
-	    			
-    				
-    			},error : function() {
-					console.log("MOIZALIST 통신 오류");
-				},complete: function () {
-                    // Increment the page number for the next load, regardless of success or error
-                    page++;
-                }
-    		});
+    	                for (var i = 0; i < result.mList.length; i++) {
+    	                    if (pm.moizaNo === result.mList[i].moizaNo) {
+    	                        moizaHtml += "<div class='moizaCheck' id='moizaCheck' style='color: #ff6700;' >참여중</div>";
+    	                        moizaCheckFound = true;
+    	                        break; // No need to continue checking once found
+    	                    }
+    	                }
+
+    	                if (!moizaCheckFound) {
+    	                    moizaHtml += "<div class='moizaCheck' id='moizaCheck' style='color: #c4c4c4;'>참여하지 않음</div>";
+    	                }
+
+    	                moizaHtml += "<div id='mTitle' name='moziaTitle'>" + pm.moizaTitle + "</div>";
+    	                moizaHtml += "<div id='mGoal' name='moizaMission'>" + pm.moizaMission + "</div>";
+    	                moizaHtml += "<div id='mName' name='moizaName'>" + pm.moizaName + "</div>";
+    	                moizaHtml += "</div>";
+
+    	                $(".containers").append(moizaHtml);
+    	            })
+    	        },
+    	        error: function () {
+    	            console.log("MOIZALIST 통신 오류");
+    	        },
+    	        complete: function () {
+    	            // Increment the page number for the next load, regardless of success or error
+    	            page++;
+    	        }
+    	    });
     	}
+
     
     </script>
-    <script>
-    function loadMoreReviews() {
-               
-                $.ajax({
-                    url: "moizaMore",
-                    type: "GET",
-                    data: { page: page },
-                    success: function (data) {
-                        console.log('sccuess');
-                        console.log(data);
-                        // Iterate through the received reviews and append them to the review tab
-                            $.each(data, function (index, pm) {
-                            
-                            
-                            var moizaHtml = "<div class= 'container'>"
-                            	moizaHtml +="<div class= 'content-card'>"
-                            	moizaHtml += "<input type='hidden' id='mnNo' name='moizaNo' value='"+ result[i].moizaNo + "'>"
-                            	moizaHtml += "<div id='mTitle' name='moziaTitle'>"+result[i].moizaTitle+"</div>"
-                            	moizaHtml +=  "<div id='mGoal' name='moizaGoal'>"+ result[i].moizaGoal+"</div>"
-                            	moizaHtml +=  "<div id='mName' name='moizaName'>"+ result[i].moizaName+"</div>"
-                            	moizaHtml +=  "</div>"
-                            	moizaHtml +=  "</div>";
-                            	
-                            	
-                            $("container").append(moizaHtml);
-                        });
-                    },
-                    error: function () {
-                        console.error("Error loading more reviews.");
-                    },
-                    complete: function () {
-                        // Increment the page number for the next load, regardless of success or error
-                        page++;
-                    }
-                });
-            }
-        
-    </script>
+   
     <%@ include file="../common/footer.jsp" %>
 </body>
 

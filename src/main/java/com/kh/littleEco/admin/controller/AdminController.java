@@ -38,9 +38,9 @@ public class AdminController {
 	@GetMapping("admin")
 	public String Admin(HttpSession session) {
 		
-		String memberName = ((Member)session.getAttribute("loginUser")).getMemberName();
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		
-		if(memberName == "user02") {
+		if(memberId.equals("admin")) {
 			return "admin/adminMain";
 		}else {
 			
@@ -53,7 +53,7 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="memberList.ad",  produces="application/json; charset=UTF-8")
 	public ArrayList<Member> MemberList() {
-		
+		 
 		ArrayList<Member> mList = adminService.MemberList();
 		
 		

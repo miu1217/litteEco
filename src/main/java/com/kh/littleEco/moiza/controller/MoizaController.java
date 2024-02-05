@@ -1,6 +1,7 @@
 package com.kh.littleEco.moiza.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.littleEco.common.model.vo.PageInfo;
 import com.kh.littleEco.member.model.vo.Member;
 import com.kh.littleEco.moiza.model.service.MoizaService;
 import com.kh.littleEco.moiza.model.vo.Moiza;
@@ -37,15 +39,23 @@ public class MoizaController {
 	//모집 게시판 리스트 메소드 
 	@ResponseBody
 	@RequestMapping(value="moizaList",  produces="application/json; charset=UTF-8")
-	public ArrayList<Moiza> MoizaList(int page) {
-
-
+	public HashMap<String,ArrayList<Moiza>> MoizaList(int page,HttpSession session
+			,Model model) {
+	
+		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
 		int moizaPage = 2;
 		
 		int startIndex = (page - 1) * moizaPage + 1;
 		
-		ArrayList<Moiza> mzList = moizaService.selectMoizaList();
-		return mzList;
+		ArrayList<Moiza> mzList = moizaService.selectMoizaList(page, moizaPage, startIndex);
+		
+		ArrayList<Moiza> mList = moizaService.selectMoiza(memberNo);
+		
+		HashMap<String,ArrayList<Moiza>> map = new HashMap<>();
+		
+		map.put("mzList", mzList);
+		map.put("mList", mList);
+		return map;
 	}
 	
 	@GetMapping("moiza.in")
@@ -236,7 +246,7 @@ public class MoizaController {
 			return mList;
 	}
 	
-	//모집 단체 요청 리스트
+	//모집 단체 보류 리스트
 	@ResponseBody
 	@RequestMapping(value="moizaHoldList",  produces="application/json; charset=UTF-8")
 	public ArrayList<Member> MoizaHoldList(int mno){
@@ -327,7 +337,7 @@ public class MoizaController {
 			
 		}
 
-	//신청자 수락 메소드
+	//회원 내보내기 메소드
 		@RequestMapping("memberDelete")
 		public String MemberDelete(int memberNo
 								,int moizaNo

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원찾기 성공화면</title>
+<title>LITTLE ECO</title>
 </head>
 <style>
 

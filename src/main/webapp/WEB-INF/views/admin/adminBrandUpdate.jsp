@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>littleEco</title>
+    <title>LITTLE ECO</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -24,6 +24,15 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <style>
+	.btn-info.btn-fill{
+	background-color: #002c7b ;
+	border: #002c7b ;
+	}
+	
+	.btn-info.btn-fill:hover{
+	background-color: #002c7b ;
+	border: #002c7b ;
+	}
 	#btn{
 	background-color: #002c7b ;
 	border: #002c7b ;
@@ -37,6 +46,15 @@
 	
 </style>
 <body>
+
+<!-- alert창 띄우기 -->
+	<c:if test="${not empty alertMsg }">
+		<script>
+			var alertMsg = "${alertMsg}";
+			alert(alertMsg);
+		</script>
+		<c:remove var="alertMsg" />
+	</c:if>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
     <div class="wrapper">
         <div class="sidebar" >
@@ -44,7 +62,7 @@
             <div class="sidebar-wrapper" style="background-color: #002c7b;">
                 <div class="logo">
                     <a href="http://localhost:8887/littleEco/" class="simple-text">
-                        littleEco
+                        LITTLE ECO
                     </a>
                 </div>
                 <ul class="nav">

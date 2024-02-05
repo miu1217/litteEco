@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>littleEco</title>
+    <title>LITTLE ECO</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -23,7 +23,7 @@
     <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <title>LITTLE ECO</title>
+
     <style>
        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         /*
@@ -215,13 +215,22 @@
         
 </head>
 <body>
+
+<!-- alert창 띄우기 -->
+	<c:if test="${not empty alertMsg }">
+		<script>
+			var alertMsg = "${alertMsg}";
+			alert(alertMsg);
+		</script>
+		<c:remove var="alertMsg" />
+	</c:if>
     <div class="wrap">
          <div class="sidebar" >
            
             <div class="sidebar-wrapper" style="background-color: #002c7b;">
                 <div class="logo">
                     <a href="http://localhost:8887/littleEco" class="simple-text">
-                        Litte Eco
+                       LITTLE ECO
                     </a>
                 </div>
                 <ul class="nav">
@@ -242,23 +251,12 @@
         </div>
         <div class="search">
         <div class="search_header " id="search_title">
-            <p class="title_text">SEARCH ECO</p>
+            <p class="title_text">BRAND</p>
 
         </div><!--//notice header-->
         
         <div class="search_list" id="search_table">
 
-            <div class="searchBox">
-                <select name="sort" class="sorting" id="sort">
-                    <option value="all">전체</option>
-                    <option value="sell">판매상품</option>
-                    <option value="brand">브랜드 이름</option>
-                </select>
-
-                <input type="text" name="search_text" id="search_input">
-
-                <button type="submit" class="searchBtn">검색</button>
-            </div>
 
 
             <table class="search_list_table" align="center">

@@ -52,6 +52,7 @@
 	                ,MOIZA_INFO
 			FROM MOIZA
 			WHERE STATUS = 'Y'
+			ORDER BY CREATE_DATE DESC
   		</select>
   		
     	<insert id="insertMoiza" parameterType="moiza">
@@ -173,6 +174,7 @@
 			WHERE MOIZA_NO = #{mno}
 			AND APPROVAL_STATUS = 1
 			AND DELETE_DATE IS NULL
+			ORDER BY MZ.CREATE_DATE DESC
 		</select>
 		
 		
@@ -187,6 +189,7 @@
 			WHERE MOIZA_NO = #{mno}
 			AND APPROVAL_STATUS = 0
 			AND DELETE_DATE IS NULL
+			ORDER BY MZ.CREATE_DATE DESC
 		</select>
 		
 		<select id="selectMoizaHoldMember" resultMap="memberResultSet">
@@ -200,6 +203,7 @@
 			WHERE MOIZA_NO = #{mno}
 			AND APPROVAL_STATUS = 2
 			AND DELETE_DATE IS NULL
+			ORDER BY MZ.CREATE_DATE DESC
 		</select>
 		
 		
@@ -232,4 +236,37 @@
 			WHERE MEMBER_NO = #{memberNo}
 			AND MOIZA_NO = #{moizaNo}
 		</update>
+		
+		<select id="moizaListCount" resultType="_int">
+			 SELECT COUNT(*) FROM
+	         MOIZA WHERE STATUS = 'Y'
+		</select>
+		
+		
+		<select id="selectMoiza" resultMap="moiza">
+			SELECT MOIZA_NO
+			FROM MOIZA
+			JOIN MOIZA_MEMBER USING (MOIZA_NO)
+			WHERE MEMBER_NO = #{memberNo}
+			AND APPROVAL_STATUS =1
+		</select>
+
+				<!-- 검색창 -->
+		<select id="searchMoiza" resultMap="moiza">
+		    SELECT * FROM(
+            select m.* from moiza m
+            where m.moiza_name like '%'||#{keyword}||'%' or m.moiza_goal like '%'||#{keyword}||'%')
+            WHERE ROWNUM &lt; =3
+		</select>
+		
+		<!-- 마이페이지에서 띄워줄 리스트 -->
+		<select id="myMoizaList" resultMap="moiza">
+		SELECT *
+		FROM MOIZA M
+		JOIN MOIZA_MEMBER MM USING(MOIZA_NO)
+		WHERE MEMBER_NO = #{mno}
+		AND APPROVAL_STATUS =1
+		</select>
+		
+		
     </mapper>

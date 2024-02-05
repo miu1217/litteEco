@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="brandMapper">
+  
+	<resultMap type="brand" id="brandResultSet">
+		<result column="BRAND_NO" property="brandNo" />
+		<result column="BRAND_NAME" property="brandName" />
+		<result column="BRAND_URL" property="brandUrl" />
+		<result column="BRAND_INFO" property="brandInfo" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+		<result column="IMGSRC" property="imgSrc"/>
+		<collection property="categoryNo"  ofType="_int" >
+  				<result column="CATEGORY_NO"/>
+  			</collection>
+	</resultMap>
+	
+	<select id="selectBrandList" resultMap="brandResultSet">
+		SELECT BRAND_NO
+			  ,BRAND_URL
+		      ,CATEGORY_NO
+		      ,BRAND_NAME
+		      ,FILE_PATH || CHANGE_NAME IMGSRC
+		FROM BRAND B
+		LEFT JOIN ATTACHMENT AT USING (BRAND_NO)
+		LEFT JOIN BRAND_CATEGORY USING (BRAND_NO)
+		WHERE B.STATUS = 'Y'
+	</select>
+	
+  </mapper>

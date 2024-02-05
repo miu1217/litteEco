@@ -10,7 +10,7 @@ import com.kh.littleEco.moiza.model.vo.MoizaMember;
 public interface MoizaService {
 	
 	//모집 게시판 리스트 메소드
-	ArrayList<Moiza> selectMoizaList();
+	ArrayList<Moiza> selectMoizaList(int moizaPage, int startIndex, int page);
 	
 	//모집 게시판 insert 시 moiza 입력
 	int insertMoiza(Moiza moiza);
@@ -68,6 +68,11 @@ public interface MoizaService {
 
 	//회원 삭제 메소드
 	int deleteMember(MoizaMember m);
+
+	//모집게시판 개수 조회
+	int moizaListCount();
+
+	ArrayList<Moiza> selectMoiza(int memberNo);
 
 
 

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>littleEco</title>
+<title>LITTLE ECO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -36,52 +36,7 @@ img .imgslide1 {
 	height: 550px;
 	animation: slide1 7s infinite;
 }
-/*
-     img .imgslide2{
-        width: 100%;
-        height: auto;
-        position:absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 550px;
-        animation: slide2 7s infinite;
-     }
 
-     img .imgslide3{
-        width: 100%;
-        height: auto;
-        position:absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 550px;
-        animation: slide3 7s infinite;
-     }
-
-     @keyframes slide1 {
-        0%{left: -1200px;}
-        33.33%{left:-1200px;}
-        66.66%{left:0px;}
-        100%{left:1200px;}
-        
-     }
-
-     @keyframes slide2 {
-        0%{left: -1200px;}
-        33.33%{left:-1200px;}
-        66.66%{left:0px;}
-        100%{left:1200px;}
-        
-     }
-
-     @keyframes slide3 {
-        0%{left: -1200px;}
-        33.33%{left:-1200px;}
-        66.66%{left:0px;}
-        100%{left:1200px;}
-        
-     }*/
 
 /*------------브랜드 콘텐츠 / 로그인전, 취향선택안한회원------------------*/
 .our-brand {
@@ -136,7 +91,9 @@ img .imgslide1 {
 
 #btext1 span {
 	font-weight: 600;
-	font-size: 24px;
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
 }
 
 .subIm {
@@ -161,7 +118,6 @@ img .imgslide1 {
 /*---------------------------------1-2------------------------------*/
 #brand2 {
 	width: 860px;
-	/* background-color: violet; */
 }
 
 #brand2>div {
@@ -188,13 +144,14 @@ img .imgslide1 {
 
 #btext2 img {
 	width: 75px;
-	height: 21px;
 	padding-bottom: 15px;
 }
 
 #btext2 span {
 	font-weight: 600;
-	font-size: 24px;
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
 }
 
 .subImB2 {
@@ -231,98 +188,9 @@ img .imgslide1 {
 	margin-left: 350px;
 }
 
-.brandListSlide {
-	display: table;
-	table-layout: fixed;
-	border-spacing: 90px;
-	height: 639px;
-	margin-top: 120px;
-	transform: translate3d(-882px, 0px, 0px);
-}
-
-.brandListSlide a {
-	display: table-cell;
-	width: 1162px;
-}
-
 #tit {
 	width: 500px;
 	height: 53px;
-}
-
-#ubt1 {
-	/* position:relative; */
-	top: 400px;
-	left: 63px;
-}
-
-#ubt1 img {
-	width: 176px;
-	height: 27px;
-	margin-bottom: 15px;
-}
-
-#ubt1 span {
-	font-size: 52px;
-	font-weight: 300;
-	color: #fff;
-	letter-spacing: -2.5px;
-}
-
-#ubt2 {
-	position: absolute;
-	top: 300px;
-	padding-left: 56px;
-}
-
-#ubt2 img {
-	width: 176px;
-	height: 27px;
-	margin-bottom: 15px;
-}
-
-#ubt2 span {
-	font-size: 52px;
-	font-weight: 300;
-	letter-spacing: -2.5px;
-	color: #000;
-}
-
-#ubt3 {
-	position: absolute;
-	top: 300px;
-	padding-left: 56px;
-}
-
-#ubt3 img {
-	width: 176px;
-	height: 27px;
-	margin-bottom: 15px;
-}
-
-#ubt3 span {
-	font-size: 52px;
-	font-weight: 300;
-	letter-spacing: -2.5px;
-	color: #000;
-}
-
-#pre {
-	width: 29px;
-	height: 138px;
-	position: absolute;
-	z-index: 9000;
-	left: 406px;
-	top: 550px;
-}
-
-#next {
-	width: 30px;
-	height: 140px;
-	position: absolute;
-	z-index: 9000;
-	right: 210px;
-	top: 550px;
 }
 
 /*----------------인기게시글영역------------------------*/
@@ -339,7 +207,7 @@ img .imgslide1 {
 	color: #000;
 }
 
-#bg {
+#bg1 {
 	width: 1500px;
 	height: 355px;
 	background-color: #fff;
@@ -418,22 +286,22 @@ img .imgslide1 {
 	color: #666;
 }
 /*----------------랭킹------------------*/
-#bestbg {
+#bestbg1 {
 	width: 400px;
-	/* height: 100%; */
 	border: 1px solid #a1a1a1;
 	border-radius: 20px;
 	margin-left: 20px;
 }
 
-#bestbg p {
+#bestbg1 p {
 	margin-left: 40px;
+	margin-top: 30px;
 	font-size: 26px;
 	font-weight: 500;
 	color: #4c4c4c;
 }
 
-#bestbg li {
+#bestbg1 li {
 	margin-left: 30px;
 	padding-bottom: 10px;
 	font-size: 16px;
@@ -468,6 +336,71 @@ img .imgslide1 {
 	width: 715px;
 }
 
+/* ************************************ 브랜드리스트 슬라이드 css *************************** */
+.brandListSlide {
+	display: flex;
+	overflow: hidden;
+	scroll-behavior: smooth;
+	margin-top: 140px;
+}
+
+.brand-logo {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    padding-right: 16px;
+    border: none;
+    padding: 16px;
+    width: 1162px;
+	height: 639px;
+}
+
+#prev {
+	width: 50px;
+	height: 50px;
+	border: 0px;
+	position: absolute;
+	top: 54%;
+	transform: translateY(-50%);
+	z-index: 1;
+	opacity: 0.35;
+	transition: opacity 100ms ease-in-out 0s;
+	background: url(resources/img/icons/prev.svg) center center/cover
+		no-repeat;
+	left: 15px;
+}
+
+#next {
+	width: 50px;
+	height: 50px;
+	border: 0px;
+	position: absolute;
+	top: 54%;
+	transform: translateY(-50%);
+	z-index: 1;
+	opacity: 0.35;
+	transition: opacity 100ms ease-in-out 0s;
+	background: url(resources/img/icons/next.svg) center center/cover
+		no-repeat;
+	right: 15px;
+}
+
+#prev:hover {
+	opacity: 0.8;
+}
+
+#next:hover {
+	opacity: 0.8;
+}
+
+.brand-logo img {
+	width: 1110px;
+    height: 639px;
+}
+
+body {
+	overflow-x: hidden;
+}
 </style>
 </head>
 <body>
@@ -481,19 +414,22 @@ img .imgslide1 {
 			<div class="key_visual">
 				<!--****************************상단 탑 이미지 영역*****************************-->
 				<div class="key_visual-item active">
-					<img src="resources/00_main/key_visual/01_topimg.png" class="imgslide1">
+					<img src="resources/00_main/key_visual/01_topimg.png"
+						class="imgslide1">
 				</div>
 				<div class="key_visual-item">
-					<img src="resources/00_main/key_visual/02_topimg.png" class="imgslide2">
+					<img src="resources/00_main/key_visual/02_topimg.png"
+						class="imgslide2">
 				</div>
 				<div class="key_visual-item">
-					<img src="resources/00_main/key_visual/03_topimg.png" class="imgslide3">
-				</div>	
+					<img src="resources/00_main/key_visual/03_topimg.png"
+						class="imgslide3">
+				</div>
 			</div>
 			<!-- 메인화면 맨 위 사진 슬라이드 스크립트 -->
 			<script>
 				//메인사진슬라이드
-				let currentSlide = 0;
+				var currentSlide = 0;
 		        const slides = document.querySelectorAll('.key_visual-item');
 		        
 		        function showSlide(index) {
@@ -530,42 +466,44 @@ img .imgslide1 {
 					<p>OUR ECO's</p>
 					<div class="brand-area1" id="brand1">
 						<div id="bimg">
-							<img src="resources/00_main/01_con/01_defimg.png" alt="">
-							<div id="btext1">
-								<img src="resources/00_main/01_con/닥터노아logo.png" alt="" id="bLogo">
-								<span> 순하면서 상쾌한 <br> 새로운 가글의 시대 </span>
-							</div>
+							<a href="detail.sbo?bno=1">
+								<img src="resources/00_main/01_con/01_defimg.png" alt="">
+									<div id="btext1">
+										<img src="resources/00_main/01_con/닥터노아logo.png" alt=""
+											 id="bLogo"> <span> 순하면서 상쾌한 <br> 새로운 가글의 시대
+										</span>
+									</div>
+							</a>
 						</div>
 						<div class="subIm">
 							<div id="simg1">
-								<a href=""><img src="resources/00_main/01_con/01_1brand_click.png" alt=""></a>
+								<a class="aaa" href="detail.sbo?bno=1"><img
+									src="resources/00_main/01_con/01_1brand_click.png" alt=""></a>
 							</div>
 							<div id="simg2">
-								<a href=""><img src="resources/00_main/01_con/01_2branc_click.png" alt=""></a>
+								<a href="detail.sbo?bno=1"><img
+									src="resources/00_main/01_con/01_2branc_click.png" alt=""></a>
 							</div>
 						</div>
 					</div>
 					<div class="brand-area2" id="brand2">
-						<div id="bimgB2">
-							<img src="resources/00_main/01_con/02_defimg.png" alt="">
-
-
-							<div id="btext2">
-								<img src="resources/00_main/01_con/모레상점logo.png" alt=""
-									id="bLogo2"> <br> <span> 건조한 입술도 촉촉하게 <br>
-									도심 속 가로수도 지키는
-								</span>
+							<div id="bimgB2">
+								<a href="detail.sbo?bno=2"><img src="resources/00_main/01_con/02_defimg.png" alt="">
+									<div id="btext2">
+										<img src="resources/00_main/01_con/모레상점logo.png" alt=""
+											id="bLogo2"> <br> <span> 건조한 입술도 촉촉하게 <br>
+											도심 속 가로수도 지키는
+										</span>
+									</div>
+								</a>
 							</div>
-
-
-						</div>
 						<div class="subImB2">
 							<div id="simg1B2">
-								<a href=""><img
+								<a class="aaa" href="detail.sbo?bno=2"><img
 									src="resources/00_main/01_con/02_1brand_click.png" alt=""></a>
 							</div>
 							<div id="simg2B2">
-								<a href=""><img
+								<a class="aaa" href="detail.sbo?bno=2"><img
 									src="resources/00_main/01_con/02_2brand_click.png" alt=""></a>
 							</div>
 						</div>
@@ -576,50 +514,42 @@ img .imgslide1 {
 			<!--******************************로그인후 화면,취향선택회원화면************************************* -->
 			<c:if test="${not empty loginUser && not empty loginUser.categoryNo}">
 				<section class="user-brand">
-					
-					<div id="tit">YOUR ECO's</div>
-					
-					<div id="brandlist" class="brandListSlide" id=" section fp-section fp-table  fp-completely">
-						<!-- ajax로 가져온 브랜드 넣을자리 --> 
-					</div>
-					
-					<!-- *****************슬라이드 전 후 버튼 이미지******************** -->
-					<div id="pre">
-						<a href=""><img src="resources/00_main/01_con/prev.png" alt=""></a>
-					</div>
-					<div id="next">
-						<a href=""><img src="resources/00_main/01_con/next.png" alt=""></a>
-					</div>
 
+					<div id="tit">YOUR ECO's</div>
+				
+					<button id="prev" class="slideBtn" onclick="scroll(-200)"><img src="resources/00_main/01_con/prev.png"></button>
+					<div id="brandlist" class="brandListSlide">
+						<!-- ajax로 가져온 브랜드 넣을자리 -->
+					</div>
+					<button id="next" class="slideBtn" onclick="scroll(200)"><img src="resources/00_main/01_con/next.png"></button>
+							
 				</section>
 
 			</c:if>
 			<!--************************  브랜드 리스트 가져오기 ***************************-->
 			<script>
-				
-				$(document).ready(function(){
-					
+			
 					$.ajax({
 						url : "getBrandList.ac",
 						success  : function(result){
-							
-							var brandList = result
-							var categoryNo = "${loginUser.categoryNo}"
-							var brandLogoList = "";
-							
-							console.log(brandList);
-							console.log(categoryNo);
-							
-							for(var i=0; i<brandList.length; i++){
-									brandLogoList = "<a href=''><img src='"
-													+ brandList[i].imgSrc
-													+ "'><div id='ubt1' <br> <span>"
-													+ brandList[i].brandName
-													+ "</span></div></a>";
-											
-													
-								console.log(brandLogoList);					
-							}		
+							var brandList = result; //브랜드로고(사진) 리스트
+							var categoryNo = ${loginUser.categoryNo};//로그인한 회원의 카테고리
+							var brandLogoList = ""; //데이터 담을 변수
+
+							for (var i in brandList) {
+								//brandList[i].categoryNo : 브랜드로고(사진) 리스트의 i번째 요소의 category 속성
+								//x => brandList[i].categoryNo.includes(x): 배열에서 요소를 가져와 메소드를 사용하여 categoryNo 
+								//											해당 요소가 배열에 있는지 확인하는 화살표 함수 
+								var interSection = categoryNo.filter(x => brandList[i].categoryNo.includes(x));
+								if (interSection.length > 0) {
+									brandLogoList += '<div class="brand-logo" onclick="goBrandBoard(this)" id="'
+												  + brandList[i].brandNo
+												  + '" style="cursor:pointer;">' 
+												  + '<img src="'
+												  + brandList[i].imgSrc
+												  + '"/></div>';
+								}
+							}
 								
 							$("#brandlist").html(brandLogoList);
 							
@@ -628,13 +558,88 @@ img .imgslide1 {
 						}
 					});
 					
-				});
-			
+					//클릭시 브랜드 관련 상세정보로 이동
+					function goBrandBoard(e){
+			        	var brandNo = e.id;
+			        	$.ajax({
+				        		url : "brandDetail.bo",
+				        		type : "post",
+				        		data : {
+				        			brandNo : brandNo
+				        		},
+				        		success : function(result){
+				        			var boardNo = result;
+									location.href="detail.sbo?bno="+boardNo;
+				        		},error : function(){
+				        			console.log("xxxxxxxx");
+				        		}
+				        	});	        	
+			        }
+					
 			</script>
+			<!-- ************************************ 브랜드 리스트 슬라이드 스크립트 ********************************************** -->
+			<script>
+			    var isDown = false;
+			    var startX;
+			    var scrollLeft;
+			    const slider = document.querySelector('.brandListSlide');
+			    const scrollDistance = 1300; //버튼 클릭시 얼마나 움직일지
+
+			 	// Button click scrolls
+			    function scroll(offset) {
+			        slider.scrollLeft += offset;
+
+			        // Check if reached the end of the slider
+			        if (slider.scrollLeft >= slider.scrollWidth - slider.offsetWidth) {
+			            // Move to the beginning with a clone offset
+			            slider.scrollLeft = cloneOffset;
+			        } else if (slider.scrollLeft <= 0) {
+			            // Move to the end with a clone offset
+			            slider.scrollLeft = slider.scrollWidth - slider.offsetWidth - cloneOffset;
+			        }
+			    }
+			
+			    document.querySelectorAll('.slideBtn').forEach(button => {
+			        button.addEventListener('mouseover', (e) => {
+			            const direction = button.id === 'next' ? 1 : -1;
+			            scroll(direction * scrollDistance); // Scroll distance for each click
+			        });
+			    });
+			
+			    // Mouse drag scrolls
+			    slider.addEventListener('mousedown', (e) => {
+			        isDown = true;
+			        slider.classList.add('active');
+			        startX = e.pageX - slider.offsetLeft;
+			        scrollLeft = slider.scrollLeft;
+			    });
+			
+			    slider.addEventListener('mouseleave', () => {
+			        isDown = false;
+			        slider.classList.remove('active');
+			    });
+			
+			    slider.addEventListener('mouseup', () => {
+			        isDown = false;
+			        slider.classList.remove('active');
+			    });
+			
+			    slider.addEventListener('mousemove', (e) => {
+			        if (!isDown) return;
+			        e.preventDefault();
+			        const x = e.pageX - slider.offsetLeft;
+			        const walk = (x - startX); // Scroll speed
+			        slider.scrollLeft = scrollLeft - walk;
+			    });	   
+			 
+			    
+		    </script>
+
+
 			<!--*************************************인기게시글 영역*****************************************************-->
 			<section class="bestcon">
 				<img src="resources/00_main/02_con/bg.png" alt="">
-				<div id="bg">
+				<div id="bg1">
 					<div id="bestwrap">
 						<div id="how">
 
@@ -645,9 +650,7 @@ img .imgslide1 {
 								<li id="howtit"><a href="">생활속 분리배출</a></li>
 
 								<li><span> <!--***********게시물 내용들어갈 자리이이이이이ㅣㅇ이이이 *-*********-->
-										게시물 내용이 들어가느 ㄴ자리 <br> 몇줄이 들어갈지 아무도 모르는 자리 <br> 얼마나
-										적어놔야할까여 ........
-
+										환경보호를 위해 자원순환 제품을 제작하고  <br> 제공하는 브랜드 정보 제공 <br> 자원 순환을 위한 재활용, 폐기처리 정보 제공
 								</span></li>
 							</ul>
 						</div>
@@ -656,11 +659,11 @@ img .imgslide1 {
 								<li><img src="resources/00_main/02_con/moiza.png" alt=""></li>
 
 								<!--************게시물 타이틀이 들어갈 자리입니다아아아아아아아***********-->
-								<li id="moitit"><a href="">생활속 분리배출</a></li>
+								<li id="moitit"><a href="">MOIZA</a></li>
 
 								<li><span> <!--***********게시물 내용들어갈 자리이이이이이ㅣㅇ이이이 *-*********-->
-										게시물 내용이 들어가느 ㄴ자리 <br> 몇줄이 들어갈지 아무도 모르는 자리 <br> 얼마나
-										적어놔야할까여 ........
+										회원이 원하는 활동을 검색해 <br> 참여 원하는 활동을 <br> 모집예약
+								</span></li>
 
 								</span></li>
 							</ul>
@@ -669,22 +672,45 @@ img .imgslide1 {
 
 						<!--****************인기게시글 랭킹 영역******************************-->
 						<div id="best">
-							<div id="bestbg">
-								<p>인기게시글</p>
-								<ol>
-									<li><a href="">인기글1</a></li>
-									<li><a href="">인기게시글타이틀</a></li>
-									<li><a href="">인기게시글타이틀</a></li>
-									<li><a href="">인기게시글타이틀</a></li>
-									<li><a href="">인기게시글타이틀</a></li>
-								</ol>
+							<div id="bestbg1">
+							<p>인기게시글</p>
+								<ol></ol>
 							</div>
-
 						</div>
-					</div>
-
+					</div>					
 				</div>
 			</section>
+			<script>
+				$.ajax({
+					url : "bestBoard.rb",
+					type : "post",
+					success : function(result){
+									
+					var bestBoardList = result;
+					var topList = "";
+					
+					for(var i in bestBoardList){
+										
+						topList += '<li id="'
+								+ bestBoardList[i].boardNo
+								+ '" onclick="goTopListDetail(this)">'
+								+ bestBoardList[i].recycleBoardTitle
+								+ '</li>';
+							
+					}
+
+						$("#bestbg1 ol").html(topList);
+									
+					},error : function(){
+						console.log("통신 실패");
+					}
+				});
+				
+				function goTopListDetail(e){
+					var rbno = e.id;
+					location.href="rbdetail.hrb?rbno="+rbno;
+				}
+			</script>
 
 			<!--*************배너 이미지 박아둔거라 신경안쓰셔도 됩니다**************************-->
 			<section class="banner">

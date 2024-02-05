@@ -2,8 +2,8 @@ package com.kh.littleEco.member.model.vo;
 
 import java.util.ArrayList;
 
-
-import com.kh.littleEco.brand.model.vo.Category;
+import com.kh.littleEco.recycleboard.model.vo.recycleBoard;
+import com.kh.littleEco.searchEco.model.vo.SearchEco;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +26,11 @@ public class Member {
 	private String phone;
 	private String createDate;
 	private String status;
+	private String withdrawalReason;  // WITHDRAWAL_REASON 탈퇴사유 담을 컬럼
+
 	
+	
+    private SearchEco SearchEco;
+    private recycleBoard recycleBoard;
+
 }

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>계정 찾기</title>
+    <title>LITTLE ECO</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -117,12 +117,48 @@ h2 {
 	                  <h4>비밀번호 변경</h4>
 	                  <input type="text" name="memberId" placeholder="아이디" required>
 	                  <input type="password" name="newPwd" id="newPwd" class="password" placeholder="새 비밀번호" maxlength="12" required>
+	                  <span id="chkNewPwdMsg1"></span>
 	                  <input type="password" name="checkNewPwd" id="checkNewPwd" class="password" placeholder="새 비밀번호 확인" required>
+	                  <span id="chkNewPwdMsg2"></span>
 	              </div>      
 	              <div class="submit">
 	                  <button type="submit" id="chageBtn" class="submitBtn">비밀번호 변경</button>
 	              </div>
-	            </form>   
+	            </form>
+	            
+	            <script>
+
+                $("#newPwd").on("change", function() {
+
+                      var newPwd = $(this).val();
+                      var pwdTest = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+                          
+                      if (pwdTest.test(newPwd)) {
+                          $("#chkNewPwdMsg1").text("사용가능한 비밀번호입니다").css("color","blue");
+                          $("#newPwd").css("border","1px solid lightgray");
+                      } else {
+                          $("#newPwd").val("");
+                          $("#chkNewPwdMsg1").text("사용할 수 없는 비밀번호입니다").css("color","red");
+                          $("#newPwd").css("border","1px solid red");
+                      }
+                 });
+
+                $("#checkNewPwd").on("change", function() {
+
+                      var newPwd = $("#newPwd").val();
+                      var checkNewPwd = $(this).val();
+
+                      if (newPwd === checkNewPwd) {
+                           $("#chkNewPwdMsg2").text("비밀번호가 일치합니다").css("color","blue");
+                           $("#checkNewPwd").css("border","1px solid lightgray");
+                      } else {
+                          $("#checkNewPwd").val("");
+                          $("#chkNewPwdMsg2").text("비밀번호가 일치하지않습니다").css("color","red");
+                          $("#checkNewPwd").css("border","1px solid red");
+					  }
+                });
+	            
+	            </script>
         	
         </div>
     </div>

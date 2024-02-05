@@ -141,6 +141,102 @@
             background-color: #02215a;
         }
 
+                    /* 모달영역 */
+    .mWrp{
+      position: fixed;
+      z-index: 200;
+      padding-top: 250px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.3);
+      display: none;
+    }
+	.mBody {
+	    width: 400px;
+	    height: 400px;
+	    padding: 40px 40px;
+	    margin: 0 auto;
+	    border: 1px solid #777;
+	    background-color: #fff;
+	    overflow: auto;
+	    text-align: center;
+	}
+    .cBtn{
+      float: right;
+      font-weight: bold;
+      color : #777;
+      font-size: 25px;
+      cursor: pointer;
+    }
+	.mBody button {
+    margin: 20px; /* 나머지 버튼들 간격 조정 */
+    font-size: 20px;
+    border: 0px;
+    background: navy;
+    color: white;
+	}
+    #c2modalBody table{
+      
+      width: 600px;
+      height: 56px;
+      border-bottom: 1px solid #343434;
+      border-top: 1px solid #343434;
+      text-align: center;
+    }
+    #c2modalBody th{
+      border-bottom: 1px solid #DFDFE4;
+    }
+
+	.mBody select{
+		margin : 20px;
+		width : 70%;
+		height : 30px;
+		text-align: center;
+	}
+
+	
+	.container {
+            gap: 10px;
+            display:flex;
+            flex-wrap: wrap;
+        }
+    
+    .content-card {
+         flex: 1 0 calc(50% - 10px); /* 50% - gap */
+            background-color: #EDF2F7;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 30px;
+            margin-left: 55px;
+            width: 400px;
+        }
+    	/* 스크랩 버튼 스타일 */
+	.submitBtn {
+	    background-color: navy; /* 버튼 배경색 */
+	    color: white; /* 글자색 */
+	    padding: 10px 20px; /* 내부 여백 */
+	    font-size: 16px; /* 글자 크기 */
+	    border: none; /* 테두리 없음 */
+	    border-radius: 5px; /* 둥근 테두리 */
+	    cursor: pointer; /* 포인터 커서 */
+	    position : absolute;
+	    margin-left :  20px;
+	}
+	
+	/* 마우스 호버 효과 */
+	.submitBtn:hover {
+	    background-color: #45a049; /* 호버시 배경색 변경 */
+	}
+	
+	.submitBtnDiv{
+		display: flex;
+	    width: 100%;
+	    height: 50px;
+	    margin-left:1400px;
+	}
 
 
     </style>
@@ -155,18 +251,24 @@
         <div class="moiza_header" id="moiza_title">
             <p class="title_text">MOIZA</p>
         </div><!--//notice header-->
-        
+
+                                    	<div class="submitBtnDiv">
+                    	<input type="button" class="submitBtn" id="updateBtn" value="스크랩" />
+                    	</div>
         <div class="moiza_write">
         	<input type="hidden" id="moizaNo" name="moizaNo" value="${m.moizaNo }">
             <table class="moiza_write_table" align="center">
                 <tbody>
                     <tr class="tableCol" id="titleTr">
                     	<th>
-                    		<label for="mName">프로젝트명</label>
+                    		<label for="mName">프로젝트명</label>        
+                    			
                     	</th>
                         <td colspan="2">
                             <input type="text" name="moizaName" id="mName" value="${m.moizaName}" readonly>
                         </td>
+
+					        
                     </tr>
                     <tr class="tableCol" id="titleTr">
                     	<th>
@@ -224,6 +326,23 @@
         </div><!--//notice write-->
 		
 		
+				    		<!-- 모달 영역 -->
+    
+	<div class="mWrp" id="withdrawalConfirmationModal">
+        	<div class="mBody">
+            <span class="cBtn" onclick="hideConfirmationDialog();">&times;</span>
+            <h2>스크랩</h2>
+            <p>폴더를 선택해주세요</p>
+		     <select id="folderSelect">
+		        <c:forEach var="f" items="${list}">
+		            <option value="${f.folderNo}">${f.folderName}</option>
+		        </c:forEach>
+		    </select>
+			<button type="button" onclick="confirmScrap();">예</button>
+            <button type="button" onclick="hideConfirmationDialog();">아니오</button>
+        </div>
+    </div>
+		
 		<c:choose>
 			<c:when test="${loginUser.memberNo eq mMember.memberNo}">
 				<div class="btn_area">
@@ -239,6 +358,7 @@
 				</div>
 			</c:when>
 		</c:choose>
+		
     </div><!--//wrap-->
 	
 	<script>
@@ -296,7 +416,77 @@
 	  });
 	  
 	  
+		function confirmScrap() {
+	    	
+			var moizaNo = ${m.moizaNo};
+		    var memberNo = ${loginUser.memberNo};
+		    var folderNo = $("#folderSelect").val();
+		    var folderName = $("#folderSelect option:selected").text();
+		    console.log(moizaNo);
+		    console.log(memberNo);
+		    console.log(folderNo);
+		    console.log(folderName);
+		    $.ajax({
+		        type: "POST", 
+		        url: "scrapMoizaBoard.mp",
+		        data: {
+		        	moizaNo: moizaNo,
+		            memberNo: memberNo,
+		            folderNo: folderNo
+		        },
+		        dataType: "json",
+		        success: function (result) {
+		            if (result == 1) {
+		                alert("추가 성공");
+		                $("#withdrawalConfirmationModal").hide();
+		            } else {
+		                alert("이미 스크랩 된 게시물 입니다");
+		            }
+		        },
+		        error: function () {
+		            console.log("실패");
+		        }
+		    });
+		
+		}
+
+	// 모달영역
+	function showConfirmationDialog() {
+	    $.ajax({
+	        url: 'selectFolder.mp',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function(result) {
+	            // 셀렉트 박스 초기화
+	            $('#folderSelect').empty();
+	            
+	            // 폴더 목록
+	            for (var i = 0; i < result.length; i++) {
+	                $('#folderSelect').append('<option value="' + result[i].folderNo + '">' + result[i].folderName + '</option>');
+	            }
+	            
+	            // 폴더추가 모달
+	            $("#withdrawalConfirmationModal").show();
+	        },
+	        error: function(error) {
+	            console.error(error);
+	        }
+	    });
+	}
+
+	function hideConfirmationDialog() {
+	    // 탈퇴 확인 모달을 감춤
+	    $("#withdrawalConfirmationModal").hide();
+	}
+
+	$(document).on("click", "#updateBtn", function () {
+	    showConfirmationDialog();
+	});
+
 	</script>
+	
+	
+
    	<!-- footer -->
     <jsp:include page="../common/footer.jsp" />
     

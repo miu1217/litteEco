@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="searchMapper">
+  	
+  		<resultMap type="search" id="searchResultMap">
+  			<result column="KEYWORD_NO" property="keywordNo"/>
+  			<result column="KEYWORD" property="keyword"/>
+  			<result column="SEARCH_COUNT" property="searchCount"/>
+  			<result column="UPDATE_DATE" property="updateDate"/>
+  		</resultMap>
+<!--    		    SELECT KEYWORD 
+			FROM (
+		    SELECT * 
+		    FROM SEARCH 
+		    ORDER BY SEARCH_COUNT DESC
+			) WHERE ROWNUM &lt;= 10  -->
+			
+			<!-- 검색어 갯수로 조회 , 같으면 시간순 정렬 -->
+  
+  <select id="selectKeyword" resultMap="searchResultMap">
+	SELECT KEYWORD, KEYWORD_COUNT, MAX(UPDATE_DATE) AS LATEST_UPDATE_DATE
+	FROM (
+    SELECT KEYWORD, COUNT(*) AS KEYWORD_COUNT, MAX(UPDATE_DATE) AS UPDATE_DATE
+    FROM SEARCH
+    GROUP BY KEYWORD
+    ORDER BY KEYWORD_COUNT DESC, UPDATE_DATE DESC
+	)
+	WHERE ROWNUM &lt;= 10
+	GROUP BY KEYWORD, KEYWORD_COUNT
+	ORDER BY KEYWORD_COUNT DESC, LATEST_UPDATE_DATE DESC
+  
+  </select>
+  
+  <insert id="insertKeyword">
+    
+    INSERT INTO SEARCH VALUES(SEQ_SRNO.NEXTVAL,#{keyword},1,DEFAULT)
+  
+  </insert>
+  
+  <!-- 현재 시간으로부터 6시간 전 행 삭제 -->
+  <delete id="resetCount">
+        DELETE FROM SEARCH
+        WHERE UPDATE_DATE BETWEEN (SYSTIMESTAMP - INTERVAL '6' HOUR) AND SYSTIMESTAMP
+  
+  </delete>
+  
+		<select id="autoComplate" resultMap="searchResultMap">
+		SELECT KEYWORD
+		FROM (
+		    SELECT KEYWORD,
+		           ROW_NUMBER() OVER (PARTITION BY KEYWORD ORDER BY LENGTH(KEYWORD), KEYWORD) AS rn
+		    FROM SEARCH
+		    WHERE KEYWORD LIKE '%'||#{keyword}||'%'
+		)
+		WHERE rn = 1 AND ROWNUM &lt;= 5
+		</select>
+
+  
+<!--   MERGE INTO SEARCH tgt
+	USING (SELECT #{keyword} AS KEYWORD FROM DUAL) src
+	ON (tgt.KEYWORD = src.KEYWORD)
+	WHEN MATCHED THEN
+    UPDATE SET tgt.SEARCH_COUNT = tgt.SEARCH_COUNT + 1, tgt.UPDATE_DATE = SYSDATE
+	WHEN NOT MATCHED THEN
+    INSERT (KEYWORD_NO ,KEYWORD, SEARCH_COUNT, UPDATE_DATE) VALUES (SEQ_SRNO.NEXTVAL,#{keyword}, 1, SYSDATE) -->
+  
+  
+  
+  </mapper>

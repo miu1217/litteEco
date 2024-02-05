@@ -2,6 +2,7 @@ package com.kh.littleEco.moiza.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +16,14 @@ import com.kh.littleEco.moiza.model.vo.MoizaMember;
 public class MoizaDao {
 
 	//모집 게시판 리스트 메소드 
-	public ArrayList<Moiza> selectMoizaList(SqlSession sqlSession) {
+	public ArrayList<Moiza> selectMoizaList(SqlSession sqlSession, int page, int moizaPage, int startIndex) {
 		
-		return (ArrayList)sqlSession.selectList("moizaMapper.selectMoizaList");
+		int limit = moizaPage;
+		
+		int offset = (page -1)* limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("moizaMapper.selectMoizaList", null , rowBounds);
 	}
 	
 	//모집 게시판 리스트 메소드 
@@ -126,6 +132,17 @@ public class MoizaDao {
 	public int deleteMember(SqlSession sqlSession, MoizaMember m) {
 		
 		return sqlSession.delete("moizaMapper.deleteMember", m);
+	}
+
+	//모집게시판 개수 조회
+	public int moizaListCount(SqlSession sqlSession) {
+		
+		return sqlSession.selectOne("moizaMapper.moizaListCount");
+	}
+
+	public ArrayList<Moiza> selectMoiza(SqlSession sqlSession, int memberNo) {
+		
+		return (ArrayList)sqlSession.selectList("moizaMapper.selectMoiza", memberNo);
 	}
 
 

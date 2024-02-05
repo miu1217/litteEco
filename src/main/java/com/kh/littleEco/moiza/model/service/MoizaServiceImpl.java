@@ -25,9 +25,9 @@ public class MoizaServiceImpl implements MoizaService{
 	
 	//모집 게시판 리스트 메소드 
 	@Override
-	public ArrayList<Moiza> selectMoizaList() {
+	public ArrayList<Moiza> selectMoizaList(int page, int moizaPage, int startIndex) {
 		
-		return moizaDao.selectMoizaList(sqlSession);
+		return moizaDao.selectMoizaList(sqlSession,page, moizaPage, startIndex);
 	}
 	@Override
 	public int insertMoiza(Moiza moiza) {
@@ -154,6 +154,19 @@ public class MoizaServiceImpl implements MoizaService{
 	public int deleteMember(MoizaMember m) {
 		
 		return moizaDao.deleteMember(sqlSession, m);
+	}
+	
+	//모집게시판 개수 조회
+	@Override
+	public int moizaListCount() {
+		
+		int count =  moizaDao.moizaListCount(sqlSession);
+		return count;
+	}
+	@Override
+	public ArrayList<Moiza> selectMoiza(int memberNo) {
+		
+		return moizaDao.selectMoiza(sqlSession, memberNo);
 	}
 	
 
