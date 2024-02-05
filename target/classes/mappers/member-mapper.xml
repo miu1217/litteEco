@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="memberMapper">
+  		<!-- 회원가입용 -->
+  		<resultMap type="member" id="enrollMemberResultSet">
+  			<result column="MEMBER_NO" property="memberNo"/>
+  			<result column="MEMBER_ID" property="memberId"/>
+  			<result column="MEMBER_PWD" property="memberPwd"/>
+  			<result column="MEMBER_NAME" property="memberName"/>
+  			<result column="NICKNAME" property="nickName"/>
+  			<result column="BIRTH" property="birth"/>
+  			<result column="GENDER" property="gender"/>
+  			<result column="EMAIL" property="email"/>
+  			<result column="PHONE" property="phone"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  			<result column="WITHDRAWAL_REASON" property="withdrawalReason"/>
+  			<collection property="categoryNo"  ofType="_int">
+  				<result column="CATEGORY_NO"/>
+  			</collection>
+  		</resultMap>
+  		
+  		
+  		
+
+    	
+    	
+  		<!-- 기존 -->
+  		<resultMap type="member" id="memberResultSet">
+  			<result column="MEMBER_NO" property="memberNo"/>
+  			<result column="MEMBER_ID" property="memberId"/>
+  			<result column="MEMBER_PWD" property="memberPwd"/>
+  			<result column="MEMBER_NAME" property="memberName"/>
+  			<result column="NICKNAME" property="nickName"/>
+  			<result column="BIRTH" property="birth"/>
+  			<result column="GENDER" property="gender"/>
+  			<result column="EMAIL" property="email"/>
+  			<result column="PHONE" property="phone"/>
+  			<result column="CREATE_DATE" property="createDate"/>
+  			<result column="STATUS" property="status"/>
+  			<result column="WITHDRAWAL_REASON" property="withdrawalReason"/>
+  		</resultMap>
+  		
+  		
+		  		
+  		
+  		
+  		<!-- 회원정보 수정 -->
+  		<update id="updateMember" parameterType="member">
+  			UPDATE MEMBER
+  			SET NICKNAME = #{nickName}
+  				,BIRTH = #{birth}
+  				,EMAIL = #{email}
+  				,PHONE = #{phone}
+  				WHERE MEMBER_ID = #{memberId} 
+  				AND STATUS = 'Y'
+  		</update>
+  		
+  	<!-- 비밀번호 변경 -->
+  	<update id="updatePwd">
+  		UPDATE MEMBER
+  		SET MEMBER_PWD = #{memberPwd}
+  		WHERE MEMBER_ID = #{memberId}
+  	</update>
+  		
+  	
+
+
+  	
+	
+	
+	
+<!--   	<update id="updateCategory">	
+	  <foreach collection="categoryNo" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+		UPDATE MEMBER_CATEGORY
+		SET CATEGORY_NO = #{item}
+		WHERE MEMBER_NO = #{memberNo}
+	  </foreach>
+	</update> -->
+	
+<update id="updateCategory" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" separator=";" open="DECLARE BEGIN" close="; END;">
+        UPDATE MEMBER_CATEGORY 
+        SET CATEGORY_NO = #{item.categoryNo}
+        WHERE MEMBER_NO = #{item.memberNo}
+    </foreach>
+</update>
+
+
+
+	
+	<!-- 회원탈퇴 메소드 -->
+	<update id="deleteMember">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		,WITHDRAWAL_REASON = #{withdrawalReason}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+  	
+  	<select id="loginMember" resultMap="enrollMemberResultSet">
+  		SELECT  MEMBER_NO
+		        ,MEMBER_ID
+		        ,MEMBER_PWD
+		        ,MEMBER_NAME
+		        ,NICKNAME
+		        ,BIRTH
+		        ,GENDER
+		        ,EMAIL
+		        ,PHONE
+		        ,CREATE_DATE
+		        ,STATUS
+		        ,CATEGORY_NO
+		FROM MEMBER
+		LEFT JOIN MEMBER_CATEGORY USING (MEMBER_NO)
+		WHERE MEMBER_ID = #{memberId}
+	    AND STATUS = 'Y'
+  	</select>
+  	
+  	<select id="selectFindId" resultMap="memberResultSet">
+  		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{memberName}
+		AND EMAIL = #{email}
+  	</select>
+  	
+  	<select id="selectFindMember" resultMap="memberResultSet">
+  		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_NAME = #{memberName}
+		AND EMAIL = #{email}
+		AND STATUS = 'Y'
+  	</select>
+  	
+	<insert id="insertMember" parameterType="member">
+	
+		<selectKey resultType="int" keyProperty="memberNo" order="BEFORE">
+	        SELECT SEQ_MNO.NEXTVAL
+	        FROM DUAL
+	    </selectKey>
+		
+	  		INSERT INTO MEMBER(MEMBER_NO
+			                  ,MEMBER_ID
+			                  ,MEMBER_PWD
+			                  ,MEMBER_NAME
+			                  ,NICKNAME
+			                  ,BIRTH
+			                  ,GENDER
+			                  ,EMAIL
+			                  ,PHONE)
+	            VALUES(#{memberNo}
+	                  ,#{memberId}
+	                  ,#{memberPwd}
+	                  ,#{memberName}
+	                  ,#{nickName}
+	                  ,#{birth}
+	                  ,#{gender}
+	                  ,#{email}
+	                  ,#{phone})
+	                  
+  	</insert>
+  		
+  	<insert id="insertMemberCategory" parameterType="member">	
+	  <foreach collection="categoryNo" item="category" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+	    INTO MEMBER_CATEGORY(MEMBER_NO, CATEGORY_NO)
+	    		     VALUES (#{memberNo},#{category})
+	  </foreach>
+	</insert>
+	
+	<update id="resetMemberPwd">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{memberPwd}
+		WHERE MEMBER_ID = #{memberId}
+		AND STATUS = 'Y'
+	</update>
+	
+	<select id="checkId" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="checkNick" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE NICKNAME = #{nickName}
+	</select>
+	
+	<select id="checkEmail" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE EMAIL = #{email}
+	</select>
+   
+   <select id="checkPhone" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE PHONE = #{phone}
+	</select>
+	
+
+	
+  </mapper>

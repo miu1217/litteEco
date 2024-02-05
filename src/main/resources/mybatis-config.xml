@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- configuration(환경설정) DTD: 유효성체크 -->
+<configuration>
+	<!-- settings : mybatis 구동시 선언할 설정 작성 -->
+	<settings>
+		<!-- null로 전달시 빈칸이 아닌 null로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.kh.littleEco.popularSearch.model.vo.PopularSearch"
+			 alias="search"/>
+		<typeAlias type="com.kh.littleEco.mypage.model.vo.Mypage" 
+			alias="mypage"/>
+		<typeAlias type="com.kh.littleEco.member.model.vo.Member"
+		alias="member"/>
+			
+		<typeAlias
+			type="com.kh.littleEco.member.model.vo.MemberCategory"
+			alias="memberCategory" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Category"
+			alias="category" />
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.recycleBoard" 
+			alias="recycleBoard"/>
+		<typeAlias type="com.kh.littleEco.searchEco.model.vo.SearchEco" 
+			alias="searchEco"/>
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.boardAttachment" 
+		alias="boardAttach"/>	
+			<typeAlias type="com.kh.littleEco.mypage.model.vo.InterestBoard"
+			alias="InterestBoard"/>
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Brand"
+			alias="brand" />
+		<typeAlias
+			type="com.kh.littleEco.brand.model.vo.BrandCategory"
+			alias="brandCategory" />
+		<typeAlias type="com.kh.littleEco.brand.model.vo.Attachment"
+			alias="brandAttachment" />
+		<typeAlias type="com.kh.littleEco.moiza.model.vo.Moiza"
+			alias="moiza" />
+		<typeAlias
+			type="com.kh.littleEco.moiza.model.vo.MoizaMember"
+			alias="moizaMember" />
+
+		<typeAlias
+			type="com.kh.littleEco.moiza.model.vo.MoizaCategory"
+			alias="moizaCategory" />
+		<typeAlias type="com.kh.littleEco.board.model.vo.Notice"
+			alias="notice" />
+		<typeAlias
+			type="com.kh.littleEco.board.model.vo.BoardAttachment"
+			alias="boardAttachment" />
+		<typeAlias
+			type="com.kh.littleEco.searchEco.model.vo.SearchEco"
+			alias="searchEco" />
+		<typeAlias
+			type="com.kh.littleEco.searchEco.model.vo.EcoLike" alias="ecoLike" />
+		<typeAlias
+			type="com.kh.littleEco.recycleboard.model.vo.recycleBoard"
+			alias="recycleBoard" />
+			
+		<typeAlias type="com.kh.littleEco.recycleboard.model.vo.boardAttachment"
+			alias="recyAttachment"/>
+	</typeAliases>
+	
+
+</configuration>
